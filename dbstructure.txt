@@ -1,0 +1,13 @@
+washinngarage
+
+- users
+	- id
+	- fullname
+	- email
+	- username
+	- password
+	- role
+
+- transactions
+	- id
+	- 
