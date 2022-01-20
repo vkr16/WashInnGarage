@@ -53,5 +53,3 @@ function checkRole($username)
 }
 
  ?>
-
- <!-- $2y$10$o.Pnh051BudSekKDe1tmM.9wE1j7dtUHftovikPH0wNK9DZ9/0noK -->

@@ -1,6 +1,11 @@
 <?php 
 	require_once 'admin-only.php';
 	$activePageLvl=1;
+
+    // Get Data From DB For User List
+    $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
+    $execute_getUser = mysqli_query($link,$query_getUser);
+    $i = 1;
  ?>
 
 <!DOCTYPE html>
@@ -14,8 +19,9 @@
 	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
 	<link href="<?=$assets?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-	<!-- Datatables Needs -->
-	<link rel="stylesheet" type="text/css" href="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.css">
+	 <!-- Custom styles for this page -->
+    <link href="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 <body class="page-top">
@@ -47,112 +53,70 @@
 
                     <!-- Content Row -->
 
-                    <div class="row">
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Registered User List</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
+                    <!-- User Manager -->
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div
+                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Registered User List</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-header">Dropdown Header:</div>
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <!-- <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div> -->
-
-                                    <table class="table table-striped" id="table-user">
-									  <thead>
-									    <tr>
-									      <th scope="col">#</th>
-									      <th scope="col">First</th>
-									      <th scope="col">Last</th>
-									      <th scope="col">Handle</th>
-									    </tr>
-									  </thead>
-									  <tbody>
-									    <tr>
-									      <th scope="row">1</th>
-									      <td>Mark</td>
-									      <td>Otto</td>
-									      <td>@mdo</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">2</th>
-									      <td>Jacob</td>
-									      <td>Thornton</td>
-									      <td>@fat</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td>Larry</td>
-									      <td>the Bird</td>
-									      <td>@twitter</td>
-									    </tr>
-									  </tbody>
-									</table>
                                 </div>
                             </div>
-                        </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <!-- <div class="chart-area">
+                                    <canvas id="myAreaChart"></canvas>
+                                </div> -->
 
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
-                                </div>
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">No</th>
+                                      <th scope="col">Nama</th>
+                                      <th scope="col">Email</th>
+                                      <th scope="col">Username</th>
+                                      <th scope="col">Role</th>
+                                      <th colspan="2" class="text-center">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+
+                                    <?php while ($result_getUser = mysqli_fetch_assoc($execute_getUser)) { ?>
+                                    <tr>
+                                      <th scope="row"><?= $i ?></th>
+                                      <td><?= $result_getUser['fullname'] ?></td>
+                                      <td><?= $result_getUser['email'] ?></td>
+                                      <td><?= $result_getUser['username'] ?></td>
+                                      <td><?php echo $result_getUser['role']==0?"Admin":"Operator";  ?></td>
+                                      <td class="text-center"><a href="#edit<?= $result_getUser['id'] ?>" class="btn btn-primary"><i class="fas fa-edit fa-fw"></i></a></td>
+                                      <td class="text-center">
+                                        <button class="btn btn-danger" data-toggle="modal" onclick="del_conf('<?= $result_getUser['username'] ?>','<?= $result_getUser['id'] ?>')" data-target="#modalDeleteUser">
+                                            <i class="fas fa-trash-alt fa-fw"></i>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                    <?php $i++;} ?>
+
+                                  </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+
 
                
 
@@ -204,11 +168,56 @@
     </div>
 
 
+
+
+
+
+
+
+
+
+    <!-- MODAL DELETE USER -->
+    <div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="modalDeleteUserLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalDeleteUserLabel">Delete Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5 class="disable-select">Please type <strong class="text-danger">DELETE/<span id="usernametodelete"></span></strong> to confirm.</h5>
+            <input type="text" onkeyup="equal_checker()" onchange="equal_checker()" name="deleteUser" class="form-control" id="usernameinputtodelete" placeholder="DELETE/ibrahim23">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button disabled="true" type="button" class="btn btn-danger" id="btnDelete"><i class="fas fa-trash-alt fa-fw"></i>&nbsp; Delete User</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DETELE USER END -->
+
+
     <script type="text/javascript">
-    	$(document).ready( function () {
-		    $('table-user').DataTable();
-		} );
+            
+        function del_conf(username, id){
+            document.getElementById("usernametodelete").innerHTML = username;
+            document.getElementById("usernameinputtodelete").placeholder = "DELETE/"+username;
+        }
+
+        function equal_checker(){
+            if (document.getElementById("usernameinputtodelete").value == "DELETE/"+document.getElementById("usernametodelete").innerHTML) {
+                document.getElementById("btnDelete").disabled = false;
+            }else{
+                document.getElementById("btnDelete").disabled = true;
+            }
+        }
+
     </script>
+
 
 	<!-- Bootstrap core JavaScript-->
     <script src="<?=$assets?>/vendor/jquery/jquery.min.js"></script>
@@ -220,13 +229,19 @@
     <!-- Custom scripts for all pages-->
     <script src="<?=$assets?>/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="<?=$assets?>/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="<?=$assets?>/js/demo/chart-area-demo.js"></script>
-    <script src="<?=$assets?>/js/demo/chart-pie-demo.js"></script>
-
-
 </body>
 </html>
+
+<!-- =================================== -->
+<!--         CUSTOM CLASS CSS            -->
+<!-- =================================== -->
+
+<style type="text/css">
+.disable-select {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+}
+</style>
