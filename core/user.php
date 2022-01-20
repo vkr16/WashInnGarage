@@ -8,7 +8,7 @@ function isExist($username)
 
  	$query = "SELECT * FROM users WHERE username = '$username'";
  	if ($result = mysqli_query($link,$query) ) {
-		if (mysqli_num_rows($result) != 0) {
+		if (mysqli_num_rows($result) != 'admin') {
 			//User Found
 			return true;
 		}else {

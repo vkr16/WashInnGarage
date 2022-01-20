@@ -1,25 +1,38 @@
 <?php 
 
 require_once '../../core/init.php';
-
-$query_userData = "SELECT * FROM users";
-$execute_userData = mysqli_query($link,$query_userData);
+include("../../core/SimpleXLSXGen.php");
 
 
+$users = [
+    ['No', 'Nama Lengkap', 'Email', 'Username', 'Role' ]
+];
+
+$query = "SELECT * FROM users";
+$result = mysqli_query($link, $query);
+
+if (mysqli_num_rows($result) > 0) {
+	foreach($result as $row){
+		$id++;
+		$users = array_merge
+						($users, 
+							array(
+								array(
+									$id, 
+									$row['fullname'], 
+									$row['email'], 
+									$row['username'], 
+									$row['role']
+								)
+							)
+						);
+	}
+}
+
+$xlsx = SimpleXLSXGen::fromArray( $users );
+// $xlsx->saveAs('users.xlsx');
+$xlsx->downloadAs('users.xlsx');
 
 
-	header("Content-type: application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-	header("Content-Disposition: attachment; filename=Data Pegawai.xls");
 
-	?>
-	<table border="1">
-	<?php
-	while ($res = mysqli_fetch_assoc($execute_userData)) {?>
-		 <tr>
-		 	<td><?= $res['fullname'] ?></td>
-		 </tr>
-	<?php };
-      
- ?>
-
-</table>
+?>

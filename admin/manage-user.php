@@ -47,7 +47,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">User Management</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a target="_blank" href="download-builder/user-data-download.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Download User Data</a>
                     </div>
 
@@ -101,7 +101,7 @@
                                       <td><?= $result_getUser['fullname'] ?></td>
                                       <td><?= $result_getUser['email'] ?></td>
                                       <td><?= $result_getUser['username'] ?></td>
-                                      <td><?php echo $result_getUser['role']==0?"Admin":"Operator";  ?></td>
+                                      <td><?php echo $result_getUser['role']=='admin'?"Admin":"Operator";  ?></td>
                                       <td class="text-center"><a href="#edit<?= $result_getUser['id'] ?>" class="btn btn-primary"><i class="fas fa-edit fa-fw"></i></a></td>
                                       <td class="text-center">
                                         <button class="btn btn-danger" data-toggle="modal" onclick="del_conf('<?= $result_getUser['username'] ?>','<?= $result_getUser['id'] ?>')" data-target="#modalDeleteUser">
@@ -126,15 +126,8 @@
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+        <!-- Footer Attach -->
+        <?php require_once "view-template/footer.php" ?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -161,7 +154,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -192,7 +185,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button disabled="true" type="button" class="btn btn-danger" id="btnDelete"><i class="fas fa-trash-alt fa-fw"></i>&nbsp; Delete User</button>
+            <form action="functions/delete-user.php" method="post">
+            <button disabled="true" type="submit" value="" name="btnDelete" class="btn btn-danger" id="btnDelete"><i class="fas fa-trash-alt fa-fw"></i>&nbsp; Delete User</button>
+            </form>
           </div>
         </div>
       </div>
@@ -206,6 +201,7 @@
         function del_conf(username, id){
             document.getElementById("usernametodelete").innerHTML = username;
             document.getElementById("usernameinputtodelete").placeholder = "DELETE/"+username;
+            document.getElementById("btnDelete").value = id;
         }
 
         function equal_checker(){
