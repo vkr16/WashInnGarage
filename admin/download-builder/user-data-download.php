@@ -5,7 +5,7 @@ include("../../core/SimpleXLSXGen.php");
 
 
 $users = [
-    ['No', 'Nama Lengkap', 'Email', 'Username', 'Role' ]
+    ['No', 'Nama Lengkap', 'Email', 'Phone', 'Username', 'Role' ]
 ];
 
 $query = "SELECT * FROM users";
@@ -21,6 +21,7 @@ if (mysqli_num_rows($result) > 0) {
 									$id, 
 									$row['fullname'], 
 									$row['email'], 
+									$row['phone'], 
 									$row['username'], 
 									$row['role']
 								)
