@@ -8,7 +8,7 @@ function isExist($username)
 
  	$query = "SELECT * FROM users WHERE username = '$username'";
  	if ($result = mysqli_query($link,$query) ) {
-		if (mysqli_num_rows($result) != 0) {
+		if (mysqli_num_rows($result) != 'admin') {
 			//User Found
 			return true;
 		}else {
@@ -52,6 +52,66 @@ function checkRole($username)
 	return $data['role'];
 }
 
- ?>
+function addUser($fullname, $username, $email, $phone, $role, $password){
+	global $link;
 
- <!-- $2y$10$o.Pnh051BudSekKDe1tmM.9wE1j7dtUHftovikPH0wNK9DZ9/0noK -->
+	$username = mysqli_real_escape_string($link, $username);
+	$fullname = mysqli_real_escape_string($link, $fullname);
+	$email = mysqli_real_escape_string($link, $email);
+	$phone = mysqli_real_escape_string($link, $phone);
+	$role = mysqli_real_escape_string($link, $role);
+	$password = mysqli_real_escape_string($link, $password);
+
+	$password = password_hash($password, PASSWORD_DEFAULT);
+
+	$query = "INSERT INTO users (fullname, username, email, phone, role, password) VALUES ('$fullname', '$username', '$email', '$phone', '$role', '$password')";
+
+	if (mysqli_query($link,$query)) {
+		//Berhasil input user ke db
+		return true;
+	}else{
+		//Gagal input user ke db
+		return false;
+	}
+}
+
+function getUserById($id){
+	global $link;
+
+	$id = mysqli_real_escape_string($link, $id);
+
+	$query = "SELECT * FROM users WHERE id = $id";
+
+	$result = mysqli_query($link, $query);
+
+	$data = mysqli_fetch_assoc($result);
+
+	return $data;
+}
+
+function updateUser($id, $fullname, $email, $username, $phone, $role, $resetpass){
+
+	global $link;
+
+	$fullname = mysqli_real_escape_string($link, $fullname);
+	$email = mysqli_real_escape_string($link, $email);
+	$username = mysqli_real_escape_string($link, $username);
+	$phone = mysqli_real_escape_string($link, $phone);
+	$role = mysqli_real_escape_string($link, $role);
+	$resetpass = mysqli_real_escape_string($link, $resetpass);
+
+	if ($resetpass == 'no') {
+		$query = "UPDATE users SET fullname = '$fullname', username = '$username', email = '$email', phone = '$phone', role = '$role' WHERE id = '$id'";
+	}else{
+		$password = password_hash($resetpass, PASSWORD_DEFAULT);
+		$query = "UPDATE users SET fullname = '$fullname', username = '$username', email = '$email', phone = '$phone', role = '$role', password = '$password' WHERE id = '$id'";
+	}
+
+	if (mysqli_query($link, $query)) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
+ ?>
