@@ -114,4 +114,13 @@ function updateUser($id, $fullname, $email, $username, $phone, $role, $resetpass
 	}
 }
 
+function undoAddUser($username){
+	global $link;
+	$username = mysqli_real_escape_string($link,$username);
+
+	$query = "DELETE FROM users WHERE username = '$username'";
+
+	mysqli_query($link,$query);
+}
+
  ?>

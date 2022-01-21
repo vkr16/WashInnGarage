@@ -70,7 +70,9 @@
             // $mail->isHTML(true);
             //send the message, check for errors
             if (!$mail->send()) {
-                echo "ERROR: " . $mail->ErrorInfo;
+                // echo "ERROR: " . $mail->ErrorInfo;  //Jangan dihapuss baris ini
+                setcookie('returnstatus', 'offlinewarning', time() + (10), "/");
+                header("Location: ../manage-user.php");
             } else {
                 setcookie('returnstatus', 'updatesuccess', time() + (10), "/");
                 header("Location: ../manage-user.php");
