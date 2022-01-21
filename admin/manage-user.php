@@ -52,24 +52,59 @@
                         <?php 
                             if (isset($_COOKIE['returnstatus'])) {
                                 if ($_COOKIE['returnstatus'] == 'userexist') {
-                                    echo '<div class="alert alert-danger" role="alert">
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                           Registration failed!, Username already exist in database
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
                                         </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'success') {
-                                    echo '<div class="alert alert-success" role="alert">
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                                           <strong>Registration successful!</strong><br>Password sent to user\'s email, please ask user to check their spam folder!
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
                                         </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'usernameconflict') {
-                                     echo '<div class="alert alert-danger" role="alert">
+                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                           <strong>Update failed!</strong>, new username conflict with another user in database
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
                                         </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'updatesuccess') {
-                                    echo '<div class="alert alert-success" role="alert">
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                                           <strong>Update successful!</strong><br>Information update sent to user\'s email, please ask user to check their spam folder!
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
                                         </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
-                                    echo '<div class="alert alert-danger" role="alert">
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                           <strong>User Deletion Successful!</strong>
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                        </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'offlinewarning') {
+                                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                          <strong>Update Successful With an Error!</strong><br>
+                                          Failed send email notification to user!!
+                                          Update saved to database but user got no notification!
+                                          <br>It may caused by invalid email address or there is no internet connection.<br><hr>
+                                          If you just reset user password, please try again with internet connection!
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                        </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'offlineFailed') {
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                          <strong>Add New User Failed!!</strong><br>
+                                          Can not send email confirmation to user, 
+                                          <br>It may caused by invalid email address or there is no internet connection.
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
                                         </div>';
                                 }
                             }
@@ -130,7 +165,11 @@
                                       <td><?= $result_getUser['fullname'] ?></td>
                                       <td><?= $result_getUser['email'] ?></td>
                                       <td><?= $result_getUser['username'] ?></td>
-                                      <td><?php echo $result_getUser['role']=='admin'?"Admin":"Operator";  ?></td>
+                                      <td><?php if ($result_getUser['role']=='admin') {
+                                          echo "Admin";
+                                      }elseif ($result_getUser['role']=='operator') {
+                                          echo "Operator";
+                                      }else{echo "";};  ?></td>
                                       <td class="text-center">
                                         <form action="edit-user.php" method="post">
                                             <button class="btn btn-primary" type="submit" name="btnEditUser" value="<?= $result_getUser['id'] ?>"><i class="fas fa-edit fa-fw"></i></button>

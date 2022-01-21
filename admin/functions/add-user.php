@@ -38,30 +38,30 @@
 			header("Location: ../manage-user.php");
 		}else{
 			$password = generateRandomString(6);
-			if(addUser($fullname, $username, $email, $phone, $role, $password)){
-				$mail = new PHPMailer;
-				$mail->isSMTP();
-				$mail->SMTPAuth = true;
-				$mail->Host = 'smtp.gmail.com';
-				$mail->Port = 587;
-				$mail->Username = 'dev.washinngarage@gmail.com';
-				$mail->Password = 'washinngarage';
-				$mail->setFrom('dev.washinngarage@gmail.com');
-				$mail->addAddress($email);
-				$mail->Subject = 'Wash Inn Garage New Account Credentials';
-			    $mail->Body = "Hi ".$fullname.", Here is your new login credentials. \n\n
-					Username --> [ ".$username." ] \n
-					Password --> [ ".$password." ] \n\n\n
-					Please change your password immediately after first login. \n\n\n
-					Copyright © 2022, Wash Inn Garage. All Rights Reserved.";
-				// $mail->isHTML(true);
-				//send the message, check for errors
-				if (!$mail->send()) {
-				    echo "ERROR: " . $mail->ErrorInfo;
-				} else {
-					setcookie('returnstatus', 'success', time() + (10), "/");
-				    header("Location: ../manage-user.php");
-				}
+			$mail = new PHPMailer;
+			$mail->isSMTP();
+			$mail->SMTPAuth = true;
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = 587;
+			$mail->Username = 'dev.washinngarage@gmail.com';
+			$mail->Password = 'washinngarage';
+			$mail->setFrom('dev.washinngarage@gmail.com');
+			$mail->addAddress($email);
+			$mail->Subject = 'Wash Inn Garage New Account Credentials';
+		    $mail->Body = "Hi ".$fullname.", Here is your new login credentials. \n\n
+				Username --> [ ".$username." ] \n
+				Password --> [ ".$password." ] \n\n\n
+				Please change your password immediately after first login. \n\n\n
+				Copyright © 2022, Wash Inn Garage. All Rights Reserved.";
+			// $mail->isHTML(true);
+			//send the message, check for errors
+			if(addUser($fullname, $username, $email, $phone, $role, $password) && $mail->send()){
+				setcookie('returnstatus', 'success', time() + (10), "/");
+			    header("Location: ../manage-user.php");
+			}else{
+				undoAddUser($username);
+				setcookie('returnstatus', 'offlineFailed', time() + (10), "/");
+			    header("Location: ../manage-user.php");
 			}
 		}
 	}

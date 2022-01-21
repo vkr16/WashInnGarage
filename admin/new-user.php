@@ -116,6 +116,11 @@ $activePageLvl=1;
 										  <button type="submit" name="btnAddUser" class="btn btn-primary" style="width:100%">Simpan <i class="fas fa-save fa-fw"></i></button>
 									  </div>
 								  </div>
+								  <small id="caution" class="form-text ml-3 text-danger" >
+										  	Perhatian!!
+								      <ul><li>Untuk mendaftarkan akun pengguna baru diperlukan akses internet</li>
+									  <li>Koneksi internet diperlukan untuk mengirimkan password kepada user melalui email yang didaftarkan</li></ul>
+									</small>
 								</form>                                
                             </div>
                         </div>

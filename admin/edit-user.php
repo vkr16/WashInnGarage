@@ -128,12 +128,17 @@ if (isset($_POST['btnEditUser'])) {
 								  	<div class="form-group">
 								  		<a href="manage-user.php" class="btn btn-secondary" style=""><i class="fas fa-chevron-left fa-fw"></i> Kembali </a>
 								  	</div>
-									  <div class="form-group col-md-2">
+									  <div class="form-group col-md-8">
 									  	  <input type="text" hidden name="oldone" value="<?=$username?>">
 									  	  <input type="text" hidden name="userid" value="<?=$userId2Edit?>">
-										  <button type="submit" name="btnEditUser" class="btn btn-primary" style="width:100%">Simpan Perubahan <i class="fas fa-save fa-fw"></i></button>
+										  <button type="submit" name="btnEditUser" class="btn btn-primary">Simpan Perubahan <i class="fas fa-save fa-fw"></i></button>
 									  </div>
 								  </div>
+										  <small id="phoneHelp" class="form-text ml-3 text-danger" >
+										  	Perhatian!!
+								      <ul><li>Untuk melakukan perubahan pada data pengguna diperlukan akses internet.</li>
+									  <li>Melakukan perubahan tanpa koneksi internet dapat berakibat user tidak mendapat email informasi pembaruan, termasuk apabila melakukan reset password pada akun user.</li></ul>
+									</small>
 								</form>                                
                             </div>
                         </div>
