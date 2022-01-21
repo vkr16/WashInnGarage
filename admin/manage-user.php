@@ -181,7 +181,7 @@
           </div>
           <div class="modal-body">
             <h5 class="disable-select">Please type <strong class="text-danger">DELETE/<span id="usernametodelete"></span></strong> to confirm.</h5>
-            <input type="text" onkeyup="equal_checker()" onchange="equal_checker()" name="deleteUser" class="form-control" id="usernameinputtodelete" placeholder="DELETE/ibrahim23">
+            <input type="text" autocomplete="off" onkeyup="equal_checker()" onchange="equal_checker()" name="deleteUser" class="form-control" id="usernameinputtodelete" placeholder="DELETE/ibrahim23">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
