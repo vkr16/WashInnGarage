@@ -75,5 +75,43 @@ function addUser($fullname, $username, $email, $phone, $role, $password){
 	}
 }
 
+function getUserById($id){
+	global $link;
+
+	$id = mysqli_real_escape_string($link, $id);
+
+	$query = "SELECT * FROM users WHERE id = $id";
+
+	$result = mysqli_query($link, $query);
+
+	$data = mysqli_fetch_assoc($result);
+
+	return $data;
+}
+
+function updateUser($id, $fullname, $email, $username, $phone, $role, $resetpass){
+
+	global $link;
+
+	$fullname = mysqli_real_escape_string($link, $fullname);
+	$email = mysqli_real_escape_string($link, $email);
+	$username = mysqli_real_escape_string($link, $username);
+	$phone = mysqli_real_escape_string($link, $phone);
+	$role = mysqli_real_escape_string($link, $role);
+	$resetpass = mysqli_real_escape_string($link, $resetpass);
+
+	if ($resetpass == 'no') {
+		$query = "UPDATE users SET fullname = '$fullname', username = '$username', email = '$email', phone = '$phone', role = '$role' WHERE id = '$id'";
+	}else{
+		$password = password_hash($resetpass, PASSWORD_DEFAULT);
+		$query = "UPDATE users SET fullname = '$fullname', username = '$username', email = '$email', phone = '$phone', role = '$role', password = '$password' WHERE id = '$id'";
+	}
+
+	if (mysqli_query($link, $query)) {
+		return true;
+	}else{
+		return false;
+	}
+}
 
  ?>

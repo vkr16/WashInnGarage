@@ -59,6 +59,18 @@
                                     echo '<div class="alert alert-success" role="alert">
                                           <strong>Registration successful!</strong><br>Password sent to user\'s email, please ask user to check their spam folder!
                                         </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'usernameconflict') {
+                                     echo '<div class="alert alert-danger" role="alert">
+                                          <strong>Update failed!</strong>, new username conflict with another user in database
+                                        </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'updatesuccess') {
+                                    echo '<div class="alert alert-success" role="alert">
+                                          <strong>Update successful!</strong><br>Information update sent to user\'s email, please ask user to check their spam folder!
+                                        </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
+                                    echo '<div class="alert alert-danger" role="alert">
+                                          <strong>User Deletion Successful!</strong>
+                                        </div>';
                                 }
                             }
                          ?>
@@ -119,7 +131,11 @@
                                       <td><?= $result_getUser['email'] ?></td>
                                       <td><?= $result_getUser['username'] ?></td>
                                       <td><?php echo $result_getUser['role']=='admin'?"Admin":"Operator";  ?></td>
-                                      <td class="text-center"><a href="#edit<?= $result_getUser['id'] ?>" class="btn btn-primary"><i class="fas fa-edit fa-fw"></i></a></td>
+                                      <td class="text-center">
+                                        <form action="edit-user.php" method="post">
+                                            <button class="btn btn-primary" type="submit" name="btnEditUser" value="<?= $result_getUser['id'] ?>"><i class="fas fa-edit fa-fw"></i></button>
+                                        </form>
+                                      </td>
                                       <td class="text-center">
                                         <button class="btn btn-danger" data-toggle="modal" onclick="del_conf('<?= $result_getUser['username'] ?>','<?= $result_getUser['id'] ?>')" data-target="#modalDeleteUser">
                                             <i class="fas fa-trash-alt fa-fw"></i>
