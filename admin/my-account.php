@@ -66,7 +66,7 @@ $role = ($role=='admin')?'Administrator':'Operator';
 	                            <!-- Card Header - Dropdown -->
 	                            <div
 	                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	                                <h5 class="m-0 font-weight-bold text-primary">Account Information</h5>
+	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle fa-fw"></i> Account Information</h5>
 	                                <!-- <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a> -->
 	                                
 	                            </div>
@@ -83,20 +83,40 @@ $role = ($role=='admin')?'Administrator':'Operator';
 	                            <!-- Card Header - Dropdown -->
 	                            <div
 	                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	                                <h5 class="m-0 font-weight-bold text-primary">Change Email Address</h5>
+	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-envelope fa-fw"></i> Change Email Address</h5>
 	                                <!-- <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a> -->
 	                                
 	                            </div>
 	                            <!-- Card Body -->
 	                            <div class="card-body">
-			                        <form action="functions/change-email.php" method="post">
-			                        	<div class="form-group">
-			                        		<label>New Email Address</label>
-										    <input type="text" class="form-control" id="newemail" name="newemail" placeholder="New Email Address" required autocomplete="off">
+			                        <form action="functions/change-email.php" name="formchangemail" method="post">
+
+			                        	<?php if (isset($_COOKIE['EmChVeCo']) && isset($_COOKIE['NeEmA'])) {
+			                        		echo '<div class="form-group">
+										    <p>Verification code has been sent to '.$_COOKIE['NeEmA'].'. If you can\'t find it please check the spam folder.</p><hr>
+			                        		<label>Verification Code</label>
+										    <input type="text" class="form-control" id="otpcode" name="otpcode" placeholder="Verification Code" required autocomplete="off">
 			                        	</div>
 										<div class="form-group mt-3">
-											<input class="btn btn-primary" type="submit" id="btnChangeEmail" name="changeemail" value="Change Email">
-										</div>
+										    
+										    <input type="text" name="userid" hidden value="'.$data['id'].'">
+											<a href="functions/dropverification.php" class="btn btn-secondary">Cancel</a>
+											<input class="btn btn-primary" type="submit" id="btnChangeEmail" required name="btnChangeEmail" value="Submit Verification">
+
+										</div>';
+			                        	}else{
+			                        		echo '<div class="form-group">
+			                        		<label>New Email Address</label>
+										    <input type="text" class="form-control" id="newemail" name="newemail" placeholder="New Email Address" onkeyup="ValidateEmail(document.formchangemail.newemail)" required autocomplete="off">
+			                        	</div>
+										<div class="form-group mt-3">
+										    <small class="text-danger" id="mailformatalert" hidden> &emsp;Email Format Incomplete or Invalid <i class="fas fa-exclamation-triangle fa-fw"></i><br><br></small>
+
+										    <input type="text" name="userid" hidden value="'.$data['id'].'">
+											<input class="btn btn-primary" type="submit" id="btnChangeEmail" disabled name="btnChangeEmail" value="Request Verification">
+										</div>';
+			                        	} ?>
+			                        	
 	                                </form>                         
 	                            </div>
 	                        </div>
@@ -121,6 +141,27 @@ $role = ($role=='admin')?'Administrator':'Operator';
 														<span aria-hidden="true">&times;</span>
 														</button>
 													</div>';
+		                    				}elseif ($_COOKIE['returnstatus'] == 'otpsent') {
+		                    					echo '<div class="alert alert-info alert-dismissible fade show" role="alert">
+														<strong>Verification Code Sent To '.$_COOKIE['NeEmA'].'.<br><i class="far fa-lightbulb fa-fw"></i> </strong> If you can\'t find the email, check your spam folder.
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>';
+		                    				}elseif ($_COOKIE['returnstatus'] == 'otpmismatch') {
+		                    					echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+														<strong>Verification Failed.<br>Error : </strong> Verification code incorrect!
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>';
+		                    				}elseif ($_COOKIE['returnstatus'] == 'emailupdatedsuccess') {
+		                    					echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+														<strong>Email Updated Successfully.</strong> 
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>';
 		                    				}
 		                    			}
 		                    		 ?>
@@ -135,7 +176,7 @@ $role = ($role=='admin')?'Administrator':'Operator';
 	                            <!-- Card Header - Dropdown -->
 	                            <div
 	                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	                                <h5 class="m-0 font-weight-bold text-primary">Change Password</h5>
+	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-key fa-fw"></i> Change Password</h5>
 	                                <!-- <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a> -->
 	                                
 	                            </div>
@@ -144,20 +185,20 @@ $role = ($role=='admin')?'Administrator':'Operator';
 			                        <form action="functions/change-pass.php" method="post">
 			                        	<div class="form-group">
 			                        		<label>Current Password</label>
-										    <input type="text" class="form-control" id="oldpass" name="oldpass" placeholder="Current Password" required autocomplete="off">
+										    <input type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Current Password" required autocomplete="off">
 			                        	</div>
 	                                	<div class="row">
 											<div class="col">
 												<label>New Password</label>
-											    <input type="text" class="form-control" onkeyup="equal_checker()" id="newpass" name="newpass" placeholder="New Password" required autocomplete="off">
+											    <input type="password" class="form-control" onkeyup="equal_checker()" id="newpass" name="newpass" placeholder="New Password" required autocomplete="off">
 											</div>
 											<div class="col">
 												<label>Confirm New Password</label>
-											    <input type="text" class="form-control" onkeyup="equal_checker()" id="newpass2" name="newpass2" placeholder="Confirm New Password" required autocomplete="off">
+											    <input type="password" class="form-control" onkeyup="equal_checker()" id="newpass2" name="newpass2" placeholder="Confirm New Password" required autocomplete="off">
 											</div>
 										</div>
 										<div class="form-group mt-3">
-										    <small class="text-danger" id="matchalert" hidden><i class="fas fa-exclamation-triangle fa-fw fa-sm"></i> New Password Doesn't Match<br><br>	</small>
+										    <small class="text-danger" id="matchalert" hidden>&emsp;New Password Doesn't Match <i class="fas fa-exclamation-triangle fa-fw fa-sm"></i><br><br>	</small>
 										    <input type="text" name="userid" hidden value="<?=$data['id'] ?>">
 											<input class="btn btn-primary" type="submit" id="btnChangePass" disabled name="changepass" value="Change Password">
 										</div>
@@ -216,4 +257,22 @@ $role = ($role=='admin')?'Administrator':'Operator';
                 document.getElementById("matchalert").hidden = false;
             }
         }
+
+
+    function ValidateEmail(newemail){
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if(newemail.value.match(mailformat)){
+			document.getElementById("mailformatalert").hidden = true;
+			document.getElementById("btnChangeEmail").disabled = false;
+			// alert("Valid email address!");
+			// document.form1.text1.focus();
+			return true;
+		}else{
+			document.getElementById("mailformatalert").hidden = false;
+			document.getElementById("btnChangeEmail").disabled = true;
+			// alert("You have entered an invalid email address!");
+			// document.form1.text1.focus();
+			return false;
+		}
+	}
 </script>

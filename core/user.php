@@ -175,4 +175,19 @@ function updatePassword($id,$password){
 
 }
 
+function updateEmail($id, $email){
+	global $link;
+
+	$id = mysqli_real_escape_string($link, $id);
+	$email = mysqli_real_escape_string($link, $email);
+
+	$query = "UPDATE users SET email = '$email' WHERE id = '$id'";
+
+	if (mysqli_query($link, $query)) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
  ?>
