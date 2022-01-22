@@ -80,7 +80,7 @@
                                               </button>
                                         </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                                           <strong>User Deletion Successful!</strong>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
