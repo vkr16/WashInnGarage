@@ -65,8 +65,8 @@
             $mail->Password = 'washinngarage';
             $mail->setFrom('dev.washinngarage@gmail.com');
             $mail->addAddress($email);
-            $mail->Subject = 'Wash Inn Garage Account Info Update';
-            $mail->Body = "Hi ".$fullname.", Your account information has been updated.\nHere is your new account details.\nFull Name : ".$fullname."\nUsername : ".$username."\nEmail : ".$email."\nPhone Number : ".$phone."\nRole : ".$role.$additionalbody."\n\n\nCopyright © 2022, Wash Inn Garage. All Rights Reserved.";
+            $mail->Subject = 'Wash Inn Garage Account Update ';
+            $mail->Body = "Hi ".$fullname.", Your account information has been updated.\nHere is your new account details.\n\nFull Name : ".$fullname."\nUsername : ".$username."\nEmail : ".$email."\nPhone Number : ".$phone."\nRole : ".$role.$additionalbody."\n\n\nCopyright © 2022, Wash Inn Garage. All Rights Reserved.";
             // $mail->isHTML(true);
             //send the message, check for errors
             if (!$mail->send()) {

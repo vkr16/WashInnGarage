@@ -16,6 +16,8 @@ if (isset($_POST['changepass'])) {
 		setcookie('returnstatus', 'oldinvalid', time() + (10), "/");
 		header("Location: ../my-account.php");
 	}
+}else{
+	header("Location: ../my-account.php");
 }
 
  ?>

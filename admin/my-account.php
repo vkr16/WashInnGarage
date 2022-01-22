@@ -75,7 +75,7 @@ $role = ($role=='admin')?'Administrator':'Operator';
 	                                  <h5 class="text-dark mb-0"><?= $fullname ?> (<?=$username ?>)</h5> 
 	                                  <small>System <?= $role ?> &nbsp;<i class="fas fa-user-tag fa-fw fa-sm"></i></small>     <hr>
 	                                  <p><i class="fas fa-envelope fa-fw"></i> <?=$email ?></p>                    
-	                                  <p><i class="fas fa-mobile-alt fa-fw"></i> <?=$phone ?></p>                    
+	                                  <p><i class="fas fa-mobile-alt fa-fw"></i> <?=$phone ?> <small onclick="showeditpane()"><a href="#">(Click to edit)</a></small></p>                    
 	                            </div>
 	                        </div>
 
@@ -83,7 +83,7 @@ $role = ($role=='admin')?'Administrator':'Operator';
 	                            <!-- Card Header - Dropdown -->
 	                            <div
 	                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-envelope fa-fw"></i> Change Email Address</h5>
+	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-envelope fa-fw"></i> Update Email Address</h5>
 	                                <!-- <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a> -->
 	                                
 	                            </div>
@@ -162,6 +162,20 @@ $role = ($role=='admin')?'Administrator':'Operator';
 														<span aria-hidden="true">&times;</span>
 														</button>
 													</div>';
+		                    				}elseif ($_COOKIE['returnstatus'] == 'phonechanged') {
+		                    					echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+														<strong>Phone Number Updated Successfully.</strong> 
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>';
+		                    				}elseif ($_COOKIE['returnstatus'] == 'phonechangeerror') {
+		                    					echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+														<strong>Phone Number Update Failed!! <br> Error : </strong>Unknown error, please try again. <br><hr>If error continue please contact developer.  [ERR-458]
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>';
 		                    				}
 		                    			}
 		                    		 ?>
@@ -176,7 +190,7 @@ $role = ($role=='admin')?'Administrator':'Operator';
 	                            <!-- Card Header - Dropdown -->
 	                            <div
 	                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-key fa-fw"></i> Change Password</h5>
+	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-key fa-fw"></i> Update Password</h5>
 	                                <!-- <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a> -->
 	                                
 	                            </div>
@@ -205,7 +219,32 @@ $role = ($role=='admin')?'Administrator':'Operator';
 	                                </form>                         
 	                            </div>
 	                        </div>
+
+	                        <div class="card shadow mb-4" id="editphonepane" hidden>
+	                            <!-- Card Header - Dropdown -->
+	                            <div
+	                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+	                                <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-mobile-alt fa-fw"></i> Update Phone Number</h5>
+	                                <!-- <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a> -->
+	                                
+	                            </div>
+	                            <!-- Card Body -->
+	                            <div class="card-body">
+			                        <form action="functions/change-phone.php" method="post">
+			                        	<div class="form-group">
+			                        		<label>New Phone Number</label>
+										    <input type="text" class="form-control" id="newphone" name="newphone" placeholder="New Phone Number" required autocomplete="off">
+			                        	</div>
+										<div class="form-group mt-3">
+										    <input type="text" name="userid" hidden value="<?=$data['id'] ?>">
+											<input class="btn btn-primary" type="submit" id="btnChangePhone"  name="btnChangePhone" value="Update Phone Number">
+										</div>
+	                                </form>                         
+	                            </div>
+	                        </div>
 	                    </div>
+
+
 
 					</div>
 
@@ -249,7 +288,7 @@ $role = ($role=='admin')?'Administrator':'Operator';
 
 <script type="text/javascript">
 	function equal_checker(){
-            if (document.getElementById("newpass").value == document.getElementById("newpass2").value) {
+            if (document.getElementById("newpass").value == document.getElementById("newpass2").value && document.getElementById("newpass").value != '') {
                 document.getElementById("btnChangePass").disabled = false;
                 document.getElementById("matchalert").hidden = true;
             }else{
@@ -274,5 +313,9 @@ $role = ($role=='admin')?'Administrator':'Operator';
 			// document.form1.text1.focus();
 			return false;
 		}
+	}
+
+	function showeditpane(){
+		document.getElementById("editphonepane").hidden = false;
 	}
 </script>

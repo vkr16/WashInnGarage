@@ -190,4 +190,19 @@ function updateEmail($id, $email){
 	}
 }
 
+function updatePhone($id, $phone){
+ 	global $link;
+
+ 	$id = mysqli_real_escape_string($link, $id);
+	$phone = mysqli_real_escape_string($link, $phone);
+
+	$query = "UPDATE users SET phone = '$phone' WHERE id = '$id'";
+
+	if (mysqli_query($link, $query)) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
  ?>
