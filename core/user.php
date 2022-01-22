@@ -89,6 +89,20 @@ function getUserById($id){
 	return $data;
 }
 
+function getUserByUsername($username){
+	global $link;
+
+	$username = mysqli_real_escape_string($link, $username);
+
+	$query = "SELECT * FROM users WHERE username = '$username'";
+
+	$result = mysqli_query($link, $query);
+
+	$data = mysqli_fetch_assoc($result);
+
+	return $data;
+}
+
 function updateUser($id, $fullname, $email, $username, $phone, $role, $resetpass){
 
 	global $link;
@@ -121,6 +135,44 @@ function undoAddUser($username){
 	$query = "DELETE FROM users WHERE username = '$username'";
 
 	mysqli_query($link,$query);
+}
+
+function isOldPassValid($id,$password){
+	global $link;
+
+	$id = mysqli_real_escape_string($link, $id);
+	$password = mysqli_real_escape_string($link, $password);
+
+	$query = "SELECT * FROM users WHERE id = '$id'";
+
+	$result = mysqli_query($link, $query);
+	$hash 	= mysqli_fetch_assoc($result);
+
+	if (password_verify($password, $hash['password'])) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function updatePassword($id,$password){
+	global $link;
+
+	$id = mysqli_real_escape_string($link, $id);
+	$password = mysqli_real_escape_string($link, $password);
+
+	$password = password_hash($password, PASSWORD_DEFAULT);
+
+	$query = "UPDATE users SET password = '$password' WHERE id = '$id'";
+
+	// $result = mysqli_query($link, $query);
+
+	if (mysqli_query($link, $query)) {
+		return true;
+	}else{
+		return false;
+	}
+
 }
 
  ?>
