@@ -188,14 +188,15 @@
                                                 <img src="<?= $assets ?>/img/thumbnail/Express.jpg" class="rounded-lg border border-white shadow" width=100%>
                                             </div>
                                         </div>
-                                        <div class="col-xl-8">
-                                            <h5 class="mb-0 text-dark">Express</h5>
-                                            <small>Service - Car</small>
+                                        <div class="col-xl-8" style="border-left: 1px solid #858796;">
+                                            <h5 class="mb-0 text-dark font-weight-bolder">Express Car Polishing Window</h5>
+                                            <p class="mb-0">Service - Car</p>
                                             <p class="mb-2">Rp 22.000</p>
-                                            <p class="mb-2"><i class="fas fa-dot-circle text-info"></i> Active</p>
+                                            <p class="mb-2 font-weight-bolder"><i class="fas fa-dot-circle text-info"></i> Active</p>
                                         </div>
                                     </div>
-                                    <br>
+                                    <hr>
+                                    <!-- <br> -->
                                     <div class="col-xl-12 col-lg-12 text-dark">
                                         <p class="font-weight-bolder">Description :</p>
                                         <p class="text-justify">Paket cuci kilat terbaik untuk mobil anda (hanya mencakup pembersihan exterior saja)</p>
