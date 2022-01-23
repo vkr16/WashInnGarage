@@ -48,27 +48,25 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Manage Menu </h1>
-                        
-
                         <?php 
                             if (isset($_COOKIE['returnstatus'])) {
-                                if ($_COOKIE['returnstatus'] == 'userexist') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          Registration failed!, Username already exist in database
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'success') {
+                                if ($_COOKIE['returnstatus'] == 'serviceadded') {
                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>Registration successful!</strong><br>Password sent to user\'s email, please ask user to check their spam folder!
+                                          <strong>New Service Added To The Menu</strong>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'usernameconflict') {
-                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Update failed!</strong>, new username conflict with another user in database
+                                }elseif ($_COOKIE['returnstatus'] == 'servicenotadded') {
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                          <strong>Failed!</strong><br>Something abnormal happen, please try again.<hr>If error continues please contact developer.
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                        </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'serviceaddednotuploaded') {
+                                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                          <strong>New Service Added To The Menu With An Error. <br></strong>Thumbnail image not uploaded, unknown reason. [ERR-998]
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -229,7 +227,7 @@
                 </div>
                 <div class="form-group col-md-8">
                   <label for="inputServiceName">Service Name</label>
-                  <input type="text" class="form-control" id="inputServiceName" placeholder="Service Name" name="servicename">
+                  <input required autocomplete="off" type="text" class="form-control" id="inputServiceName" placeholder="Service Name" name="servicename">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputServicePrice">Price</label>
@@ -237,7 +235,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Rp.</span>
                       </div>
-                      <input type="text" class="form-control" id="inputServicePrice" placeholder="50.000" name="serviceprice">
+                      <input required autocomplete="off" type="text" class="form-control" id="inputServicePrice" placeholder="50000" name="serviceprice">
                   </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -253,7 +251,7 @@
               <div class="row">
                   <div class="form-group col-md-12">
                       <label for="inputServiceDesc">Service Description (Optional)</label>
-                      <textarea class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this service" name="servicedesc"></textarea>
+                      <textarea autocomplete="off" class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this service" name="servicedesc"></textarea>
                     
                   </div>
               </div>
