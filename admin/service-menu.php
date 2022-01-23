@@ -10,7 +10,6 @@
     $query_getServices = "SELECT * FROM menus WHERE type = 'service'";
     $execute_getServices = mysqli_query($link, $query_getServices);
 
-    
  ?>
 
 <!DOCTYPE html>
@@ -156,17 +155,52 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <?php while ($service = mysqli_fetch_assoc($execute_getServices)) {?>
+                                        <?php while ($service = mysqli_fetch_assoc($execute_getServices)) {
+                                            $checker = ($service['status'] == 'active')?'checked':'';
+                                            $status = ($service['status'] == 'active')?'Active':'Inactive';
+                                        ?>
                                         <tr>
                                           <th scope="row"><?= $i ?></th>
                                           <td><?= $service['name'] ?></td>
                                           <td><?= 'Rp '.number_format($service['price'],0,',','.') ?></td>
                                           <td><?= $service['category'] ?></td>
-                                          <td><?= $service['status'] ?></td>
+                                          <td><?= $status ?></td>
                                         </tr>
                                         <?php $i++;} ?>
                                       </tbody>
                                     </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  -->
+                        <div class="col-xl-4 col-lg-4">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold text-primary my-2"><i class="fas fa-info-circle fa-fw"></i> Service Detail</h5>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-4">
+                                            <div class="d-flex justify-content-center">
+                                                <img src="<?= $assets ?>/img/thumbnail/Express.jpg" class="rounded-lg border border-white shadow" width=100%>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-8">
+                                            <h5 class="mb-0 text-dark">Express</h5>
+                                            <small>Service - Car</small>
+                                            <p class="mb-2">Rp 22.000</p>
+                                            <p class="mb-2"><i class="fas fa-dot-circle text-info"></i> Active</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="col-xl-12 col-lg-12 text-dark">
+                                        <p class="font-weight-bolder">Description :</p>
+                                        <p class="text-justify">Paket cuci kilat terbaik untuk mobil anda (hanya mencakup pembersihan exterior saja)</p>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -290,6 +324,9 @@
     $(document).ready(function() {
       $('#services').DataTable();
     });
+
+
+
 
 
     function imageSelected(){
