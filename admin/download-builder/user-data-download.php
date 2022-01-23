@@ -31,7 +31,6 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 $xlsx = SimpleXLSXGen::fromArray( $users );
-// $xlsx->saveAs('users.xlsx');
 $xlsx->downloadAs('users.xlsx');
 
 

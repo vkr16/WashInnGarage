@@ -22,8 +22,6 @@
 			$path = $_SERVER['DOCUMENT_ROOT'] . "/WashInnGarage/assets/img/thumbnail/";
 			$path2 = $_FILES['thumbnail']['name'];
 			$ext = pathinfo($path2, PATHINFO_EXTENSION);
-			// var_dump($ext);die();
-			// $path = $path . basename( $_FILES['uploaded_file']['name']);
 			$path = $path . $servicename . '.' . $ext;
 			echo $path;
 
