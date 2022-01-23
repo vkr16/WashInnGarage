@@ -218,18 +218,18 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form action="functions/add-service-menu.php" method="post" enctype="multipart/form-data">
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <label for="inputCategory">Category</label>
-                  <select id="inputCategory" class="form-control">
+                  <select id="inputCategory" class="form-control" name="category">
                     <option selected value="Car">Car</option>
                     <option value="Motorcycle">Motorcycle</option>
                   </select>
                 </div>
                 <div class="form-group col-md-8">
                   <label for="inputServiceName">Service Name</label>
-                  <input type="text" class="form-control" id="inputServiceName" placeholder="Service Name">
+                  <input type="text" class="form-control" id="inputServiceName" placeholder="Service Name" name="servicename">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputServicePrice">Price</label>
@@ -237,14 +237,14 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Rp.</span>
                       </div>
-                      <input type="text" class="form-control" id="inputServicePrice" placeholder="50.000">
+                      <input type="text" class="form-control" id="inputServicePrice" placeholder="50.000" name="serviceprice">
                   </div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputFileImage">Thumbnail Image (Optional)</label>
                     <div class="input-group mb-3">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" onchange="imageSelected()" id="inputFileImage" accept=".jpg,.jpeg,.png">
+                        <input type="file" class="custom-file-input" onchange="imageSelected()" id="inputFileImage" accept=".jpg,.jpeg,.png" name="thumbnail">
                         <label class="custom-file-label" for="inputFileImage" id="inputFileImageLabel">Choose file</label>
                       </div>
                     </div>
@@ -253,22 +253,22 @@
               <div class="row">
                   <div class="form-group col-md-12">
                       <label for="inputServiceDesc">Service Description (Optional)</label>
-                      <textarea class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this service"></textarea>
+                      <textarea class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this service" name="servicedesc"></textarea>
                     
                   </div>
               </div>
               
               <div class="form-group">
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="setActiveCheck">
+                  <input type="checkbox" class="custom-control-input" id="setActiveCheck" name="activate">
                   <label class="custom-control-label" for="setActiveCheck">Set as Active</label>
                 </div>
               </div>
-            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close</button>
-            <button type="button" class="btn btn-primary">Save <i class="fas fa-save fa-fw"></i></button>
+            <button type="submit" name="btnAddServiceMenu" class="btn btn-primary">Save <i class="fas fa-save fa-fw"></i></button>
+            </form>
           </div>
         </div>
       </div>
