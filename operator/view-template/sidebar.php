@@ -27,7 +27,12 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-           
+           <!-- Nav Item - Charts -->
+            <li class="nav-item <?=$lvl0?>">
+                <a class="nav-link" href="manage-user.php">
+                    <i class="fas fa-fw fa-users-cog"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
