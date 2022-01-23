@@ -20,22 +20,24 @@ if (isset($_POST['btnAddServiceMenu'])) {
         $path2 = $_FILES['thumbnail']['name'];
         $ext   = pathinfo($path2, PATHINFO_EXTENSION);
         $path  = $path . $servicename . '.' . $ext;
+
+        $filenameondb = $servicename.'.'.$ext;
         
-        $query_addService1 = "INSERT INTO menus (category, name, price, image, description, status) 
-                                    VALUES ('$category', '$servicename', '$price', '$path2', '$description', '$status')";
+        $query_addService1 = "INSERT INTO menus (type ,category, name, price, image, description, status) 
+                                    VALUES ('service','$category', '$servicename', '$price', '$filenameondb', '$description', '$status')";
         
         if (mysqli_query($link, $query_addService1)) {
             if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $path)) {
                 setcookie('returnstatus', 'serviceadded', time() + (10), "/");
             }else{
                 setcookie('returnstatus', 'serviceadded', time() + (10), "/");
-	            // I've no idea WHY, but it works so i let it be. (Jangan dihapus)
+	            // I've no idea WHY, but it works so i let it be. (Jangan dihapus) 0_o
             }
             header("Location: ../service-menu.php");
         }
     } else {
-        $query_addService = "INSERT INTO menus (category, name, price, description, status) 
-                                    VALUES ('$category', '$servicename', '$price', '$description', '$status')";
+        $query_addService = "INSERT INTO menus (type ,category, name, price, description, status) 
+                                    VALUES ('service','$category', '$servicename', '$price', '$description', '$status')";
         if (mysqli_query($link, $query_addService)) {
             setcookie('returnstatus', 'serviceadded', time() + (10), "/");
             header("Location: ../service-menu.php");

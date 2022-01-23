@@ -6,6 +6,11 @@
     $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
     $execute_getUser = mysqli_query($link,$query_getUser);
     $i = 1;
+
+    $query_getServices = "SELECT * FROM menus WHERE type = 'service'";
+    $execute_getServices = mysqli_query($link, $query_getServices);
+
+    
  ?>
 
 <!DOCTYPE html>
@@ -151,27 +156,15 @@
                                         </tr>
                                       </thead>
                                       <tbody>
+                                        <?php while ($service = mysqli_fetch_assoc($execute_getServices)) {?>
                                         <tr>
-                                          <th scope="row">1</th>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                          <td>@mdo</td>
+                                          <th scope="row"><?= $i ?></th>
+                                          <td><?= $service['name'] ?></td>
+                                          <td><?= 'Rp '.number_format($service['price'],0,',','.') ?></td>
+                                          <td><?= $service['category'] ?></td>
+                                          <td><?= $service['status'] ?></td>
                                         </tr>
-                                        <tr>
-                                          <th scope="row">2</th>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@mdo</td>
-                                          <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">3</th>
-                                          <td>Larry</td>
-                                          <td>the Bird</td>
-                                          <td>@mdo</td>
-                                          <td>@twitter</td>
-                                        </tr>
+                                        <?php $i++;} ?>
                                       </tbody>
                                     </table>
                                 </div>
@@ -239,10 +232,10 @@
                   </div>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputFileImage">Thumbnail Image (Optional)</label>
+                  <label for="inputFileImage">Thumbnail Image (Optional) </label>
                     <div class="input-group mb-3">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" onchange="imageSelected()" id="inputFileImage" accept=".jpg,.jpeg,.png" name="thumbnail">
+                        <input type="file" class="custom-file-input" onchange="imageSelected()" id="inputFileImage" accept=".jpg" name="thumbnail">
                         <label class="custom-file-label" for="inputFileImage" id="inputFileImageLabel">Choose file</label>
                       </div>
                     </div>
