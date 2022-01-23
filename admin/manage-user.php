@@ -19,7 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
 	<link href="<?=$assets?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-	 <!-- Custom styles for this page -->
+    <!-- dataTable css -->
     <link href="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
@@ -147,7 +147,7 @@
                                     <canvas id="myAreaChart"></canvas>
                                 </div> -->
 
-                                <table class="table table-striped">
+                                <table class="table table-striped " id="usersTable">
                                   <thead>
                                     <tr>
                                       <th scope="col">No</th>
@@ -155,7 +155,7 @@
                                       <th scope="col">Email</th>
                                       <th scope="col">Username</th>
                                       <th scope="col">Role</th>
-                                      <th colspan="2" class="text-center">Action</th>
+                                      <th scope="col">Action</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -171,12 +171,11 @@
                                       }elseif ($result_getUser['role']=='operator') {
                                           echo "Operator";
                                       }else{echo "";};  ?></td>
-                                      <td class="text-center">
+                                      <td class="row">
+
                                         <form action="edit-user.php" method="post">
                                             <button class="btn btn-primary" type="submit" name="btnEditUser" value="<?= $result_getUser['id'] ?>"><i class="fas fa-edit fa-fw"></i></button>
-                                        </form>
-                                      </td>
-                                      <td class="text-center">
+                                        </form>&emsp;
                                         <button class="btn btn-danger" data-toggle="modal" onclick="del_conf('<?= $result_getUser['username'] ?>','<?= $result_getUser['id'] ?>')" data-target="#modalDeleteUser">
                                             <i class="fas fa-trash-alt fa-fw"></i>
                                         </button>
@@ -270,6 +269,18 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?=$assets?>/js/sb-admin-2.min.js"></script>
+
+    <!-- dataTable js -->
+    <script src="<?=$assets?>/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#usersTable').DataTable();
+        });
+
+    </script>
+
 
 </body>
 </html>

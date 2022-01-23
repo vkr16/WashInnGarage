@@ -19,8 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
 	<link href="<?=$assets?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-	 <!-- Custom styles for this page -->
-
+	<!-- dataTable css -->
     <link href="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   
 
@@ -246,7 +245,7 @@
     <!-- Custom scripts for all pages-->
     <script src="<?=$assets?>/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
+    <!-- dataTable js -->
     <script src="<?=$assets?>/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
