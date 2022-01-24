@@ -189,21 +189,26 @@
                                     <div class="row">
                                         <div class="col-xl-5">
                                             <div class="d-flex justify-content-center">
-                                                <img id="thumbnailShow" src="<?= $assets ?>/img/thumbnail/Express.jpg" class="rounded-lg border border-white shadow" width=100%>
+                                                <img id="thumbnailShow" src="" class="rounded-lg border border-white shadow" width=100%>
                                             </div>
                                         </div>
                                         <div class="col-xl-7" style="border-left: 1px solid #858796;">
-                                            <h5 class="mb-0 text-dark font-weight-bolder" id="servicenameShow">Express Car Polishing Window</h5>
-                                            <p class="mb-0" id="typeShow">Service - Car</p>
-                                            <p class="mb-2" id="priceShow">Rp 22.000</p>
-                                            <p class="mb-2 font-weight-bolder" id="statusShow"><i class="fas fa-dot-circle text-info"></i> Active</p>
+                                            <h5 class="mb-0 text-dark font-weight-bolder" id="servicenameShow"></h5>
+                                            <p class="mb-0" id="typeShow"></p>
+                                            <p class="mb-2" id="priceShow"></p>
+                                            <p class="mb-2 font-weight-bolder" id="statusShow"></p>
                                         </div>
                                     </div>
                                     <hr>
                                     <!-- <br> -->
                                     <div class="col-xl-12 col-lg-12 text-dark">
                                         <p class="font-weight-bolder">Description :</p>
-                                        <p class="text-justify" id="descriptionShow">Paket cuci kilat terbaik untuk mobil anda (hanya mencakup pembersihan exterior saja)</p>
+                                        <p class="text-justify" id="descriptionShow"></p>
+                                    </div>
+                                    <hr>
+                                    <div class="row mx-2 d-flex justify-content-end">
+                                        <a href="#" class="btn btn-primary"><i class="fas fa-edit fa-fw fa-sm"></i> Edit</a> &emsp;
+                                        <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Delete</a>
                                     </div>
                                     
                                 </div>
