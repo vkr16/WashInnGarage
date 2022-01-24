@@ -120,7 +120,7 @@
 
                     <div class="row">
                         <!-- User Manager -->
-                        <div class="col-xl-8 col-lg-8">
+                        <div class="col-xl-12 col-lg-12" id="panelUtama">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -158,11 +158,13 @@
                                         <?php while ($service = mysqli_fetch_assoc($execute_getServices)) {
                                             $checker = ($service['status'] == 'active')?'checked':'';
                                             $status = ($service['status'] == 'active')?'Active':'Inactive';
+                                            $type = ($service['type'] == 'service')?'Service':'other';
+                                            $price = 'Rp '.number_format($service['price'],0,',','.') 
                                         ?>
                                         <tr>
                                           <th scope="row"><?= $i ?></th>
-                                          <td><?= $service['name'] ?></td>
-                                          <td><?= 'Rp '.number_format($service['price'],0,',','.') ?></td>
+                                          <td><a href="#" onclick="openDetail('<?= $service['image'].'\',\''.$service['name'].'\',\''.$type.'\',\''.$service['category'].'\',\''.$price.'\',\''.$status.'\',\''.$service['description']?>')" class="text-decoration-none"><?= $service['name'] ?></a></td>
+                                          <td><?= $price?></td>
                                           <td><?= $service['category'] ?></td>
                                           <td><?= $status ?></td>
                                         </tr>
@@ -173,33 +175,35 @@
                             </div>
                         </div>
                         <!--  -->
-                        <div class="col-xl-4 col-lg-4">
+                        <div class="col-xl-5 col-lg-5" hidden id="detailPanel">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 class="m-0 font-weight-bold text-primary my-2"><i class="fas fa-info-circle fa-fw"></i> Service Detail</h5>
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle fa-fw"></i> Service Detail</h5>
+                                    <a class="btn btn-danger" onclick="closeDetailPanel()"><i class="fas fa-times fa-fw"></i></a>
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-xl-4">
+                                        <div class="col-xl-5">
                                             <div class="d-flex justify-content-center">
-                                                <img src="<?= $assets ?>/img/thumbnail/Express.jpg" class="rounded-lg border border-white shadow" width=100%>
+                                                <img id="thumbnailShow" src="<?= $assets ?>/img/thumbnail/Express.jpg" class="rounded-lg border border-white shadow" width=100%>
                                             </div>
                                         </div>
-                                        <div class="col-xl-8" style="border-left: 1px solid #858796;">
-                                            <h5 class="mb-0 text-dark font-weight-bolder">Express Car Polishing Window</h5>
-                                            <p class="mb-0">Service - Car</p>
-                                            <p class="mb-2">Rp 22.000</p>
-                                            <p class="mb-2 font-weight-bolder"><i class="fas fa-dot-circle text-info"></i> Active</p>
+                                        <div class="col-xl-7" style="border-left: 1px solid #858796;">
+                                            <h5 class="mb-0 text-dark font-weight-bolder" id="servicenameShow">Express Car Polishing Window</h5>
+                                            <p class="mb-0" id="typeShow">Service - Car</p>
+                                            <p class="mb-2" id="priceShow">Rp 22.000</p>
+                                            <p class="mb-2 font-weight-bolder" id="statusShow"><i class="fas fa-dot-circle text-info"></i> Active</p>
                                         </div>
                                     </div>
                                     <hr>
                                     <!-- <br> -->
                                     <div class="col-xl-12 col-lg-12 text-dark">
                                         <p class="font-weight-bolder">Description :</p>
-                                        <p class="text-justify">Paket cuci kilat terbaik untuk mobil anda (hanya mencakup pembersihan exterior saja)</p>
+                                        <p class="text-justify" id="descriptionShow">Paket cuci kilat terbaik untuk mobil anda (hanya mencakup pembersihan exterior saja)</p>
                                     </div>
                                     
                                 </div>
@@ -335,6 +339,32 @@
             var input =  document.getElementById("inputFileImage");
             document.getElementById("inputFileImageLabel").innerHTML = input.files.item(0).name;
         }
+    }
+
+    function openDetail(thumbnail, name, type, category, price, status, description){
+        document.getElementById('detailPanel').hidden = false;
+
+        document.getElementById('thumbnailShow').src = '../assets/img/thumbnail/'+ thumbnail;
+        document.getElementById('servicenameShow').innerHTML = name;
+        document.getElementById('typeShow').innerHTML = type + ' - ' + category;
+        document.getElementById('priceShow').innerHTML = price;
+
+        document.getElementById('descriptionShow').innerHTML = description;
+
+        document.getElementById('panelUtama').className = 'col-xl-7 col-lg-7';
+        if (status =='Active') {
+            document.getElementById('statusShow').innerHTML = '<i class="fas fa-dot-circle text-info"></i> Active';
+        }else if (status == 'Inactive') {
+            document.getElementById('statusShow').innerHTML = '<i class="far fa-dot-circle text-danger"></i> Inactive';
+        }
+
+
+
+    }
+
+    function closeDetailPanel(){
+        document.getElementById('detailPanel').hidden = true;
+        document.getElementById('panelUtama').className = 'col-xl-12 col-lg-12';
     }
 
 </script>
