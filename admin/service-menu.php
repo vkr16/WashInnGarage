@@ -102,6 +102,20 @@
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'serviceexist') {
+                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                          <strong>Add New Service Failed. <br> Error :</strong> Service Already Exist In Menu 
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                        </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'serviceredundant') {
+                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                          <strong>Update Service Failed. <br> Error :</strong> A Service With The Same Name Already Exist On The Menu
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                        </div>';
                                 }
                             }
                          ?>
