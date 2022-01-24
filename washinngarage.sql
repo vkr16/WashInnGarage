@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2022 at 03:47 PM
+-- Generation Time: Jan 24, 2022 at 06:47 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `menus` (
   `id` int(10) NOT NULL,
   `type` enum('service','merchandise','food','beverage') NOT NULL,
-  `category` enum('Car','Motorcycle') NOT NULL,
+  `category` enum('Car','Motorcycle') DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   `price` varchar(10) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
@@ -45,9 +45,8 @@ CREATE TABLE `menus` (
 
 INSERT INTO `menus` (`id`, `type`, `category`, `name`, `price`, `image`, `description`, `stock`, `status`) VALUES
 (28, 'service', 'Car', 'Express', '22000', 'Express.jpg', 'Layanan cuci mobil express seharga 22 ribu : Exterior saja', NULL, 'active'),
-(29, 'service', 'Car', 'Express Plus', '25000', 'Express Plus.jpg', 'Layanan cuci mobil prima dengan treatmen untuk exterior dan interior mobil anda', NULL, 'active'),
-(30, 'service', 'Motorcycle', 'Express Bike', '11000', 'Express Bike.jpg', 'Layanan Cuci Motor 10 ribuan', NULL, 'active'),
-(31, 'service', 'Motorcycle', 'Express 250', '15000', 'Express 250.jpg', 'Layanan cuci motor untuk motor 250cc', NULL, 'active');
+(31, 'service', 'Motorcycle', 'Express 250', '15000', 'Express 250.jpg', 'Layanan cuci motor untuk motor 250cc', NULL, 'active'),
+(39, 'merchandise', NULL, 'Kaos Hitam Polos', '95000', 'Kaos Hitam Polos.jpg', 'Kaos Hitam Polos By Wash Inn Garage', 14, 'inactive');
 
 -- --------------------------------------------------------
 
@@ -104,7 +103,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `users`
