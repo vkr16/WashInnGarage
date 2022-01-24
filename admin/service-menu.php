@@ -16,7 +16,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>User Account Management</title>
+	<title>Manage menu</title>
 
 	<link rel="icon" type="image/png" href="<?=$assets?>/img/logo.png">
 	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
@@ -394,9 +394,10 @@
        Are you sure want to delete this menu?
       </div>
       <div class="modal-footer">
-        <form action="functions/delete-service-menu.php" method="post">
+        <form action="functions/delete-menu.php" method="post">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <input type="password" name="hiddenServiceID" id="hiddenServiceID" hidden readonly>
+            <input type="password" name="origin" id="origin" hidden readonly value="service-menu.php">
             <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Yes, Delete</button>
         </form>
       </div>
