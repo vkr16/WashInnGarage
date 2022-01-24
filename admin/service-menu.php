@@ -75,36 +75,16 @@
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'updatesuccess') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>Update successful!</strong><br>Information update sent to user\'s email, please ask user to check their spam folder!
+                                }elseif ($_COOKIE['returnstatus'] == 'servicedeleted') {
+                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                          <strong>A Service Has Been Deleted.<br></strong>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>User Deletion Successful!</strong>
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'offlinewarning') {
-                                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                          <strong>Update Successful With an Error!</strong><br>
-                                          Failed send email notification to user!!
-                                          Update saved to database but user got no notification!
-                                          <br>It may caused by invalid email address or there is no internet connection.<br><hr>
-                                          If you just reset user password, please try again with internet connection!
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'offlineFailed') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Add New User Failed!!</strong><br>
-                                          Can not send email confirmation to user, 
-                                          <br>It may caused by invalid email address or there is no internet connection.
+                                }elseif ($_COOKIE['returnstatus'] == 'servicenotdeleted') {
+                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                          <strong>Service Deletion Failed. <br>Error : </strong>Service not found.
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -163,7 +143,7 @@
                                         ?>
                                         <tr>
                                           <th scope="row"><?= $i ?></th>
-                                          <td><a href="#" onclick="openDetail('<?= $service['image'].'\',\''.$service['name'].'\',\''.$type.'\',\''.$service['category'].'\',\''.$price.'\',\''.$status.'\',\''.$service['description']?>')" class="text-decoration-none"><?= $service['name'] ?></a></td>
+                                          <td><a href="#" onclick="openDetail('<?= $service['image'].'\',\''.$service['name'].'\',\''.$type.'\',\''.$service['category'].'\',\''.$price.'\',\''.$status.'\',\''.$service['description'].'\',\''.$service['id']?>')" class="text-decoration-none"><?= $service['name'] ?></a></td>
                                           <td><?= $price?></td>
                                           <td><?= $service['category'] ?></td>
                                           <td><?= $status ?></td>
@@ -208,7 +188,7 @@
                                     <hr>
                                     <div class="row mx-2 d-flex justify-content-end">
                                         <a href="#" class="btn btn-primary"><i class="fas fa-edit fa-fw fa-sm"></i> Edit</a> &emsp;
-                                        <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Delete</a>
+                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteservice"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Delete</a>
                                     </div>
                                     
                                 </div>
@@ -311,6 +291,33 @@
 <!-- Modal Add New Menu  END-->
 
 
+<!-- Modal confirm delete service -->
+<div class="modal fade" id="deleteservice" tabindex="-1" aria-labelledby="deleteserviceLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm To Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <h4 class="font-weight-bolder text-dark">[ Express Plus ]</h4>
+       Are you sure want to delete this menu?
+      </div>
+      <div class="modal-footer">
+        <form action="functions/delete-service-menu.php" method="post">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <input type="password" name="hiddenServiceID" id="hiddenServiceID" hidden readonly>
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Yes, Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal confirm delete service END-->
+
+
 
 
 
@@ -346,14 +353,14 @@
         }
     }
 
-    function openDetail(thumbnail, name, type, category, price, status, description){
+    function openDetail(thumbnail, name, type, category, price, status, description, id){
         document.getElementById('detailPanel').hidden = false;
 
         document.getElementById('thumbnailShow').src = '../assets/img/thumbnail/'+ thumbnail;
         document.getElementById('servicenameShow').innerHTML = name;
         document.getElementById('typeShow').innerHTML = type + ' - ' + category;
         document.getElementById('priceShow').innerHTML = price;
-
+        document.getElementById('hiddenServiceID').value = id;
         document.getElementById('descriptionShow').innerHTML = description;
 
         document.getElementById('panelUtama').className = 'col-xl-7 col-lg-7';
