@@ -6,3 +6,5 @@
 	header("Location:login.php");
 
  ?>
+
+ <!-- gokil sobb -->
