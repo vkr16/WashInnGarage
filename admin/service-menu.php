@@ -302,7 +302,7 @@
         </button>
       </div>
       <div class="modal-body">
-       <h4 class="font-weight-bolder text-dark">[ Express Plus ]</h4>
+       <h4 class="font-weight-bolder text-dark" id="deleteTitle">[ Express Plus ]</h4>
        Are you sure want to delete this menu?
       </div>
       <div class="modal-footer">
@@ -361,6 +361,7 @@
         document.getElementById('typeShow').innerHTML = type + ' - ' + category;
         document.getElementById('priceShow').innerHTML = price;
         document.getElementById('hiddenServiceID').value = id;
+        document.getElementById('deleteTitle').innerHTML = '[ '+ name +' ]';
         document.getElementById('descriptionShow').innerHTML = description;
 
         document.getElementById('panelUtama').className = 'col-xl-7 col-lg-7';
