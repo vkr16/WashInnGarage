@@ -7,6 +7,3 @@
 
  ?>
 
- //hapizzzzzzzzzzzzzzzz
- <!-- gokil sobb -->
-
