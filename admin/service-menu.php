@@ -11,8 +11,7 @@
     $execute_getServices = mysqli_query($link, $query_getServices);
 
  ?>
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -89,6 +88,20 @@
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'serviceupdated') {
+                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                          <strong>A Service Has Been Updated.<br></strong>
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                        </div>';
+                                }elseif ($_COOKIE['returnstatus'] == 'servicenotupdated') {
+                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                          <strong>Service Update Failed. <br>Error : </strong>Service id not found. [ERR-274]
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                        </div>';
                                 }
                             }
                          ?>
@@ -143,7 +156,7 @@
                                         ?>
                                         <tr>
                                           <th scope="row"><?= $i ?></th>
-                                          <td><a href="#" onclick="openDetail('<?= $service['image'].'\',\''.$service['name'].'\',\''.$type.'\',\''.$service['category'].'\',\''.$price.'\',\''.$status.'\',\''.$service['description'].'\',\''.$service['id']?>')" class="text-decoration-none"><?= $service['name'] ?></a></td>
+                                          <td><a href="#" onclick="openDetail('<?= $service['image'].'\',\''.$service['name'].'\',\''.$type.'\',\''.$service['category'].'\',\''.$price.'\',\''.$status.'\',\''.$service['description'].'\',\''.$service['id'].'\',\''.$service['price'] ?>')" class="text-decoration-none"><?= $service['name']?></a></td>
                                           <td><?= $price?></td>
                                           <td><?= $service['category'] ?></td>
                                           <td><?= $status ?></td>
@@ -160,40 +173,101 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle fa-fw"></i> Service Detail</h5>
+                                    <h5 class="m-0 font-weight-bold text-primary" id="rightPaneTitle"><i class="fas fa-info-circle fa-fw"></i> Service Detail</h5>
                                     <a class="btn btn-danger" onclick="closeDetailPanel()"><i class="fas fa-times fa-fw"></i></a>
 
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-xl-5">
-                                            <div class="d-flex justify-content-center">
-                                                <img id="thumbnailShow" src="" class="rounded-lg border border-white shadow" width=100%>
+                                <div class="card-body" id="modeView" >
+                                  <div class="row">
+                                    <div class="col-xl-5">
+                                      <div class="d-flex justify-content-center">
+                                        <img id="thumbnailShow" src="" class="rounded-lg border border-white shadow" width=100%>
+                                      </div>
+                                    </div>
+                                    <div class="col-xl-7">
+                                      <h5 class="mb-0 text-dark font-weight-bolder" id="servicenameShow"></h5>
+                                      <p class="mb-0" id="typeShow"></p>
+                                      <p class="mb-2" id="priceShow"></p>
+                                      <p class="mb-2 font-weight-bolder" id="statusShow"></p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <!-- <br> -->
+                                  <div class="col-xl-12 col-lg-12 text-dark">
+                                    <p class="font-weight-bolder">Description :</p>
+                                    <p class="text-justify" id="descriptionShow"></p>
+                                  </div>
+                                  <hr>
+                                  <div class="row mx-2 d-flex justify-content-end">
+                                    <a href="#" class="btn btn-primary" onclick="changeMode()"> 
+                                      <i class="fas fa-edit fa-fw fa-sm"></i> Edit </a> 
+                                      &emsp; 
+                                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteservice">
+                                      <i class="fas fa-trash-alt fa-fw fa-sm"></i> Delete </a>
+                                  </div>
+                                </div>
+                                <div class="card-body" id="modeEdit" hidden>
+                                  <form action="functions/update-service-menu.php" method="post" enctype="multipart/form-data">
+                                      <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                          <label for="updateCategory">Category</label>
+                                          <select id="updateCategory" class="form-control" name="category">
+                                            <option selected value="Car">Car</option>
+                                            <option value="Motorcycle">Motorcycle</option>
+                                          </select>
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                          <label for="updateServiceName">Service Name</label>
+                                          <input required autocomplete="off" type="text" class="form-control" id="updateServiceName" placeholder="Service Name" name="servicename">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                          <label for="updateServicePrice">Price</label>
+                                          <div class="input-group mb-3">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">Rp.</span>
+                                              </div>
+                                              <input required autocomplete="off" type="text" class="form-control" id="updateServicePrice" placeholder="50000" name="serviceprice">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                          <label for="updateFileImage">Thumbnail Image (Optional) </label>
+                                            <div class="input-group mb-3">
+                                              <div class="custom-file">
+                                                <input type="file" class="custom-file-input" onchange="imageSelected2()" id="updateImage" accept=".jpg" name="thumbnail2">
+                                                <label class="custom-file-label" for="updateImage" id="updateImageLabel">Choose file</label>
+                                              </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-7" style="border-left: 1px solid #858796;">
-                                            <h5 class="mb-0 text-dark font-weight-bolder" id="servicenameShow"></h5>
-                                            <p class="mb-0" id="typeShow"></p>
-                                            <p class="mb-2" id="priceShow"></p>
-                                            <p class="mb-2 font-weight-bolder" id="statusShow"></p>
+                                      </div>
+                                      <div class="row">
+                                          <div class="form-group col-md-12">
+                                              <label for="updateServiceDesc">Service Description (Optional)</label>
+                                              <textarea autocomplete="off" class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this service" name="servicedesc" id="updateServiceDesc"></textarea>
+                                            
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                          <input type="checkbox" class="custom-control-input" id="setActiveStatus" name="activate">
+                                          <label class="custom-control-label" for="setActiveStatus">Set as Active</label>
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <!-- <br> -->
-                                    <div class="col-xl-12 col-lg-12 text-dark">
-                                        <p class="font-weight-bolder">Description :</p>
-                                        <p class="text-justify" id="descriptionShow"></p>
-                                    </div>
-                                    <hr>
-                                    <div class="row mx-2 d-flex justify-content-end">
-                                        <a href="#" class="btn btn-primary"><i class="fas fa-edit fa-fw fa-sm"></i> Edit</a> &emsp;
-                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteservice"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Delete</a>
-                                    </div>
-                                    
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-secondary" onclick="changeMode()">Cancel</a>                                          &emsp;
+                                            <input type="text" name="serviceidhidden" id="serviceidhidden">
+                                            <input type="submit" name="btnUpdateService" class="btn btn-primary" value="Save">
+                                        </div>
+                                      </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
 
                
@@ -352,9 +426,17 @@
             document.getElementById("inputFileImageLabel").innerHTML = input.files.item(0).name;
         }
     }
+    function imageSelected2(){
+        if (document.getElementById("updateImage").value != '') {
+            var input =  document.getElementById("updateImage");
+            document.getElementById("updateImageLabel").innerHTML = input.files.item(0).name;
+        }
+    }
 
-    function openDetail(thumbnail, name, type, category, price, status, description, id){
+    function openDetail(thumbnail, name, type, category, price, status, description, id, rawprice){
         document.getElementById('detailPanel').hidden = false;
+        document.getElementById('modeView').hidden = false;
+        document.getElementById('modeEdit').hidden = true;
 
         document.getElementById('thumbnailShow').src = '../assets/img/thumbnail/'+ thumbnail;
         document.getElementById('servicenameShow').innerHTML = name;
@@ -363,6 +445,19 @@
         document.getElementById('hiddenServiceID').value = id;
         document.getElementById('deleteTitle').innerHTML = '[ '+ name +' ]';
         document.getElementById('descriptionShow').innerHTML = description;
+
+        document.getElementById('updateCategory').value = category;
+        document.getElementById('updateServiceName').value = name;
+        document.getElementById('updateServicePrice').value = rawprice;
+        document.getElementById('updateServiceDesc').value = description;
+        document.getElementById('serviceidhidden').value  = id;
+        if (status == 'Active') {
+            var checker = 'checked';
+        }else{
+            var checker = '';
+        }
+        document.getElementById('setActiveStatus').checked = checker;
+
 
         document.getElementById('panelUtama').className = 'col-xl-7 col-lg-7';
         if (status =='Active') {
@@ -378,6 +473,18 @@
     function closeDetailPanel(){
         document.getElementById('detailPanel').hidden = true;
         document.getElementById('panelUtama').className = 'col-xl-12 col-lg-12';
+    }
+
+    function changeMode(){
+        if (document.getElementById('modeView').hidden == false) {
+            document.getElementById('modeView').hidden = true;
+            document.getElementById('modeEdit').hidden = false;
+            document.getElementById('rightPaneTitle').innerHTML = '<i class="fas fa-edit fa-fw"></i> Edit Service Detail';
+        }else{
+            document.getElementById('modeView').hidden = false;
+            document.getElementById('modeEdit').hidden = true;
+            document.getElementById('rightPaneTitle').innerHTML = '<i class="fas fa-info-circle fa-fw"></i> Service Detail';
+        }
     }
 
 </script>
