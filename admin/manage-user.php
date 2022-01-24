@@ -2,7 +2,6 @@
 	require_once 'admin-only.php';
 	$activePageLvl=1;
 
-    // Get Data From DB For User List
     $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
     $execute_getUser = mysqli_query($link,$query_getUser);
     $i = 1;
@@ -21,8 +20,6 @@
 
     <!-- dataTable css -->
     <link href="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-
 </head>
 <body class="page-top">
 
@@ -115,96 +112,70 @@
                     </div>
 
                     <!-- Content Row -->
-
                     <div class="row">
 
-                    <!-- User Manager -->
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div
-                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h5 class="m-0 font-weight-bold text-primary">Registered User List</h5>
-                                <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a>
-                                <!-- <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div> -->
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <!-- <div class="chart-area">
-                                    <canvas id="myAreaChart"></canvas>
-                                </div> -->
+                        <!-- User Manager -->
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
 
-                                <table class="table table-striped " id="usersTable">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">No</th>
-                                      <th scope="col">Nama</th>
-                                      <th scope="col">Email</th>
-                                      <th scope="col">Username</th>
-                                      <th scope="col">Role</th>
-                                      <th scope="col">Action</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold text-primary">Registered User List</h5>
+                                    <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a>    
+                                </div>
 
-                                    <?php while ($result_getUser = mysqli_fetch_assoc($execute_getUser)) { ?>
-                                    <tr>
-                                      <th scope="row"><?= $i ?></th>
-                                      <td><?= $result_getUser['fullname'] ?></td>
-                                      <td><?= $result_getUser['email'] ?></td>
-                                      <td><?= $result_getUser['username'] ?></td>
-                                      <td><?php if ($result_getUser['role']=='admin') {
-                                          echo "Admin";
-                                      }elseif ($result_getUser['role']=='operator') {
-                                          echo "Operator";
-                                      }else{echo "";};  ?></td>
-                                      <td class="row">
-
-                                        <form action="edit-user.php" method="post">
-                                            <button class="btn btn-primary" type="submit" name="btnEditUser" value="<?= $result_getUser['id'] ?>"><i class="fas fa-edit fa-fw"></i></button>
-                                        </form>&emsp;
-                                        <button class="btn btn-danger" data-toggle="modal" onclick="del_conf('<?= $result_getUser['username'] ?>','<?= $result_getUser['id'] ?>')" data-target="#modalDeleteUser">
-                                            <i class="fas fa-trash-alt fa-fw"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                    <?php $i++;} ?>
-
-                                  </tbody>
-                                </table>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <table class="table table-striped " id="usersTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Role</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php while ($result_getUser = mysqli_fetch_assoc($execute_getUser)) { ?>
+                                                <tr>
+                                                    <th scope="row"><?= $i ?></th>
+                                                    <td><?= $result_getUser['fullname'] ?></td>
+                                                    <td><?= $result_getUser['email'] ?></td>
+                                                    <td><?= $result_getUser['username'] ?></td>
+                                                    <td><?php if ($result_getUser['role']=='admin') {
+                                                        echo "Admin";
+                                                    }elseif ($result_getUser['role']=='operator') {
+                                                        echo "Operator";
+                                                    }else{echo "";};  ?></td>
+                                                    <td class="row">
+                                                        <form action="edit-user.php" method="post">
+                                                            <button class="btn btn-primary" type="submit" name="btnEditUser" value="<?= $result_getUser['id'] ?>"><i class="fas fa-edit fa-fw"></i>
+                                                            </button>
+                                                        </form>&emsp;
+                                                        <button class="btn btn-danger" data-toggle="modal" onclick="del_conf('<?= $result_getUser['username'] ?>','<?= $result_getUser['id'] ?>')" data-target="#modalDeleteUser">
+                                                            <i class="fas fa-trash-alt fa-fw"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            <?php $i++;} ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-               
-
-                </div>
-                <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
-        <!-- Footer Attach -->
-        <?php require_once "view-template/footer.php" ?>
+            <!-- Footer Attach -->
+            <?php require_once "view-template/footer.php" ?>
 
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
 
@@ -216,14 +187,14 @@
 
     <!-- MODAL DELETE USER -->
     <div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="modalDeleteUserLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalDeleteUserLabel">Delete Confirmation</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteUserLabel">Delete Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
           <div class="modal-body">
             <h5 class="disable-select">Please type <strong class="text-danger">DELETE/<span id="usernametodelete"></span></strong> to confirm.</h5>
             <input type="text" autocomplete="off" onkeyup="equal_checker()" onchange="equal_checker()" name="deleteUser" class="form-control" id="usernameinputtodelete" placeholder="DELETE/ibrahim23">

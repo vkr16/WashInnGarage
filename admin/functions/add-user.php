@@ -8,7 +8,6 @@
 	require '../../assets/vendor/phpmailer/phpmailer/src/PHPMailer.php';
 	require '../../assets/vendor/phpmailer/phpmailer/src/SMTP.php';
 
-
 	function generateRandomString($length) {
 	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	    $charactersLength = strlen($characters);
@@ -19,19 +18,12 @@
 	    return $randomString;
 	}
 
-
 	if (isset($_POST['btnAddUser'])) {
 		$fullname = $_POST['fullname'];
 		$username = $_POST['username'];
 		$email    = $_POST['email'];
 		$phone    = $_POST['phone'];
 		$role     = $_POST['role'];
-
-		// $message = "Hi".$username.", Here is your new login credentials. \n\n
-		// 			Username --> [ ".$username." ] \n
-		// 			Password --> [ ".$password." ] \n\n\n
-		// 			Please change your password immediately after first login. \n\n\n
-		// 			Copyright © 2022, Wash Inn Garage. All Rights Reserved."
 
 		if (isExist($username)) {
 			setcookie('returnstatus', 'userexist', time() + (10), "/");
@@ -53,8 +45,7 @@
 				Password --> [ ".$password." ] \n\n\n
 				Please change your password immediately after first login. \n\n\n
 				Copyright © 2022, Wash Inn Garage. All Rights Reserved.";
-			// $mail->isHTML(true);
-			//send the message, check for errors
+
 			if(addUser($fullname, $username, $email, $phone, $role, $password) && $mail->send()){
 				setcookie('returnstatus', 'success', time() + (10), "/");
 			    header("Location: ../manage-user.php");
@@ -65,7 +56,4 @@
 			}
 		}
 	}
-
-
-
- ?>
+?>

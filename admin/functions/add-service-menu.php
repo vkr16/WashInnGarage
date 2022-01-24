@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../core/init.php";
 
 if (isset($_POST['btnAddServiceMenu'])) {
@@ -35,6 +34,7 @@ if (isset($_POST['btnAddServiceMenu'])) {
             }
             header("Location: ../service-menu.php");
         }
+
     } else {
         $query_addService = "INSERT INTO menus (type ,category, name, price, description, status) 
                                     VALUES ('service','$category', '$servicename', '$price', '$description', '$status')";
@@ -47,5 +47,4 @@ if (isset($_POST['btnAddServiceMenu'])) {
         }
     }
 }
-
 ?>

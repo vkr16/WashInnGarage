@@ -8,8 +8,6 @@
 	require '../../assets/vendor/phpmailer/phpmailer/src/PHPMailer.php';
 	require '../../assets/vendor/phpmailer/phpmailer/src/SMTP.php';
 
-
-
 	function generateRandomString($length) {
 	    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	    $charactersLength = strlen($characters);
@@ -48,9 +46,6 @@
 
 			$verif_string = generateRandomString(7);
 			$verif_string_encoded = base64_encode($verif_string);
-			// $verif_string_decoded = base64_decode($verif_string_encoded);
-
-			
 			
 			$mail = new PHPMailer;
 			$mail->isSMTP();
@@ -63,20 +58,15 @@
 			$mail->addAddress($newemail);
 			$mail->Subject = 'Wash Inn Garage - Email Change Verification';
 		    $mail->Body = "Hi ".$newemail.", Here is your verification code. \n\nOTP --> [  ".$verif_string."  ] \n\n\nThis code only valid for 5 minute after you request. \n\n\nCopyright © 2022, Wash Inn Garage. All Rights Reserved.";
-			// $mail->isHTML(true);
-			// send the message, check for errors
 			if($mail->send()){
 				setcookie('EmChVeCo', $verif_string_encoded, time() + (300), "/");
 				setcookie('NeEmA', $newemail, time() + (300), "/");
 				setcookie('returnstatus', 'otpsent', time() + (10), "/");
 			    header("Location: ../my-account.php");
 			}else{
-				// undoAddUser($username);
 				setcookie('returnstatus', 'offlineFailed', time() + (10), "/");
 			    header("Location: ../manage-user.php");
 			}
 		}
-		
 	}
-
- ?>
+?>
