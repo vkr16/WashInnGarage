@@ -1,8 +1,5 @@
 <?php 	
-    
     require_once "../../core/init.php";
-
-
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
@@ -10,7 +7,6 @@
     require '../../assets/vendor/phpmailer/phpmailer/src/Exception.php';
     require '../../assets/vendor/phpmailer/phpmailer/src/PHPMailer.php';
     require '../../assets/vendor/phpmailer/phpmailer/src/SMTP.php';
-
 
     function generateRandomString($length) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -22,9 +18,8 @@
         return $randomString;
     }
 
-
     if (isset($_POST['btnEditUser'])) {
-    
+
         $oldUsername = $_POST['oldone'];
         $username = $_POST['username'];
         $fullname = $_POST['fullname'];
@@ -32,12 +27,6 @@
         $role     = $_POST['role'];
         $phone    = $_POST['phone'];
         $userid   = $_POST['userid'];
-
-        // if (isset($_POST['resetpass']) && $_POST['resetpass'] == 'reset') {
-        //     echo "checked";
-        // }else{
-        //     echo "not checked";
-        // }
 
         if ($username != $oldUsername) {
             if (isExist($username)) {
@@ -67,8 +56,7 @@
             $mail->addAddress($email);
             $mail->Subject = 'Wash Inn Garage Account Update ';
             $mail->Body = "Hi ".$fullname.", Your account information has been updated.\nHere is your new account details.\n\nFull Name : ".$fullname."\nUsername : ".$username."\nEmail : ".$email."\nPhone Number : ".$phone."\nRole : ".$role.$additionalbody."\n\n\nCopyright © 2022, Wash Inn Garage. All Rights Reserved.";
-            // $mail->isHTML(true);
-            //send the message, check for errors
+
             if (!$mail->send()) {
                 // echo "ERROR: " . $mail->ErrorInfo;  //Jangan dihapuss baris ini
                 setcookie('returnstatus', 'offlinewarning', time() + (10), "/");
@@ -81,6 +69,4 @@
             echo "Failed! Unknown Error, please contact developer for help. [ERR-676]";
         }
     }
-
-
- ?>
+?>
