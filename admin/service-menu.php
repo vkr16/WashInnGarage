@@ -168,9 +168,9 @@
                                             $type = ($service['type'] == 'service')?'Service':'other';
                                             $price = 'Rp '.number_format($service['price'],0,',','.') 
                                         ?>
-                                        <tr>
+                                        <tr onclick="openDetail('<?= $service['image'].'\',\''.$service['name'].'\',\''.$type.'\',\''.$service['category'].'\',\''.$price.'\',\''.$status.'\',\''.$service['description'].'\',\''.$service['id'].'\',\''.$service['price'] ?>')">
                                           <th scope="row"><?= $i ?></th>
-                                          <td><a href="#" onclick="openDetail('<?= $service['image'].'\',\''.$service['name'].'\',\''.$type.'\',\''.$service['category'].'\',\''.$price.'\',\''.$status.'\',\''.$service['description'].'\',\''.$service['id'].'\',\''.$service['price'] ?>')" class="text-decoration-none"><?= $service['name']?></a></td>
+                                          <td><a href="#"  class="text-decoration-none"><?= $service['name']?></a></td>
                                           <td><?= $price?></td>
                                           <td><?= $service['category'] ?></td>
                                           <td><?= $status ?></td>
