@@ -97,7 +97,7 @@
                                         </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'servicenotupdated') {
                                      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Service Update Failed. <br>Error : </strong>Service id not found. [ERR-274]
+                                          <strong>Service Update Failed. <br>Error : </strong>Service redundant or id not found. [ERR-274]
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -272,8 +272,8 @@
                                       <div class="row">
                                         <div class="col-md-12">
                                             <a class="btn btn-secondary" onclick="changeMode()">Cancel</a>                                          &emsp;
-                                            <input type="text" name="serviceidhidden" id="serviceidhidden">
-                                            <input type="submit" name="btnUpdateService" class="btn btn-primary" value="Save">
+                                            <input type="text" name="serviceidhidden" id="serviceidhidden" hidden readonly>
+                                            <button type="submit" name="btnUpdateService" class="btn btn-primary" >Save <i class="fas fa-save fa-fw fa-sm"></i></button>
                                         </div>
                                       </div>
                                     </form>
