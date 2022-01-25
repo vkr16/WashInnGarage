@@ -36,7 +36,6 @@ if (isset($_POST['btnAddFnB'])) {
                     setcookie('returnstatus', 'itemadded', time() + (10), "/");
                 }else{
                     setcookie('returnstatus', 'itemnotadded', time() + (10), "/");
-    	            // I've no idea WHY, but it works so i let it be. (Jangan dihapus) 0_o
                 }
                 header("Location: ../fnb-menu.php");
             }

@@ -47,66 +47,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Manage Menu </h1>
-<<<<<<< HEAD
-                        
-                        <?php 
-                            if (isset($_COOKIE['returnstatus'])) {
-                                if ($_COOKIE['returnstatus'] == 'userexist') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        Registration failed!, Username already exist in database
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'success') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Registration successful!</strong><br>Password sent to user\'s email, please ask user to check their spam folder!
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'usernameconflict') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>Update failed!</strong>, new username conflict with another user in database
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'updatesuccess') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Update successful!</strong><br>Information update sent to user\'s email, please ask user to check their spam folder!
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>User Deletion Successful!</strong>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'offlinewarning') {
-                                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Update Successful With an Error!</strong><br>
-                                        Failed send email notification to user!!
-                                        Update saved to database but user got no notification!
-                                        <br>It may caused by invalid email address or there is no internet connection.<br><hr>
-                                        If you just reset user password, please try again with internet connection!
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'offlineFailed') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>Add New User Failed!!</strong><br>
-                                        Can not send email confirmation to user, 
-                                        <br>It may caused by invalid email address or there is no internet connection.
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>';
-=======
+
                         <?php 
                             if (isset($_COOKIE['returnstatus'])) {
                                 if ($_COOKIE['returnstatus'] == 'itemadded') {
@@ -172,7 +113,6 @@
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
->>>>>>> a58888368a1995618c66043e4accf611b6e9151b
                                 }
                             }
                          ?>
@@ -195,40 +135,6 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <table class="table table-striped" id="services">
-<<<<<<< HEAD
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Service Name</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Category</th>
-                                                <th scope="col">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@mdo</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@mdo</td>
-                                                <td>@twitter</td>
-                                            </tr>
-                                        </tbody>
-=======
                                       <thead>
                                         <tr>
                                           <th scope="col">No</th>
@@ -254,7 +160,6 @@
                                         </tr>
                                         <?php $i++;} ?>
                                       </tbody>
->>>>>>> a58888368a1995618c66043e4accf611b6e9151b
                                     </table>
                                 </div>
                             </div>
@@ -384,69 +289,6 @@
 
     <!-- Modal Add New Menu -->
     <div class="modal fade " data-backdrop="static" id="addMenuModal" tabindex="-1" aria-labelledby="addMenuModalLabel" aria-hidden="true">
-<<<<<<< HEAD
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addMenuModalLabel">Add New Service To Menu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputCategory">Category</label>
-                                <select id="inputCategory" class="form-control">
-                                    <option selected value="Car">Car</option>
-                                    <option value="Motorcycle">Motorcycle</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-8">
-                                <label for="inputServiceName">Service Name</label>
-                                <input type="text" class="form-control" id="inputServiceName" placeholder="Service Name">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputServicePrice">Price</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Rp.</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="inputServicePrice" placeholder="50.000">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputFileImage">Thumbnail Image (Optional)</label>
-                                <div class="input-group mb-3">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" onchange="imageSelected()" id="inputFileImage" accept=".jpg,.jpeg,.png">
-                                        <label class="custom-file-label" for="inputFileImage" id="inputFileImageLabel">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="inputServiceDesc">Service Description (Optional)</label>
-                                <textarea class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this service"></textarea>
-                            </div>
-                        </div>
-                  
-                        <div class="form-group">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="setActiveCheck">
-                                <label class="custom-control-label" for="setActiveCheck">Set as Active</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close</button>
-                    <button type="button" class="btn btn-primary">Save <i class="fas fa-save fa-fw"></i></button>
-                </div>
-            </div>
-=======
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -504,12 +346,9 @@
             <button type="submit" name="btnAddMerch" class="btn btn-primary">Save <i class="fas fa-save fa-fw"></i></button>
             </form>
           </div>
->>>>>>> a58888368a1995618c66043e4accf611b6e9151b
         </div>
     </div>
-<<<<<<< HEAD
     <!-- Modal Add New Menu  END-->
-=======
 <!-- Modal Add New Menu  END-->
 
 
@@ -543,9 +382,6 @@
 
 
 
->>>>>>> a58888368a1995618c66043e4accf611b6e9151b
-
-
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?=$assets?>/vendor/jquery/jquery.min.js"></script>
@@ -567,15 +403,6 @@
         });
 
 
-<<<<<<< HEAD
-        function imageSelected(){
-            if (document.getElementById("inputFileImage").value != '') {
-                var input =  document.getElementById("inputFileImage");
-                document.getElementById("inputFileImageLabel").innerHTML = input.files.item(0).name;
-            }
-        }
-    </script>
-=======
 
 
 
@@ -648,6 +475,5 @@
 
 </script>
 
->>>>>>> a58888368a1995618c66043e4accf611b6e9151b
 </body>
 </html>

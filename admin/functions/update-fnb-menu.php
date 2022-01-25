@@ -3,12 +3,13 @@ require_once "../../core/init.php";
 
 
 
-if (isset($_POST['btnUpdateMerch'])) {
-    $itemname = $_POST['merchname'];
-    $stock    = $_POST['merchstock'];
+if (isset($_POST['btnUpdateFnB'])) {
+    $itemname = $_POST['fnbname'];
+    $stock    = $_POST['fnbstock'];
     $image       = $_POST['thumbnail2'];
-    $price       = $_POST['merchprice'];
-    $description = $_POST['merchdesc'];
+    $price       = $_POST['fnbprice'];
+    $description = $_POST['fnbdesc'];
+    $type 	     = $_POST['fnbtype'];
 
     $id = $_POST['serviceidhidden'];
 
@@ -36,7 +37,7 @@ if (isset($_POST['btnUpdateMerch'])) {
         $pathfile = $_SERVER['DOCUMENT_ROOT'] . "/WashInnGarage/assets/img/thumbnail/" . $old_img;
         unlink($pathfile);
         
-        $query_updateMerchandise1 = "UPDATE menus SET type = 'merchandise', stock = '$stock', name = '$itemname',image = '$filenameondb', price = '$price', description = '$description', status = '$status' WHERE id = '$id'";
+        $query_updateMerchandise1 = "UPDATE menus SET type = '$type', stock = '$stock', name = '$itemname',image = '$filenameondb', price = '$price', description = '$description', status = '$status' WHERE id = '$id'";
         
         if (mysqli_query($link, $query_updateMerchandise1)) {
             if (move_uploaded_file($_FILES['thumbnail2']['tmp_name'], $path)) {
@@ -44,20 +45,20 @@ if (isset($_POST['btnUpdateMerch'])) {
             } else {
                 setcookie('returnstatus', 'itemnotupdated', time() + (10), "/");
             }
-            header("Location: ../merch-menu.php");
+            header("Location: ../fnb-menu.php");
         }
 
     } else {
-        $query_updateMerchandise = "UPDATE menus SET type = 'merchandise',  stock = '$stock', name = '$itemname', price = '$price', description = '$description', status = '$status' WHERE id = '$id'";
+        $query_updateMerchandise = "UPDATE menus SET type = '$type',  stock = '$stock', name = '$itemname', price = '$price', description = '$description', status = '$status' WHERE id = '$id'";
         if (mysqli_query($link, $query_updateMerchandise)) {
             setcookie('returnstatus', 'itemupdated', time() + (10), "/");
-            header("Location: ../merch-menu.php");
+            header("Location: ../fnb-menu.php");
         } else {
             setcookie('returnstatus', 'itemnotupdated', time() + (10), "/");
-            header("Location: ../merch-menu.php");
+            header("Location: ../fnb-menu.php");
         }
     }
 } else {
-    header("Location: ../merch-menu.php");
+    header("Location: ../fnb-menu.php");
 }
 ?>

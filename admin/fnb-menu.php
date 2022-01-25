@@ -55,7 +55,7 @@
                             if (isset($_COOKIE['returnstatus'])) {
                                 if ($_COOKIE['returnstatus'] == 'itemadded') {
                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>New Merchandise Item Added To The Menu</strong>
+                                          <strong>New Menu Item Has Been Added</strong>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -76,42 +76,7 @@
                                         </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'itemnotupdated') {
                                      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Item Detail Update Failed. <br>Error : </strong>Service redundant or id not found. [ERR-274]
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'serviceaddednotuploaded') {
-                                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                          <strong>New Service Added To The Menu With An Error. <br></strong>Thumbnail image not uploaded, unknown reason. [ERR-998]
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'servicedeleted') {
-                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>An Item Has Been Deleted.<br></strong>
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'servicenotdeleted') {
-                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Service Deletion Failed. <br>Error : </strong>Service not found.
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'serviceupdated') {
-                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>A Service Has Been Updated.<br></strong>
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'serviceredundant') {
-                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Update Service Failed. <br> Error :</strong> A Service With The Same Name Already Exist On The Menu
+                                          <strong>Item Detail Update Failed. <br>Error : </strong>Item name redundant or id not found. [ERR-274]
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -235,10 +200,10 @@
                                           <input required autocomplete="off" type="text" class="form-control" id="updateFnBName" placeholder="Item Name" name="fnbname">
                                         </div>
                                         <div class="form-group col-md-3">
-                                          <label for="updateCategory">Category</label>
-                                          <select id="updateCategory" class="form-control" name="category">
-                                            <option selected value="Car">Car</option>
-                                            <option value="Motorcycle">Motorcycle</option>
+                                          <label for="updateFnBType">Category</label>
+                                          <select id="updateFnBType" class="form-control" name="fnbtype">
+                                            <option selected value="food">Food/Snack</option>
+                                            <option value="beverage">Beverage</option>
                                           </select>
                                         </div>
                                         <div class="form-group col-md-4">
