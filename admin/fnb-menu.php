@@ -7,8 +7,8 @@
     $execute_getUser = mysqli_query($link,$query_getUser);
     $i = 1;
 
-    $query_getMerchandise = "SELECT * FROM menus WHERE type = 'merchandise'";
-    $execute_getMerchandise = mysqli_query($link, $query_getMerchandise);
+    $query_getFnB = "SELECT * FROM menus WHERE type = 'food' OR type = 'beverage'";
+    $execute_getFnB = mysqli_query($link, $query_getFnB);
 
  ?>
  <!DOCTYPE html>
@@ -132,7 +132,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-gift fa-fw"></i> Merchandise</h5>
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-mug-hot fa-fw"></i> Food & Beverage</h5>
                                     <a data-toggle="modal" data-target="#addMenuModal" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> Add Menu</a>
                                     <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -156,23 +156,29 @@
                                         <tr>
                                           <th scope="col">No</th>
                                           <th scope="col">Item Name</th>
+                                          <th scope="col">Type</th>
                                           <th scope="col">Price</th>
                                           <th scope="col">Stock</th>
                                           <th scope="col">Status</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <?php while ($merch = mysqli_fetch_assoc($execute_getMerchandise)) {
-                                            $checker = ($merch['status'] == 'active')?'checked':'';
-                                            $status = ($merch['status'] == 'active')?'Active':'Inactive';
-                                            $type = ($merch['type'] == 'merchandise')?'Merchandise':'other';
-                                            $price = 'Rp '.number_format($merch['price'],0,',','.') 
+                                        <?php while ($fnb = mysqli_fetch_assoc($execute_getFnB)) {
+                                            $checker = ($fnb['status'] == 'active')?'checked':'';
+                                            $status = ($fnb['status'] == 'active')?'Active':'Inactive';
+                                            if ($fnb['type'] == 'food') {
+                                                $type = 'Food/Snack';
+                                            }elseif($fnb['type'] == 'beverage'){
+                                                $type = 'Beverage';
+                                            }
+                                            $price = 'Rp '.number_format($fnb['price'],0,',','.') 
                                         ?>
-                                        <tr onclick="openDetail('<?= $merch['image'].'\',\''.$merch['name'].'\',\''.$type.'\',\''.$merch['stock'].'\',\''.$price.'\',\''.$status.'\',\''.$merch['description'].'\',\''.$merch['id'].'\',\''.$merch['price'] ?>')">
+                                        <tr onclick="openDetail('<?= $fnb['image'].'\',\''.$fnb['name'].'\',\''.$type.'\',\''.$fnb['stock'].'\',\''.$price.'\',\''.$status.'\',\''.$fnb['description'].'\',\''.$fnb['id'].'\',\''.$fnb['price'] ?>')">
                                           <th scope="row"><?= $i ?></th>
-                                          <td><a href="#"  class="text-decoration-none"><?= $merch['name']?></a></td>
+                                          <td><a href="#"  class="text-decoration-none"><?= $fnb['name']?></a></td>
+                                          <td><?= $type ?></td>
                                           <td><?= $price?></td>
-                                          <td><?= $merch['stock'] ?></td>
+                                          <td><?= $fnb['stock'] ?></td>
                                           <td><?= $status ?></td>
                                         </tr>
                                         <?php $i++;} ?>
@@ -200,7 +206,7 @@
                                       </div>
                                     </div>
                                     <div class="col-xl-7">
-                                      <h5 class="mb-0 text-dark font-weight-bolder" id="merchNameShow"></h5>
+                                      <h5 class="mb-0 text-dark font-weight-bolder" id="fnbNameShow"></h5>
                                       <p class="mb-0" id="typeShow"></p>
                                       <p class="mb-2" id="priceShow"></p>
                                       <p class="mb-2 font-weight-bolder" id="statusShow"></p>
@@ -217,35 +223,42 @@
                                     <a href="#" class="btn btn-primary" onclick="changeMode()"> 
                                       <i class="fas fa-edit fa-fw fa-sm"></i> Edit </a> 
                                       &emsp; 
-                                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deletemerch">
+                                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deletefnb">
                                       <i class="fas fa-trash-alt fa-fw fa-sm"></i> Delete </a>
                                   </div>
                                 </div>
                                 <div class="card-body" id="modeEdit" hidden>
-                                  <form action="functions/update-merch-menu.php" method="post" enctype="multipart/form-data">
+                                  <form action="functions/update-fnb-menu.php" method="post" enctype="multipart/form-data">
                                       <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                          <label for="updateMerchName">Item Name</label>
-                                          <input required autocomplete="off" type="text" class="form-control" id="updateMerchName" placeholder="Item Name" name="merchname">
+                                        <div class="form-group col-md-5">
+                                          <label for="updateFnBName">Item Name</label>
+                                          <input required autocomplete="off" type="text" class="form-control" id="updateFnBName" placeholder="Item Name" name="fnbname">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                          <label for="updateCategory">Category</label>
+                                          <select id="updateCategory" class="form-control" name="category">
+                                            <option selected value="Car">Car</option>
+                                            <option value="Motorcycle">Motorcycle</option>
+                                          </select>
                                         </div>
                                         <div class="form-group col-md-4">
-                                          <label for="updateMerchStock">Stock</label>
-                                          <input required autocomplete="off" class="form-control" id="updateMerchStock" type="number" name="merchstock" placeholder="Item Stock">
+                                          <label for="updateFnBStock">Stock</label>
+                                          <input required autocomplete="off" class="form-control" id="updateFnBStock" type="number" name="fnbstock" placeholder="Item Stock">
                                         </div>
                                         <div class="form-group col-md-6">
-                                          <label for="updateMerchPrice">Price</label>
+                                          <label for="updateFnBPrice">Price</label>
                                           <div class="input-group mb-3">
                                               <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Rp.</span>
                                               </div>
-                                              <input required autocomplete="off" type="text" class="form-control" id="updateMerchPrice" placeholder="50000" name="merchprice">
+                                              <input required autocomplete="off" type="text" class="form-control" id="updateFnBPrice" placeholder="50000" name="fnbprice">
                                           </div>
                                         </div>
                                         <div class="form-group col-md-6">
                                           <label for="updateFileImage">Thumbnail Image (Optional) </label>
                                             <div class="input-group mb-3">
                                               <div class="custom-file">
-                                                <input type="file" class="custom-file-input" onchange="imageSelected2()" id="updateImage" accept=".jpg" name="thumbnail2">
+                                                <input type="file" class="custom-file-input" onchange="imageSelected2()" id="updateImage" accept=".jpg,.jpeg,.png" name="thumbnail2">
                                                 <label class="custom-file-label" for="updateImage" id="updateImageLabel">Choose file</label>
                                               </div>
                                             </div>
@@ -253,8 +266,8 @@
                                       </div>
                                       <div class="row">
                                           <div class="form-group col-md-12">
-                                              <label for="updateMerchDesc">Item Description (Optional)</label>
-                                              <textarea autocomplete="off" class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this item" name="merchdesc" id="updateMerchDesc"></textarea>
+                                              <label for="updateFnBDesc">Item Description (Optional)</label>
+                                              <textarea autocomplete="off" class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this item" name="fnbdesc" id="updateFnBDesc"></textarea>
                                             
                                           </div>
                                       </div>
@@ -270,7 +283,7 @@
                                         <div class="col-md-12">
                                             <a class="btn btn-secondary" onclick="changeMode()">Cancel</a>                                          &emsp;
                                             <input type="text" name="serviceidhidden" id="serviceidhidden" hidden readonly>
-                                            <button type="submit" name="btnUpdateMerch" class="btn btn-primary" >Save <i class="fas fa-save fa-fw fa-sm"></i></button>
+                                            <button type="submit" name="btnUpdateFnB" class="btn btn-primary" >Save <i class="fas fa-save fa-fw fa-sm"></i></button>
                                         </div>
                                       </div>
                                     </form>
@@ -318,23 +331,30 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="functions/add-merch-menu.php" method="post" enctype="multipart/form-data">
+            <form action="functions/add-fnb-menu.php" method="post" enctype="multipart/form-data">
               <div class="form-row">
-                <div class="form-group col-md-8">
-                  <label for="inputMerchName">Item Name</label>
-                  <input required autocomplete="off" type="text" class="form-control" id="inputMerchName" placeholder="Item Name" name="merchname">
+                <div class="form-group col-md-5">
+                  <label for="inputFnBName">Item Name</label>
+                  <input required autocomplete="off" type="text" class="form-control" id="inputFnBName" placeholder="Item Name" name="fnbname">
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="inputFnBType">Category</label>
+                  <select id="inputFnBType" class="form-control" name="fnbtype">
+                    <option selected value="food">Food/Snack</option>
+                    <option value="beverage">Beverage</option>
+                  </select>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputStock">Stock</label>
-                  <input required autocomplete="off" class="form-control" type="number" name="merchstock" placeholder="Item Stock">
+                  <input required autocomplete="off" class="form-control" type="number" name="fnbstock" placeholder="Item Stock">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputMerchPrice">Price</label>
+                  <label for="inputFnBPrice">Price</label>
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Rp.</span>
                       </div>
-                      <input required autocomplete="off" type="text" class="form-control" id="inputMerchPrice" placeholder="50000" name="merchprice">
+                      <input required autocomplete="off" type="text" class="form-control" id="inputFnBPrice" placeholder="10000" name="fnbprice">
                   </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -349,8 +369,8 @@
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="inputMerchDesc">Item Description (Optional)</label>
-                      <textarea autocomplete="off" class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this item" name="merchdesc"></textarea>
+                      <label for="inputFnBDesc">Item Description (Optional)</label>
+                      <textarea autocomplete="off" class="form-control" style="min-height: 100px; max-height: 200px;" placeholder="Description for this item" name="fnbdesc"></textarea>
                   </div>
               </div>
               
@@ -363,7 +383,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close</button>
-            <button type="submit" name="btnAddMerch" class="btn btn-primary">Save <i class="fas fa-save fa-fw"></i></button>
+            <button type="submit" name="btnAddFnB" class="btn btn-primary">Save <i class="fas fa-save fa-fw"></i></button>
             </form>
           </div>
         </div>
@@ -373,7 +393,7 @@
 
 
 <!-- Modal confirm delete service -->
-<div class="modal fade" id="deletemerch" tabindex="-1" aria-labelledby="deletemerchLabel" aria-hidden="true">
+<div class="modal fade" id="deletefnb" tabindex="-1" aria-labelledby="deletefnbLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -390,7 +410,7 @@
         <form action="functions/delete-menu.php" method="post">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <input type="password" name="hiddenServiceID" id="hiddenServiceID" hidden readonly>
-            <input type="password" name="origin" id="origin" hidden readonly value="merch-menu.php">
+            <input type="password" name="origin" id="origin" hidden readonly value="fnb-menu.php">
             <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Yes, Delete</button>
         </form>
       </div>
@@ -447,17 +467,17 @@
         document.getElementById('modeEdit').hidden = true;
 
         document.getElementById('thumbnailShow').src = '../assets/img/thumbnail/'+ thumbnail;
-        document.getElementById('merchNameShow').innerHTML = name;
+        document.getElementById('fnbNameShow').innerHTML = name;
         document.getElementById('typeShow').innerHTML = type + ' - ' + stock + ' in Stock';
         document.getElementById('priceShow').innerHTML = price;
         document.getElementById('hiddenServiceID').value = id;
         document.getElementById('deleteTitle').innerHTML = '[ '+ name +' ]';
         document.getElementById('descriptionShow').innerHTML = description;
 
-        document.getElementById('updateMerchStock').value = stock;
-        document.getElementById('updateMerchName').value = name;
-        document.getElementById('updateMerchPrice').value = rawprice;
-        document.getElementById('updateMerchDesc').value = description;
+        document.getElementById('updateFnBStock').value = stock;
+        document.getElementById('updateFnBName').value = name;
+        document.getElementById('updateFnBPrice').value = rawprice;
+        document.getElementById('updateFnBDesc').value = description;
         document.getElementById('serviceidhidden').value  = id;
         if (status == 'Active') {
             var checker = 'checked';
