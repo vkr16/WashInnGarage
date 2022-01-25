@@ -68,5 +68,7 @@
         }else{
             echo "Failed! Unknown Error, please contact developer for help. [ERR-676]";
         }
+    }else{
+        header("Location: ../manage-user.php");
     }
 ?>

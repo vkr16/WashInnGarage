@@ -69,7 +69,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu</h6>
                 <a class="collapse-item" href="service-menu.php">Services</a>
-                <a class="collapse-item" href="utilities-border.html">Merchandise</a>
+                <a class="collapse-item" href="merch-menu.php">Merchandise</a>
                 <a class="collapse-item" href="utilities-animation.html">Food & Beverage</a>
                 <a class="collapse-item" href="utilities-other.html">Other</a>
             </div>
