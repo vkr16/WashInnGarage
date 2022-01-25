@@ -50,65 +50,65 @@
                             if (isset($_COOKIE['returnstatus'])) {
                                 if ($_COOKIE['returnstatus'] == 'userexist') {
                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          Registration failed!, Username already exist in database
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
+                                        Registration failed!, Username already exist in database
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'success') {
                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>Registration successful!</strong><br>Password sent to user\'s email, please ask user to check their spam folder!
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <strong>Registration successful!</strong><br>Password sent to user\'s email, please ask user to check their spam folder!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
+                                        </button>
+                                    </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'usernameconflict') {
-                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Update failed!</strong>, new username conflict with another user in database
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Update failed!</strong>, new username conflict with another user in database
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'updatesuccess') {
                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>Update successful!</strong><br>Information update sent to user\'s email, please ask user to check their spam folder!
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
+                                        <strong>Update successful!</strong><br>Information update sent to user\'s email, please ask user to check their spam folder!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
                                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>User Deletion Successful!</strong>
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
+                                        <strong>User Deletion Successful!</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'offlinewarning') {
                                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                          <strong>Update Successful With an Error!</strong><br>
-                                          Failed send email notification to user!!
-                                          Update saved to database but user got no notification!
-                                          <br>It may caused by invalid email address or there is no internet connection.<br><hr>
-                                          If you just reset user password, please try again with internet connection!
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
+                                        <strong>Update Successful With an Error!</strong><br>
+                                        Failed send email notification to user!!
+                                        Update saved to database but user got no notification!
+                                        <br>It may caused by invalid email address or there is no internet connection.<br><hr>
+                                        If you just reset user password, please try again with internet connection!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
                                 }elseif ($_COOKIE['returnstatus'] == 'offlineFailed') {
                                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Add New User Failed!!</strong><br>
-                                          Can not send email confirmation to user, 
-                                          <br>It may caused by invalid email address or there is no internet connection.
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>';
+                                        <strong>Add New User Failed!!</strong><br>
+                                        Can not send email confirmation to user, 
+                                        <br>It may caused by invalid email address or there is no internet connection.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
                                 }
                             }
                          ?>
 
                         <a target="_blank" href="download-builder/user-data-download.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Download User Data</a>
+                            class="fas fa-download fa-sm text-white-50"></i> Download User Data</a>
                     </div>
 
                     <!-- Content Row -->
@@ -173,7 +173,6 @@
 
             <!-- Footer Attach -->
             <?php require_once "view-template/footer.php" ?>
-
         </div>
         <!-- End of Content Wrapper -->
     </div>
@@ -183,7 +182,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
 
     <!-- MODAL DELETE USER -->
     <div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="modalDeleteUserLabel" aria-hidden="true">
@@ -195,25 +193,22 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-          <div class="modal-body">
-            <h5 class="disable-select">Please type <strong class="text-danger">DELETE/<span id="usernametodelete"></span></strong> to confirm.</h5>
-            <input type="text" autocomplete="off" onkeyup="equal_checker()" onchange="equal_checker()" name="deleteUser" class="form-control" id="usernameinputtodelete" placeholder="DELETE/ibrahim23">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <form action="functions/delete-user.php" method="post">
-            <button disabled="true" type="submit" value="" name="btnDelete" class="btn btn-danger" id="btnDelete"><i class="fas fa-trash-alt fa-fw"></i>&nbsp; Delete User</button>
-            </form>
-          </div>
+                <div class="modal-body">
+                    <h5 class="disable-select">Please type <strong class="text-danger">DELETE/<span id="usernametodelete"></span></strong> to confirm.</h5>
+                    <input type="text" autocomplete="off" onkeyup="equal_checker()" onchange="equal_checker()" name="deleteUser" class="form-control" id="usernameinputtodelete" placeholder="DELETE/ibrahim23">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <form action="functions/delete-user.php" method="post">
+                        <button disabled="true" type="submit" value="" name="btnDelete" class="btn btn-danger" id="btnDelete"><i class="fas fa-trash-alt fa-fw"></i>&nbsp; Delete User</button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
     <!-- MODAL DETELE USER END -->
 
-
     <script type="text/javascript">
-            
         function del_conf(username, id){
             document.getElementById("usernametodelete").innerHTML = username;
             document.getElementById("usernameinputtodelete").placeholder = "DELETE/"+username;
@@ -227,9 +222,7 @@
                 document.getElementById("btnDelete").disabled = true;
             }
         }
-
     </script>
-
 
 	<!-- Bootstrap core JavaScript-->
     <script src="<?=$assets?>/vendor/jquery/jquery.min.js"></script>
@@ -249,10 +242,7 @@
         $(document).ready(function() {
           $('#usersTable').DataTable();
         });
-
     </script>
-
-
 </body>
 </html>
 
@@ -261,11 +251,11 @@
 <!-- =================================== -->
 
 <style type="text/css">
-.disable-select {
-    user-select: none; /* supported by Chrome and Opera */
-   -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-   -moz-user-select: none; /* Firefox */
-   -ms-user-select: none; /* Internet Explorer/Edge */
-}
+    .disable-select {
+        user-select: none; /* supported by Chrome and Opera */
+       -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+    }
 </style>
