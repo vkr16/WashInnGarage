@@ -71,7 +71,7 @@
                 <a class="collapse-item" href="service-menu.php">Services</a>
                 <a class="collapse-item" href="merch-menu.php">Merchandise</a>
                 <a class="collapse-item" href="fnb-menu.php">Food & Beverage</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
+                <!-- <a class="collapse-item" href="utilities-other.html">Other</a> -->
             </div>
         </div>
     </li>

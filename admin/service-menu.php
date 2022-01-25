@@ -16,7 +16,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Manage menu</title>
+	<title>Manage Menu</title>
 
 	<link rel="icon" type="image/png" href="<?=$assets?>/img/logo.png">
 	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
