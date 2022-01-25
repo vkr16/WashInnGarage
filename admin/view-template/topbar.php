@@ -13,7 +13,17 @@
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-lg-inline my-auto">
-            Senin, 27 Januari 2022
+            <span id="tgl"></span>
+            <script>
+                arrbulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+                arrhari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+                var dt = new Date();
+                hari = dt.getDay();
+                tanggal = dt.getDate();
+                bulan = dt.getMonth();
+                tahun = dt.getFullYear();
+                document.getElementById("tgl").innerHTML = arrhari[hari]+", "+tanggal+" "+arrbulan[bulan]+" "+tahun;
+            </script>
         </li>
         <div class="topbar-divider d-none d-sm-block"></div>
 
