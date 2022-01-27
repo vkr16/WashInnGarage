@@ -2,7 +2,7 @@
 require_once "../core/init.php";
 if (isset($_POST['customername'])) {
     $customername = $_POST['customername'];
-    $customerphone = $_POST['customerphone'];
+    $customerphoneRAW = $_POST['customerphone'];
     $customeremail = $_POST['customeremail'];
 
     if (isset($_POST['registermembership'])) {
@@ -11,11 +11,31 @@ if (isset($_POST['customername'])) {
         $registermembership = 'no';
     }
 
-    $vehicleType = $_POST['vehicleType'];
+    $vehicleTypePost = $_POST['vehicleType'];
     $platNomor = $_POST['platNomor'];
     $serviceID = $_POST['serviceID'];
-    $price = '40000';
+
+    $query_getServiceDetails = "SELECT * FROM menus WHERE id = '$serviceID'";
+    $excute_getServiceDetail = mysqli_query($link, $query_getServiceDetails);
+
+    $serviceDetail = mysqli_fetch_assoc($excute_getServiceDetail);
+    $thumbnail = $serviceDetail['image'];
+    $price = $serviceDetail['price'];
+    $servicename = $serviceDetail['name'];
     $priceformated = 'Rp ' . number_format($price, 0, ',', '.');
+
+    // extracting phone number to be converted to be useable with whatsapp api
+    if ($customerphoneRAW[0] == '0') {
+        $customerphone = '62' . substr($customerphoneRAW, 1);
+    } elseif (substr($customerphoneRAW, 0, 3) == "+62") {
+        $customerphone = '62' . substr($customerphoneRAW, 3);
+    } else {
+        $customerphone = $customerphoneRAW;
+    }
+
+
+
+    $vehicleType = ($vehicleTypePost == 'Car') ? 'Mobil' : 'Motor';
 } else {
     header("Location:index.php");
 }
@@ -70,10 +90,10 @@ if (isset($_POST['customername'])) {
 
 
 
-    <div class="container">
-        <div class="col-lg-10 offset-lg-1">
-            <div class="card bg-light mt-4 mb-5">
-                <div class="card-body mb-5">
+    <div class="container pb-2">
+        <div class="col-lg-12 ">
+            <div class="card bg-light mt-4 mb-4">
+                <div class="card-body ">
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
                             <img src="../assets/img/logo.png" alt="" width="100%">
@@ -85,7 +105,7 @@ if (isset($_POST['customername'])) {
                     </div>
                     <div class="col-md-10 offset-md-1 mt-4 row">
                         <div class="col-md-5">
-                            <img src="../assets/img/thumbnail/Express 250.jpg" class="rounded" alt="" width="100%">
+                            <img src="../assets/img/thumbnail/<?= $thumbnail ?>" class="rounded" alt="" width="100%">
                         </div>
                         <div class="col-md-7">
                             <table class="table table-sm table-borderless">
@@ -121,7 +141,7 @@ if (isset($_POST['customername'])) {
                                     <tr>
                                         <th>Paket Layanan</th>
                                         <td> : </td>
-                                        <td><?= $serviceID ?></td>
+                                        <td><?= $servicename ?></td>
                                     </tr>
                                     <tr>
                                         <th>Total Harga</th>
@@ -131,12 +151,23 @@ if (isset($_POST['customername'])) {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div><br>
                     <div class="col-md-10 offset-md-1 d-flex justify-content-center">
-                        <button class="btn btn-lg btn-primary">Konfirmasi Pesanan</button>
+                        <form action="submitorder.php" method="post">
+                            <input type="text" name="customername" id="customername" value="<?= $customername ?>" hidden>
+                            <input type="text" name="customerphone" id="customerphone" value="<?= $customerphone ?>" hidden>
+                            <input type="text" name="customeremail" id="customeremail" value="<?= $customeremail ?>" hidden>
+                            <input type="text" name="vehicleType" id="vehicleType" value="<?= $vehicleType ?>" hidden>
+                            <input type="text" name="serviceID" id="serviceID" value="<?= $serviceID ?>" hidden>
+                            <input type="text" name="totalPrice" id="totalPrice" value="<?= $price ?>" hidden>
+                            <input type="text" name="registermembership" id="registermembership" value="<?= $registermembership ?>" hidden>
+                            <input type="text" name="platNomor" id="platNomor" value="<?= $platNomor ?>" hidden>
+                            <button type="submit" name="btnConfirm" class="btn btn-lg btn-primary">Konfirmasi Pesanan</button>
+                        </form>
                     </div>
                     <hr class="col-md-10 offset-md-1">
                 </div>
+                <small class="text-center text-muted mb-4">Copyright &copy; Wash Inn Garage 2022. <br>All Rights Reserved.</small>
             </div>
         </div>
     </div>

@@ -71,7 +71,7 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                         <hr>
                     </div>
                     <div class="col-md-10 offset-md-1 mt-4">
-                        <form action="order-confirmation.php" method="post">
+                        <form action="order-confirmation.php" method="post" name="formneworder">
                             <div class="form-group">
                                 <label for="customername">Nama Lengkap </label>
                                 <input required autocomplete="off" type="text" class="form-control" id="customername" name="customername" aria-describedby="nameHelp" placeholder="Nama Lengkap">
@@ -82,15 +82,17 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                             </div>
                             <div class="form-group">
                                 <label for="customeremail">Email <small>(Opsional)</small></label>
-                                <input required autocomplete="off" type="text" class="form-control" id="customeremail" name="customeremail" placeholder="Email">
+                                <input autocomplete="off" type="text" class="form-control" id="customeremail" name="customeremail" placeholder="Email" onkeyup="ValidateEmail(document.formneworder.customeremail)">
+                                <small class="text-danger" hidden id="emailalert"><i class="fas fa-exclamation-triangle"></i> Format email tidak lengkap / tidak valid</small>
+                                <small class="text-danger" hidden id="emailalert2"><br><i class="fas fa-exclamation-triangle"></i> Untuk mendaftar sebagai member email wajib diisi</small>
                             </div>
                             <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="registermembership" name="registermembership">
-                                <label class="form-check-label" for="registermembership">Daftarkan Saya Dalam Program Keanggotaan </label>
+                                <input type="checkbox" class="form-check-input" id="registermembership" name="registermembership" onclick="checkEmailField()">
+                                <label class="form-check-label" for="registermembership">Daftarkan Saya Sebagai Member </label>
                             </div>
                             <div class="row d-flex justify-content-between mx-auto">
                                 <a href="index.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                                <a class="btn btn-primary" onclick="switchView('customerID','vehicleID')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
+                                <a class="btn btn-primary" onclick="switchView('customerID','vehicleID')" id="btnNext1">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
                             </div>
                     </div>
                 </div>
@@ -209,6 +211,28 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
             } else if (document.getElementById('jenismotor').checked == true) {
                 document.getElementById('LayananMobil').hidden = true;
                 document.getElementById('LayananMotor').hidden = false;
+            }
+        }
+
+        function ValidateEmail(newemail) {
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (newemail.value.match(mailformat) || newemail.value == '') {
+                document.getElementById("emailalert").hidden = true;
+                document.getElementById("emailalert2").hidden = true;
+
+                return true;
+            } else {
+                document.getElementById("emailalert").hidden = false;
+                return false;
+            }
+        }
+
+        function checkEmailField() {
+            if (document.getElementById('customeremail').value == '' || document.getElementById('emailalert').hidden == false) {
+                document.getElementById('emailalert2').hidden = false;
+                document.getElementById('registermembership').checked = false;
+            } else {
+                document.getElementById('emailalert2').hidden = true;
             }
         }
     </script>
