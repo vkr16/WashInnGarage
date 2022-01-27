@@ -72,7 +72,7 @@ if (isset($_POST['customername'])) {
 
     <div class="container">
         <div class="col-lg-10 offset-lg-1">
-            <div class="card bg-semi-light mt-4 mb-5">
+            <div class="card bg-light mt-4 mb-5">
                 <div class="card-body mb-5">
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
