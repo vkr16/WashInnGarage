@@ -61,7 +61,7 @@ require_once "../core/init.php";
           </div>
           <div class="col-md-8 offset-md-2 d-flex justify-content-between mt-4">
             <a href="new-customer.php" class="btn btn-light btn-lg text-dark">Pelanggan Baru</a>
-            <a href="member-customer.php" class="btn btn-light btn-lg text-dark">Sudah Pernah Datang</a>
+            <a href="check-membership.php" class="btn btn-light btn-lg text-dark">Sudah Pernah Datang</a>
           </div>
         </div>
       </div>

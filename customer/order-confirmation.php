@@ -153,7 +153,7 @@ if (isset($_POST['customername'])) {
                         </div>
                     </div><br>
                     <div class="col-md-10 offset-md-1 d-flex justify-content-center">
-                        <form action="submitorder.php" method="post">
+                        <form action="functions/submitorder.php" method="post">
                             <input type="text" name="customername" id="customername" value="<?= $customername ?>" hidden>
                             <input type="text" name="customerphone" id="customerphone" value="<?= $customerphone ?>" hidden>
                             <input type="text" name="customeremail" id="customeremail" value="<?= $customeremail ?>" hidden>
