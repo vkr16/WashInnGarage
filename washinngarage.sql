@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2022 at 06:21 PM
+-- Generation Time: Jan 27, 2022 at 06:30 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -69,8 +69,9 @@ INSERT INTO `menus` (`id`, `type`, `category`, `name`, `price`, `image`, `descri
 (31, 'service', 'Motorcycle', 'Express 250', '15000', 'Express 250.jpg', 'Layanan cuci motor untuk motor 250cc', NULL, 'active'),
 (39, 'merchandise', NULL, 'Kaos Hitam Motif', '90000', 'Kaos Hitam Motif.jpg', 'Kaos Hitam Polos By Wash Inn Garage New', 10, 'active'),
 (42, 'food', NULL, 'Lays Classic', '7500', 'Lays Classic.jpeg', 'Snack Lays classic ', 99, 'active'),
-(46, 'merchandise', NULL, 'Motor', '9000000', 'Motor.jpg', 'Lagi di cuci tapi', 22, 'active'),
-(47, 'service', 'Motorcycle', 'Express Bike', '10000', 'Express Bike.jpg', 'Cuci Motor Kilat Khusus Motor Dibawah 250cc', NULL, 'active');
+(46, 'merchandise', NULL, 'Motor', '9000000', 'Motor.jpg', 'Lagi di cuci tapi', 22, 'inactive'),
+(47, 'service', 'Motorcycle', 'Express Bike', '10000', 'Express Bike.jpg', 'Cuci Motor Kilat Khusus Motor Dibawah 250cc', NULL, 'active'),
+(48, 'service', 'Car', 'Express Plus', '25000', 'Express Plus.jpg', 'Cuci mobil express plus seharga RP 25.000 cuci exterior dan pembersihan interior mobil', NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -150,6 +151,19 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `phone`, `username`, `role`, `pa
 (21, 'Abdul Fattah', 'pisangbenyek0@gmail.com', '26626262', 'abdulfattah', 'admin', '$2y$10$A5kx6rwzDiaCcldYhvKRU.mg8gWSs6mtWGRIgN0Fbq2ZFMez.64N6'),
 (22, 'Developer Account', 'pisangbenyek0@gmail.com', '6281299648963', 'dev', 'admin', '$2y$10$mweySBnxh8MbGCKY8t6TbOrcmuE6LdGd/8N1Ah7byQxwTnJOM2VwW');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicles`
+--
+
+CREATE TABLE `vehicles` (
+  `id` int(10) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `platnomor` varchar(10) NOT NULL,
+  `owner_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -186,6 +200,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `vehicles`
+--
+ALTER TABLE `vehicles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -199,7 +219,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -218,6 +238,12 @@ ALTER TABLE `transactions`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `vehicles`
+--
+ALTER TABLE `vehicles`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
