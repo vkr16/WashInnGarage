@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2022 at 06:30 AM
+-- Generation Time: Jan 27, 2022 at 01:57 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -40,7 +40,7 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `fullname`, `phone`, `email`, `point`) VALUES
-(1, 'Fikri Miftah', '628979565131', 'fikri.droid16@gmail.com', 0);
+(1, 'Hafidz Abdillah Masruri', '6281255667788', 'hfdzam@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `trx_id`, `customer_name`, `customer_phone`, `customer_email`, `member_id`, `menu_id`, `order_time`, `order_status`) VALUES
-(1, 0, 'Fikri Miftah', '628979565131', 'fikri.droid16@gmail.com', 1, 28, '2022-01-25 14:59:32.000000', 'active');
+(1, 1, 'Hafidz Abdillah Masruri', '6281255667788', 'hfdzam@gmail.com', 1, 48, '2022-01-27 12:52:59.416097', 'active'),
+(2, 2, 'Hafidz Abdillah Masruri', '6281255667788', 'hfdzam@gmail.com', 1, 48, '2022-01-27 12:53:23.619966', 'active'),
+(3, 3, 'Fikri Miftah Akmaludin', '628979565131', 'fikri.droid16@gmail.com', 0, 31, '2022-01-27 12:55:59.487145', 'active');
 
 -- --------------------------------------------------------
 
@@ -107,19 +109,21 @@ INSERT INTO `orders` (`id`, `trx_id`, `customer_name`, `customer_phone`, `custom
 CREATE TABLE `transactions` (
   `id` int(20) NOT NULL,
   `invoice_number` varchar(50) DEFAULT NULL,
-  `time` datetime(6) NOT NULL,
+  `time` datetime(6) NOT NULL DEFAULT current_timestamp(6),
   `operator_name` varchar(100) NOT NULL,
   `customer_name` varchar(100) NOT NULL,
   `total` varchar(10) DEFAULT NULL,
-  `status` varchar(20) NOT NULL
+  `trx_status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`id`, `invoice_number`, `time`, `operator_name`, `customer_name`, `total`, `status`) VALUES
-(1, 'INV/2022/0126/1', '2022-01-26 00:17:18.000000', 'Operator', 'Fikri Miftah', '22000', 'unpaid');
+INSERT INTO `transactions` (`id`, `invoice_number`, `time`, `operator_name`, `customer_name`, `total`, `trx_status`) VALUES
+(1, 'INV/2022/0127/1', '2022-01-27 19:52:59.414635', 'admin', 'Hafidz Abdillah Masruri', '25000', 'unconfirmed'),
+(2, 'INV/2022/0127/2', '2022-01-27 19:53:23.616694', 'admin', 'Hafidz Abdillah Masruri', '25000', 'unconfirmed'),
+(3, 'INV/2022/0127/3', '2022-01-27 19:55:59.485629', 'admin', 'Fikri Miftah Akmaludin', '15000', 'unconfirmed');
 
 -- --------------------------------------------------------
 
@@ -159,10 +163,17 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `phone`, `username`, `role`, `pa
 
 CREATE TABLE `vehicles` (
   `id` int(10) NOT NULL,
-  `type` varchar(10) NOT NULL,
+  `vehicletype` varchar(10) NOT NULL,
   `platnomor` varchar(10) NOT NULL,
   `owner_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `vehicles`
+--
+
+INSERT INTO `vehicles` (`id`, `vehicletype`, `platnomor`, `owner_id`) VALUES
+(1, 'Mobil', 'BH 36 B', 1);
 
 --
 -- Indexes for dumped tables
@@ -225,13 +236,13 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -243,7 +254,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vehicles`
 --
 ALTER TABLE `vehicles`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
