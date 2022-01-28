@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2022 at 07:22 PM
+-- Generation Time: Jan 28, 2022 at 12:37 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -24,14 +24,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- Table structure for table `customers`
 --
 
-CREATE TABLE `members` (
+CREATE TABLE `customers` (
   `id` int(10) NOT NULL,
   `fullname` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `membership` enum('member','customer') NOT NULL DEFAULT 'customer',
   `point` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -78,7 +79,7 @@ CREATE TABLE `orders` (
   `customer_name` varchar(100) NOT NULL,
   `customer_phone` varchar(20) NOT NULL,
   `customer_email` varchar(100) DEFAULT NULL,
-  `member_id` int(10) DEFAULT NULL,
+  `customer_id` int(10) NOT NULL,
   `menu_id` int(10) NOT NULL,
   `platnomor` varchar(10) DEFAULT NULL,
   `amount` int(5) NOT NULL DEFAULT 1,
@@ -150,9 +151,9 @@ CREATE TABLE `vehicles` (
 --
 
 --
--- Indexes for table `members`
+-- Indexes for table `customers`
 --
-ALTER TABLE `members`
+ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -191,9 +192,9 @@ ALTER TABLE `vehicles`
 --
 
 --
--- AUTO_INCREMENT for table `members`
+-- AUTO_INCREMENT for table `customers`
 --
-ALTER TABLE `members`
+ALTER TABLE `customers`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
