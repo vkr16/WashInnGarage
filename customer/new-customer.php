@@ -147,37 +147,65 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                     <div class="col-md-10 offset-md-1 mt-4">
                         <div class="row" id="LayananMobil">
                             <?php while ($service = mysqli_fetch_assoc($execute_CarServices)) { ?>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
                                     <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
                                         <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
                                     </a>
                                     <div class="d-flex justify-content-center mt-2">
-                                        <button type="submit" class="btn btn-outline-primary" value="<?= $service['id'] ?>" name="serviceID"><?= $service['name'] ?></button>
+                                        <a class="btn btn-outline-primary" name="serviceID"><?= $service['name'] ?></a>
                                     </div>
                                     <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <div class="collapse" id="collapse_<?= $service['id'] ?>">
+                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
                                         <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             <?php } ?>
                         </div>
                         <div class="row" id="LayananMotor">
                             <?php while ($service = mysqli_fetch_assoc($execute_MotorServices)) { ?>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
                                     <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
                                         <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
                                     </a>
                                     <div class="d-flex justify-content-center mt-2">
-                                        <button type="submit" class="btn btn-outline-primary" value="<?= $service['id'] ?>" name="serviceID"><?= $service['name'] ?></button>
+                                        <a class="btn btn-outline-primary" name="serviceID"><?= $service['name'] ?></a>
                                     </div>
                                     <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <div class="collapse" id="collapse_<?= $service['id'] ?>">
+                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
                                         <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             <?php } ?>
                         </div>
-                        </form>
+                    </div>
+                </div>
+
+                <div class="card-body" id="serviceDetail" hidden>
+                    <div class="col-md-10 offset-md-1">
+                        <div class="col-md-2 offset-md-5 mb-2">
+                            <img src="../assets/img/logo.png" alt="" width="100%">
+                        </div>
+                        <hr>
+                        <h3 class="font-weight-normal text-center text-dark">Silahkan Konfirmasi Pilihan Anda</h3>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-secondary" onclick="switchView('serviceDetail','serviceMenu')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
+                            <button type="submit" name="serviceID" id="btnSubmitToConfirmation" value="" class="btn btn-primary " onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="col-md-10 offset-md-1 mt-4">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img src="../assets/img/thumbnail/Express 250.jpg" alt="" width="100%" id="serviceDetailImage"><br><br>
+                            </div>
+                            <div class="col-md-7">
+                                <h4 id="serviceDetailName">Express 250</h4>
+                                <h5 id="serviceDetailPrice">Rp 25.000</h5>
+                                <p class="text-justify" id="serviceDetailDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore eum laudantium soluta, sed quaerat facilis reiciendis atque repellendus error, ut eaque recusandae minima illo quis ipsa praesentium ad delectus nostrum!</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -234,6 +262,20 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
             } else {
                 document.getElementById('emailalert2').hidden = true;
             }
+        }
+
+        function viewDetails(image, name, id, price, description, hide, show) {
+            // document.getElementById("serviceDetailId").value = id;
+            document.getElementById("serviceDetailName").innerHTML = name;
+            document.getElementById("serviceDetailPrice").innerHTML = price;
+            document.getElementById("serviceDetailDesc").innerHTML = description;
+            document.getElementById("serviceDetailImage").src = '../assets/img/thumbnail/' + image;
+            document.getElementById("btnSubmitToConfirmation").value = id;
+
+            switchView(hide, show);
+
+
+
         }
     </script>
 

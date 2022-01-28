@@ -23,7 +23,7 @@ if (isset($_POST['btnConfirm'])) {
 
     if ($registermember == 'yes') {
         // check if member are already registered
-        $query_getMembers = "SELECT * FROM members WHERE phone = '$customer_phone' OR email = '$customer_email'";
+        $query_getMembers = "SELECT * FROM customers WHERE phone = '$customer_phone' OR email = '$customer_email'";
         $execute_getMembers = mysqli_query($link, $query_getMembers);
         $countgetMembers = mysqli_num_rows($execute_getMembers);
         if ($countgetMembers == 1) {
@@ -31,7 +31,25 @@ if (isset($_POST['btnConfirm'])) {
             $member_id = $memberData['id'];
         } else {
             // Registering new member
-            $query_registerMember = "INSERT INTO members (fullname, phone, email) VALUE ('$customer_name', '$customer_phone', '$customer_email')";
+            $query_registerMember = "INSERT INTO customers (fullname, phone, email, membership) VALUE ('$customer_name', '$customer_phone', '$customer_email', 'member')";
+            $execute_resgisterMember = mysqli_query($link, $query_registerMember);
+            $member_id = mysqli_insert_id($link);
+
+            // registering member's vehicle
+            $query_registerVehicle = "INSERT INTO vehicles (vehicletype, platnomor, owner_id) VALUE ('$vehicleType', '$platNomor', '$member_id')";
+            $execute_registerVehicle = mysqli_query($link, $query_registerVehicle);
+        }
+    } else {
+        // check if member are already registered
+        $query_getMembers = "SELECT * FROM customers WHERE phone = '$customer_phone' OR email = '$customer_email'";
+        $execute_getMembers = mysqli_query($link, $query_getMembers);
+        $countgetMembers = mysqli_num_rows($execute_getMembers);
+        if ($countgetMembers == 1) {
+            $memberData = mysqli_fetch_assoc($execute_getMembers);
+            $member_id = $memberData['id'];
+        } else {
+            // Registering new member
+            $query_registerMember = "INSERT INTO customers (fullname, phone, email, membership) VALUE ('$customer_name', '$customer_phone', '$customer_email', 'customer')";
             $execute_resgisterMember = mysqli_query($link, $query_registerMember);
             $member_id = mysqli_insert_id($link);
 
@@ -44,7 +62,7 @@ if (isset($_POST['btnConfirm'])) {
 
 
 
-    var_export($_POST);
+    //    var_export($_POST);
 
     // Getting Prevoius Transaction "id" for Generating Invoice Number
     $query_getPrevTrxId = "SELECT MAX(id) AS PreviousTrxId FROM transactions";
@@ -62,9 +80,9 @@ if (isset($_POST['btnConfirm'])) {
 
         // Decide which query to use, if email empty "email" field on db will be filled with NULL instead of empty string
         if ($customer_email != '') {
-            $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, member_id, menu_id, order_status ) VALUE ('$CurrentTrxId', '$customer_name', '$customer_phone', '$platNomor', '$customer_email', '$member_id', '$serviceID', 'active' )";
+            $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId', '$customer_name', '$customer_phone', '$platNomor', '$customer_email', '$member_id', '$serviceID', 'active' )";
         } else {
-            $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, member_id, menu_id, order_status ) VALUE ('$CurrentTrxId', '$customer_name', '$customer_phone', '$platNomor', NULL, '$member_id',  '$serviceID', 'active' )";
+            $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId', '$customer_name', '$customer_phone', '$platNomor', NULL, '$member_id',  '$serviceID', 'active' )";
         }
 
 

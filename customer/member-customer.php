@@ -11,9 +11,25 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
 $idNameEncoded = base64_encode('id');
 $idValueEncoded = $_GET['mid'];
 $id = base64_decode($idValueEncoded);
-$query_getMemberDetail = "SELECT * FROM members WHERE id = '$id'";
+$query_getMemberDetail = "SELECT * FROM customers WHERE id = '$id'";
 $execute_getMemberDetail = mysqli_query($link, $query_getMemberDetail);
 $memberDetail = mysqli_fetch_assoc($execute_getMemberDetail);
+if ($memberDetail['membership'] == 'customer') {
+    $poinHide = 'hidden';
+    $emailwidth = "col-md-12";
+} else {
+    $poinHide = '';
+    $emailwidth = "col-md-7";
+}
+
+$query_getCars  = "SELECT * FROM vehicles WHERE owner_id = '$id' AND vehicletype = 'Mobil'";
+$execute_getCars = mysqli_query($link, $query_getCars);
+
+
+$query_getMotors  = "SELECT * FROM vehicles WHERE owner_id = '$id' AND vehicletype = 'Motor'";
+$execute_getMotors = mysqli_query($link, $query_getMotors);
+
+
 
 
 ?>
@@ -95,11 +111,11 @@ $memberDetail = mysqli_fetch_assoc($execute_getMemberDetail);
 
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-7">
+                                <div class="form-group <?= $emailwidth ?>">
                                     <label for="customeremail">Email</label>
                                     <input readonly autocomplete="off" type="text" class="form-control" id="customeremail" name="customeremail" value="<?= $memberDetail['email'] ?>">
                                 </div>
-                                <div class="form-group col-md-5">
+                                <div class="form-group col-md-5" <?= $poinHide ?>>
                                     <label for="customerpoints">Poin Member </label>
                                     <input readonly autocomplete="off" type="text" class="form-control" id="customerpoints" name="customerpoints" value="<?= $memberDetail['point'] ?> ">
                                     <input type="text" name="ismember" id="ismember" value="yes" hidden readonly>
@@ -107,7 +123,7 @@ $memberDetail = mysqli_fetch_assoc($execute_getMemberDetail);
                             </div>
 
                             <div class="row d-flex justify-content-between mx-auto">
-                                <a href="index.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
+                                <a href="check-membership.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
                                 <a class="btn btn-primary" onclick="switchView('customerID','vehicleID')" id="btnNext1">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
                             </div>
                     </div>
@@ -119,7 +135,7 @@ $memberDetail = mysqli_fetch_assoc($execute_getMemberDetail);
                             <img src="../assets/img/logo.png" alt="" width="100%">
                         </div>
                         <hr>
-                        <h3 class="font-weight-normal text-center text-dark">Silahkan Masukan Identitas Kendaraan</h3>
+                        <h3 class="font-weight-normal text-center text-dark">Silahkan Masukkan Identitas Kendaraan</h3>
                         <hr>
                     </div>
                     <div class="col-md-10 offset-md-1 mt-4">
@@ -127,14 +143,33 @@ $memberDetail = mysqli_fetch_assoc($execute_getMemberDetail);
                             <label for="vehicleType">Jenis Kendaraan</label><br>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="vehicleType">
                                 <label class="btn btn-outline-info active">
-                                    <input type="radio" name="vehicleType" id="jenismobil" value="Car" checked><i class="fas fa-car"></i> Mobil
+                                    <input type="radio" name="vehicleType" onchange="cekjenis()" id="jenismobil" value="Car" checked><i class="fas fa-car"></i> Mobil
                                 </label>
                                 <label class="btn btn-outline-info">
-                                    <input type="radio" name="vehicleType" id="jenismotor" value="Motorcycle"> Motor <i class="fas fa-motorcycle"></i>
+                                    <input type="radio" name="vehicleType" onchange="cekjenis()" id="jenismotor" value="Motorcycle"> Motor <i class="fas fa-motorcycle"></i>
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="savedplatnomor">Plat Nomor Kendaraan</label>
+                            <select class="form-control platNomorField" id="savedplatnomorMobil" name="platNomor1" onclick="onmanual(value)">
+                                <?php while ($vehicle = mysqli_fetch_assoc($execute_getCars)) { ?>
+                                    <option><?= $vehicle['platnomor'] ?></option>
+                                <?php
+                                }
+                                ?>
+                                <option value="-">Masukkan Nomor Lainnya</option>
+                            </select>
+                            <select class="form-control platNomorField" id="savedplatnomorMotor" name="platNomor1" onclick="onmanual(value)">
+                                <?php while ($vehicle = mysqli_fetch_assoc($execute_getMotors)) { ?>
+                                    <option><?= $vehicle['platnomor'] ?></option>
+                                <?php
+                                }
+                                ?>
+                                <option value="-">Masukkan Nomor Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group" hidden id="manualInputPlatNomor">
                             <label for="platNomor">Nomor Plat Kendaraan </label>
                             <input type="text" class="form-control" id="platNomor" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
                             <small id="platHelp" class="form-text text-muted">Contoh : AB 1998 XYZ</small>
@@ -163,37 +198,65 @@ $memberDetail = mysqli_fetch_assoc($execute_getMemberDetail);
                     <div class="col-md-10 offset-md-1 mt-4">
                         <div class="row" id="LayananMobil">
                             <?php while ($service = mysqli_fetch_assoc($execute_CarServices)) { ?>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
                                     <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
                                         <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
                                     </a>
                                     <div class="d-flex justify-content-center mt-2">
-                                        <button type="submit" class="btn btn-outline-primary" value="<?= $service['id'] ?>" name="serviceID"><?= $service['name'] ?></button>
+                                        <a class="btn btn-outline-primary" name="serviceID"><?= $service['name'] ?></a>
                                     </div>
                                     <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <div class="collapse" id="collapse_<?= $service['id'] ?>">
+                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
                                         <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             <?php } ?>
                         </div>
                         <div class="row" id="LayananMotor">
                             <?php while ($service = mysqli_fetch_assoc($execute_MotorServices)) { ?>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
                                     <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
                                         <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
                                     </a>
                                     <div class="d-flex justify-content-center mt-2">
-                                        <button type="submit" class="btn btn-outline-primary" value="<?= $service['id'] ?>" name="serviceID"><?= $service['name'] ?></button>
+                                        <a class="btn btn-outline-primary" name="serviceID"><?= $service['name'] ?></a>
                                     </div>
                                     <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <div class="collapse" id="collapse_<?= $service['id'] ?>">
+                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
                                         <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             <?php } ?>
                         </div>
-                        </form>
+                    </div>
+                </div>
+
+                <div class="card-body" id="serviceDetail" hidden>
+                    <div class="col-md-10 offset-md-1">
+                        <div class="col-md-2 offset-md-5 mb-2">
+                            <img src="../assets/img/logo.png" alt="" width="100%">
+                        </div>
+                        <hr>
+                        <h3 class="font-weight-normal text-center text-dark">Silahkan Konfirmasi Pilihan Anda</h3>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-secondary" onclick="switchView('serviceDetail','serviceMenu')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
+                            <button type="submit" name="serviceID" id="btnSubmitToConfirmation" value="" class="btn btn-primary " onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="col-md-10 offset-md-1 mt-4">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img src="../assets/img/thumbnail/Express 250.jpg" alt="" width="100%" id="serviceDetailImage"><br><br>
+                            </div>
+                            <div class="col-md-7">
+                                <h4 id="serviceDetailName">Express 250</h4>
+                                <h5 id="serviceDetailPrice">Rp 25.000</h5>
+                                <p class="text-justify" id="serviceDetailDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore eum laudantium soluta, sed quaerat facilis reiciendis atque repellendus error, ut eaque recusandae minima illo quis ipsa praesentium ad delectus nostrum!</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -224,10 +287,43 @@ $memberDetail = mysqli_fetch_assoc($execute_getMemberDetail);
             if (document.getElementById('jenismobil').checked == true) {
                 document.getElementById('LayananMobil').hidden = false;
                 document.getElementById('LayananMotor').hidden = true;
+                document.getElementById('savedplatnomorMobil').hidden = false;
+                document.getElementById('savedplatnomorMobil').disabled = false;
+                document.getElementById('savedplatnomorMotor').hidden = true;
+                document.getElementById('savedplatnomorMotor').disabled = true;
             } else if (document.getElementById('jenismotor').checked == true) {
                 document.getElementById('LayananMobil').hidden = true;
                 document.getElementById('LayananMotor').hidden = false;
+                document.getElementById('savedplatnomorMobil').hidden = true;
+                document.getElementById('savedplatnomorMobil').disabled = true;
+                document.getElementById('savedplatnomorMotor').hidden = false;
+                document.getElementById('savedplatnomorMotor').disabled = false;
             }
+            onmanual();
+        }
+
+        function viewDetails(image, name, id, price, description, hide, show) {
+            // document.getElementById("serviceDetailId").value = id;
+            document.getElementById("serviceDetailName").innerHTML = name;
+            document.getElementById("serviceDetailPrice").innerHTML = price;
+            document.getElementById("serviceDetailDesc").innerHTML = description;
+            document.getElementById("serviceDetailImage").src = '../assets/img/thumbnail/' + image;
+            document.getElementById("btnSubmitToConfirmation").value = id;
+
+            switchView(hide, show);
+        }
+
+        function onmanual(value) {
+            console.log(value);
+
+            if (value == "-") {
+                console.log('a');
+                document.getElementById("manualInputPlatNomor").hidden = false;
+            } else {
+                document.getElementById("manualInputPlatNomor").hidden = true;
+
+            }
+
         }
     </script>
 

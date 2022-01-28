@@ -8,7 +8,12 @@ if (isset($_POST['customername'])) {
     $memberid = $_POST['memberid'];
 
     $vehicleTypePost = $_POST['vehicleType'];
-    $platNomor = $_POST['platNomor'];
+
+    if ($_POST['platNomor1'] != '-') {
+        $platNomor = $_POST['platNomor1'];
+    } else {
+        $platNomor = $_POST['platNomor'];
+    }
     $serviceID = $_POST['serviceID'];
 
     $query_getServiceDetails = "SELECT * FROM menus WHERE id = '$serviceID'";
@@ -29,7 +34,7 @@ if (isset($_POST['customername'])) {
         $customerphone = $customerphoneRAW;
     }
 
-
+    var_export($_POST);
 
     $vehicleType = ($vehicleTypePost == 'Car') ? 'Mobil' : 'Motor';
 } else {

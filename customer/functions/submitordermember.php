@@ -18,9 +18,14 @@ if (isset($_POST['btnConfirm'])) {
     $operator_name = $_SESSION['wig_user'];
     $trx_status = 'unconfirmed';
 
+    $query_getVehicleNumber = "SELECT * FROM vehicles WHERE platnomor = '$platNomor'";
+    $execute_getVehicleNumber = mysqli_query($link, $query_getVehicleNumber);
+    $count_getVehicleNumber = mysqli_num_rows($execute_getVehicleNumber);
 
-    // check if member are already registered
-
+    if ($count_getVehicleNumber == 0) {
+        $query_insertVehicle = "INSERT INTO vehicles (vehicletype, platnomor, owner_id) VALUE ('$vehicleType','$platNomor','$memberid')";
+        $execute_insertVehicle = mysqli_query($link, $query_insertVehicle);
+    }
 
 
 
@@ -44,7 +49,7 @@ if (isset($_POST['btnConfirm'])) {
 
         // Decide which query to use, if email empty "email" field on db will be filled with NULL instead of empty string
 
-        $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, member_id, menu_id, order_status ) VALUE ('$CurrentTrxId', '$customer_name', '$customer_phone','$platNomor', '$customer_email', '$memberid',  '$serviceID', 'active' )";
+        $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId', '$customer_name', '$customer_phone','$platNomor', '$customer_email', '$memberid',  '$serviceID', 'active' )";
 
 
         if ($execute_insertOrder = mysqli_query($link, $query_insertOrder)) {

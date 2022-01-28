@@ -15,7 +15,7 @@ if (isset($_POST['btnCheckMembership'])) {
 
 
     // query check membership status
-    $query_checkMembership = "SELECT * FROM members WHERE phone = '$customerphone'";
+    $query_checkMembership = "SELECT * FROM customers WHERE phone = '$customerphone'";
     $execute_checkMembership = mysqli_query($link, $query_checkMembership);
     $count_checkMembership = mysqli_num_rows($execute_checkMembership);
 
