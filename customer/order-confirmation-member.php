@@ -34,8 +34,6 @@ if (isset($_POST['customername'])) {
         $customerphone = $customerphoneRAW;
     }
 
-    var_export($_POST);
-
     $vehicleType = ($vehicleTypePost == 'Car') ? 'Mobil' : 'Motor';
 } else {
     header("Location:index.php");

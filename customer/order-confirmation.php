@@ -34,7 +34,6 @@ if (isset($_POST['customername'])) {
     }
 
 
-
     $vehicleType = ($vehicleTypePost == 'Car') ? 'Mobil' : 'Motor';
 } else {
     header("Location:index.php");
@@ -182,3 +181,4 @@ if (isset($_POST['customername'])) {
 </body>
 
 </html>
+

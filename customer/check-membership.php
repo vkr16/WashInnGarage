@@ -25,8 +25,7 @@ if (isset($_POST['btnCheckMembership'])) {
         $idValue = base64_encode($id);
         header("Location:member-customer.php?mid=" . $idValue);
     } else {
-        $error  = 'Maaf, Nomor anda tidak terdaftar dalam database kami.';
-        echo $error;
+        $error  = "error";
     }
 }
 ?>
@@ -100,10 +99,18 @@ if (isset($_POST['btnCheckMembership'])) {
                                 <input required autocomplete="off" type="text" class="form-control" id="customerphone" name="customerphone" aria-describedby="nameHelp" placeholder="No. HP / WhatsApp">
                             </div>
 
+ <?php if (isset($error)) {
+                                echo ' <div class="alert alert-danger" role="alert">
+                                      Mohon maaf <strong>No. HP / WhatsApp</strong> anda belum terdaftar.
+                                    </div>';
+                            } ?>
+
                             <div class="row d-flex justify-content-between mx-auto">
                                 <a href="index.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
                                 <button type="submit" class="btn btn-primary" id="btnCheckMembership" name="btnCheckMembership">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
                             </div>
+                           
+                           
                     </div>
                 </div>
                 <div class="card-footer text-center">

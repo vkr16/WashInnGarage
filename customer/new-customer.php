@@ -74,12 +74,22 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                         <form action="order-confirmation.php" method="post" name="formneworder">
                             <div class="form-group">
                                 <label for="customername">Nama Lengkap </label>
-                                <input required autocomplete="off" type="text" class="form-control" id="customername" name="customername" aria-describedby="nameHelp" placeholder="Nama Lengkap">
+                                <input required onkeyup='isempty()' autocomplete="off" type="text" class="form-control" id="customername" name="customername" aria-describedby="nameHelp" placeholder="Nama Lengkap">
                             </div>
+
+<div hidden class="alert alert-danger" id="namealert" role="alert">
+                                      Mohon maaf <strong>Nama</strong> tidak boleh kosong.
+                                    </div>
+
                             <div class="form-group">
                                 <label for="customerphone">No. HP / WhatsApp</label>
-                                <input required autocomplete="off" type="text" class="form-control" id="customerphone" name="customerphone" placeholder="No. HP / WhatsApp">
+                                <input required onkeyup='isempty()' autocomplete="off" type="number" class="form-control" id="customerphone" name="customerphone" placeholder="No. HP / WhatsApp">
                             </div>
+
+<div hidden class="alert alert-danger" id="phonealert" role="alert">
+                                      Mohon maaf <strong>No. HP / WhatsApp</strong> tidak boleh kosong.
+                                    </div>
+
                             <div class="form-group">
                                 <label for="customeremail">Email <small>(Opsional)</small></label>
                                 <input autocomplete="off" type="text" class="form-control" id="customeremail" name="customeremail" placeholder="Email" onkeyup="ValidateEmail(document.formneworder.customeremail)">
@@ -90,6 +100,9 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                                 <input type="checkbox" class="form-check-input" id="registermembership" name="registermembership" onclick="checkEmailField()">
                                 <label class="form-check-label" for="registermembership">Daftarkan Saya Sebagai Member </label>
                             </div>
+
+
+
                             <div class="row d-flex justify-content-between mx-auto">
                                 <a href="index.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
                                 <a class="btn btn-primary" onclick="switchView('customerID','vehicleID')" id="btnNext1">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
@@ -120,9 +133,14 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                         </div>
                         <div class="form-group">
                             <label for="platNomor">Nomor Plat Kendaraan </label>
-                            <input type="text" class="form-control" id="platNomor" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
-                            <small id="platHelp" class="form-text text-muted">Contoh : AB 1998 XYZ</small>
+                            <input required onkeyup='isempty()' style="text-transform:uppercase"  type="text" class="form-control" id="platNomor" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
+                            <small id="platHelp" class="form-text text-muted">Contoh : AD 1998 XYZ</small>
                         </div>
+
+<div hidden class="alert alert-danger" id="platalert" role="alert">
+                                      Mohon maaf <strong>Nomor plat</strong> tidak boleh kosong.
+                                    </div>
+
                         <div class="row d-flex justify-content-between mx-auto">
                             <a class="btn btn-secondary" onclick="switchView('vehicleID','customerID')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
                             <a class="btn btn-primary" onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
@@ -190,7 +208,7 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                         <hr>
                         <div class="d-flex justify-content-between">
                             <a class="btn btn-secondary" onclick="switchView('serviceDetail','serviceMenu')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                            <button type="submit" name="serviceID" id="btnSubmitToConfirmation" value="" class="btn btn-primary " onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
+                            <button type="submit" name="serviceID" id="btnSubmitToConfirmation" value="" class="btn btn-primary " onclick="errorempty()">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
                             </form>
                         </div>
 
@@ -230,6 +248,14 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
             document.getElementById(hide).hidden = true;
             document.getElementById(show).hidden = false;
             cekjenis();
+        }
+
+        function errorempty(){
+            isempty();
+            document.getElementById('serviceDetail').hidden = true;
+            document.getElementById('customerID').hidden = false;
+
+
         }
 
         function cekjenis() {
@@ -278,6 +304,31 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
 
         }
     </script>
+
+    <script type="text/javascript">
+        function isempty(){
+            if (document.getElementById('customername').value=='') {
+                document.getElementById('namealert').hidden = false;
+            }else{
+                document.getElementById('namealert').hidden = true;
+            }
+
+            if (document.getElementById('customerphone').value=='') {
+                document.getElementById('phonealert').hidden = false;
+            }else{
+                document.getElementById('phonealert').hidden = true;
+            }
+
+             if (document.getElementById('platNomor').value=='') {
+                document.getElementById('platalert').hidden = false;
+            }else{
+                document.getElementById('platalert').hidden = true;
+            }
+        }
+    </script>
+
+
+
 
 </body>
 
