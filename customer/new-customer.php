@@ -74,21 +74,21 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                         <form action="order-confirmation.php" method="post" name="formneworder">
                             <div class="form-group">
                                 <label for="customername">Nama Lengkap </label>
-                                <input required onkeyup='isempty()' autocomplete="off" type="text" class="form-control" id="customername" name="customername" aria-describedby="nameHelp" placeholder="Nama Lengkap">
+                                <input required onkeyup='hidenamealert()' autocomplete="off" type="text" class="form-control" id="customername" name="customername" aria-describedby="nameHelp" placeholder="Nama Lengkap">
                             </div>
 
-<div hidden class="alert alert-danger" id="namealert" role="alert">
-                                      Mohon maaf <strong>Nama</strong> tidak boleh kosong.
-                                    </div>
+                            <div hidden class="alert alert-danger" id="emptynamealert" role="alert">
+                                Mohon maaf <strong>Nama</strong> tidak boleh kosong.
+                            </div>
 
                             <div class="form-group">
                                 <label for="customerphone">No. HP / WhatsApp</label>
-                                <input required onkeyup='isempty()' autocomplete="off" type="number" class="form-control" id="customerphone" name="customerphone" placeholder="No. HP / WhatsApp">
+                                <input required onkeyup='hidephonealert()' autocomplete="off" type="number" class="form-control" id="customerphone" name="customerphone" placeholder="No. HP / WhatsApp">
                             </div>
 
-<div hidden class="alert alert-danger" id="phonealert" role="alert">
-                                      Mohon maaf <strong>No. HP / WhatsApp</strong> tidak boleh kosong.
-                                    </div>
+                            <div hidden class="alert alert-danger" id="emptyphonealert" role="alert">
+                                Mohon maaf <strong>No. HP / WhatsApp</strong> tidak boleh kosong.
+                            </div>
 
                             <div class="form-group">
                                 <label for="customeremail">Email <small>(Opsional)</small></label>
@@ -105,7 +105,7 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
 
                             <div class="row d-flex justify-content-between mx-auto">
                                 <a href="index.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                                <a class="btn btn-primary" onclick="switchView('customerID','vehicleID')" id="btnNext1">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
+                                <a class="btn btn-primary" onclick="firstnextbtn('customerID','vehicleID')" id="btnNext1">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
                             </div>
                     </div>
                 </div>
@@ -133,17 +133,17 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                         </div>
                         <div class="form-group">
                             <label for="platNomor">Nomor Plat Kendaraan </label>
-                            <input required onkeyup='isempty()' style="text-transform:uppercase"  type="text" class="form-control" id="platNomor" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
+                            <input required onkeyup='hideplatalert()' type="text" class="form-control" id="platNomor" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
                             <small id="platHelp" class="form-text text-muted">Contoh : AD 1998 XYZ</small>
                         </div>
 
-<div hidden class="alert alert-danger" id="platalert" role="alert">
-                                      Mohon maaf <strong>Nomor plat</strong> tidak boleh kosong.
-                                    </div>
+                        <div hidden class="alert alert-danger" id="emptyplatalert" role="alert">
+                            Mohon maaf <strong>Nomor plat kendaraan</strong> tidak boleh kosong.
+                        </div>
 
                         <div class="row d-flex justify-content-between mx-auto">
                             <a class="btn btn-secondary" onclick="switchView('vehicleID','customerID')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                            <a class="btn btn-primary" onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
+                            <a class="btn btn-primary" onclick="secondnextbtn('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
                         </div>
                     </div>
                 </div>
@@ -250,14 +250,6 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
             cekjenis();
         }
 
-        function errorempty(){
-            isempty();
-            document.getElementById('serviceDetail').hidden = true;
-            document.getElementById('customerID').hidden = false;
-
-
-        }
-
         function cekjenis() {
             if (document.getElementById('jenismobil').checked == true) {
                 document.getElementById('LayananMobil').hidden = false;
@@ -303,27 +295,45 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
 
 
         }
-    </script>
 
-    <script type="text/javascript">
-        function isempty(){
-            if (document.getElementById('customername').value=='') {
-                document.getElementById('namealert').hidden = false;
-            }else{
-                document.getElementById('namealert').hidden = true;
-            }
+        function firstnextbtn(hide, show) {
+            var customername = document.getElementById("customername").value;
+            var customerphone = document.getElementById("customerphone").value;
 
-            if (document.getElementById('customerphone').value=='') {
-                document.getElementById('phonealert').hidden = false;
-            }else{
-                document.getElementById('phonealert').hidden = true;
+            if (customername == '' || customerphone == '') {
+                if (customername == '') {
+                    document.getElementById("emptynamealert").hidden = false;
+                }
+                if (customerphone == '') {
+                    document.getElementById("emptyphonealert").hidden = false;
+                }
+            } else {
+                document.getElementById("emptyphonealert").hidden = true;
+                document.getElementById("emptynamealert").hidden = true;
+                switchView(hide, show);
             }
+        }
 
-             if (document.getElementById('platNomor').value=='') {
-                document.getElementById('platalert').hidden = false;
-            }else{
-                document.getElementById('platalert').hidden = true;
+        function hidenamealert() {
+            document.getElementById("emptynamealert").hidden = true;
+        }
+
+        function hidephonealert() {
+            document.getElementById("emptyphonealert").hidden = true;
+        }
+
+        function secondnextbtn(hide, show) {
+            var platNomor = document.getElementById("platNomor").value;
+            if (platNomor == '') {
+                document.getElementById("emptyplatalert").hidden = false;
+            } else {
+                document.getElementById("emptyplatalert").hidden = true;
+                switchView(hide, show);
             }
+        }
+
+        function hideplatalert() {
+            document.getElementById("emptyplatalert").hidden = true;
         }
     </script>
 

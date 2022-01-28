@@ -100,7 +100,7 @@ if (isset($_POST['customername'])) {
                         <hr>
                         <h3 class="font-weight-normal text-center text-dark">Silahkan Periksa Detail Pesanan Anda</h3>
                         <hr>
-                        <a href="new-customer.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Batal</a>
+                        <a href="check-membership.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Batal</a>
                     </div>
                     <div class="col-md-10 offset-md-1 mt-4 row">
                         <div class="col-md-5">

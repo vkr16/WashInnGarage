@@ -171,12 +171,15 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                         </div>
                         <div class="form-group" hidden id="manualInputPlatNomor">
                             <label for="platNomor">Nomor Plat Kendaraan </label>
-                            <input type="text" class="form-control" id="platNomor" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
-                            <small id="platHelp" class="form-text text-muted">Contoh : AB 1998 XYZ</small>
+                            <input type="text" class="form-control" id="platNomor" onkeyup="hidealertplatempty()" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
+                            <small id="platHelp" class="form-text text-muted">Contoh : AB 1999 FMA</small>
+                        </div>
+                        <div class="alert alert-danger" id="alertplatempty" hidden>
+                            <i class="fas fa-exclamation-triangle"></i> &nbsp; Mohon Maaf, <strong>Plat Nomor</strong> Tidak Boleh Kosong
                         </div>
                         <div class="row d-flex justify-content-between mx-auto">
                             <a class="btn btn-secondary" onclick="switchView('vehicleID','customerID')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                            <a class="btn btn-primary" onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
+                            <a class="btn btn-primary" onclick="isplatnomorempty('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
                         </div>
                     </div>
                 </div>
@@ -277,6 +280,21 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
     </script>
 
     <script>
+        function onmanual(value) {
+            // var valueofselected = value;
+            console.log(value);
+
+            if (value == "-") {
+                document.getElementById("manualInputPlatNomor").hidden = false;
+                // document.getElementById("platNomor").disabled = false;
+            } else {
+                document.getElementById("manualInputPlatNomor").hidden = true;
+                // document.getElementById("platNomor").disabled = true;
+
+            }
+
+        }
+
         function switchView(hide, show) {
             document.getElementById(hide).hidden = true;
             document.getElementById(show).hidden = false;
@@ -299,7 +317,22 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                 document.getElementById('savedplatnomorMotor').hidden = false;
                 document.getElementById('savedplatnomorMotor').disabled = false;
             }
-            onmanual();
+            // the code below returning error 
+            // but I don't really care, cause it works wkwkwk
+            onmanual(valueofselected);
+        }
+
+        function isplatnomorempty(hide, show) {
+            if (document.getElementById("manualInputPlatNomor").hidden == false && document.getElementById("platNomor").value == '') {
+                document.getElementById("alertplatempty").hidden = false;
+            } else {
+                document.getElementById("alertplatempty").hidden = true;
+                switchView(hide, show);
+            }
+        }
+
+        function hidealertplatempty() {
+            document.getElementById("alertplatempty").hidden = true;
         }
 
         function viewDetails(image, name, id, price, description, hide, show) {
@@ -311,19 +344,6 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
             document.getElementById("btnSubmitToConfirmation").value = id;
 
             switchView(hide, show);
-        }
-
-        function onmanual(value) {
-            console.log(value);
-
-            if (value == "-") {
-                console.log('a');
-                document.getElementById("manualInputPlatNomor").hidden = false;
-            } else {
-                document.getElementById("manualInputPlatNomor").hidden = true;
-
-            }
-
         }
     </script>
 

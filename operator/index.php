@@ -1,28 +1,32 @@
-<?php 
+<?php
 
 require_once 'operator-only.php';
 
 $activePageLvl = 0;
 
- ?>
+?>
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Operator Dashboard</title>
 
-	<link rel="icon" type="image/png" href="<?=$assets?>/img/logo.png">
-	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
-	<link href="<?=$assets?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Operator Dashboard</title>
+
+    <link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="<?= $assets ?>/css/sb-admin-2.min.css">
+    <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-    	<!-- Sidebar Attach -->
+        <!-- Sidebar Attach -->
         <?php require_once 'view-template/sidebar.php'; ?>
 
         <!-- Content Wrapper -->
@@ -31,7 +35,7 @@ $activePageLvl = 0;
             <!-- Main Content -->
             <div id="content">
 
-            	<!-- Topbar Attach -->
+                <!-- Topbar Attach -->
                 <?php require_once 'view-template/topbar.php'; ?>
 
                 <!-- Begin Page Content -->
@@ -132,9 +136,8 @@ $activePageLvl = 0;
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-clock fa-fw"></i> Pending Order</h5>
                                     <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -149,12 +152,23 @@ $activePageLvl = 0;
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </div> -->
+                                    <button class="btn btn-outline-info" id="refreshpendingorder"><i class="fas fa-sync-alt shadow"></i></button>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <!-- <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div> -->
+                                    <table class="table" id="pendingOrdersTbl">
+                                        <thead>
+                                            <tr class="bg-primary text-white">
+                                                <th scope="col">Inv. Number</th>
+                                                <th scope="col">Customer</th>
+                                                <th scope="col">Vehicle</th>
+                                                <th scope="col">Service</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pendingOrders">
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -163,8 +177,7 @@ $activePageLvl = 0;
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
                                     <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -223,8 +236,7 @@ $activePageLvl = 0;
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -243,21 +255,41 @@ $activePageLvl = 0;
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?=$assets?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?=$assets?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
+    <script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?=$assets?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<?=$assets?>/js/sb-admin-2.min.js"></script>
+    <script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="<?=$assets?>/vendor/chart.js/Chart.min.js"></script>
+    <!-- dataTable js -->
+    <script src="<?= $assets ?>/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="<?=$assets?>/js/demo/chart-area-demo.js"></script>
-    <script src="<?=$assets?>/js/demo/chart-pie-demo.js"></script>
+    <script>
+        $("#refreshpendingorder").click(function() {
+            $.post("functions/getpendingorders.php", {
+                    getPendingorder: true
+                },
+                function(data) {
+                    $("#pendingOrders").html(data);
+                });
+        });
+
+        $(document).ready(function() {
+            // $('#pendingOrdersTbl').DataTable();
+
+            $.post("functions/getpendingorders.php", {
+                    getPendingorder: true
+                },
+                function(data) {
+                    $("#pendingOrders").html(data);
+                });
+        });
+    </script>
 
 </body>
+
 </html>
