@@ -1,3 +1,73 @@
 <?php 
+require_once "../core/init.php";
+ ?>
 
-echo "Thank you";
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	  <!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+	<link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
+
+	<title>Wash Inn Garage</title>
+</head>
+<body>
+ 	<style>
+ 		body {
+    	background-image: url('<?= $assets ?>/img/bg-cover-customer.jpg');
+    	background-size: cover;
+    	background-color: rgba(0, 0, 0, 0.65);
+    	background-repeat: no-repeat;
+    	}
+
+    	.bg-semi-dark {
+    	background-color: rgba(0, 0, 0, 0.65);
+    	}
+
+    	.bg-transparent {
+    	background-color: transparent;
+    	}
+ 	</style>
+ 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald&family=Raleway&display=swap');
+    </style>
+
+  	<nav class="navbar navbar-dark bg-semi-dark shadow" style="font-family: 'Oswald', sans-serif;">
+    	<a class="navbar-brand" href="index.php">
+    		<img src="<?= $assets ?>/img/logo-white.png" width="30" height="30" class="d-inline-block align-top" alt="">
+ 			&nbsp; Wash Inn Garage
+    	</a>
+	</nav>
+
+	<!-- terimakasih -->
+	  <div class="container">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="card bg-semi-dark mt-4">
+        <div class="card-body ">
+          <div class="col-md-8 offset-md-2">
+            <h1 class="text-center text-light display-4">Terima Kasih</h1><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+	</script>
+</body>
+</html>
