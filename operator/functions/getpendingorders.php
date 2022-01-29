@@ -5,6 +5,13 @@ if (isset($_POST['getPendingorder'])) {
     // ambil data dari table transactions
     $query_getPendingTrx = "SELECT * FROM transactions WHERE trx_status = 'unconfirmed'";
     $execute_getPendingTrx = mysqli_query($link, $query_getPendingTrx);
+    $pendingTrxCounter = mysqli_num_rows($execute_getPendingTrx);
+    if ($pendingTrxCounter == 0) {
+        echo '<tr>
+    <td colspan="4" class="text-center">No Pending Request</td>
+</tr>';
+    }
+
 
     while ($pendingTrx = mysqli_fetch_assoc($execute_getPendingTrx)) {
 
@@ -24,8 +31,16 @@ if (isset($_POST['getPendingorder'])) {
         echo '<tr>
             <th scope="row">' . $pendingTrx['invoice_number'] . '</th>
             <td>' . $pendingTrx['customer_name'] . '</td>
+            <td>' . $orderedMenu['category'] . '</td>
             <td>' . $pendingOrder['platnomor'] . '</td>
-            <td>' . $orderedMenu['name'] . '</td>
+            <td><button class="btn btn-primary btn-sm">Check</button></td>
         </tr>';
     }
+} else {
+    header("Location:../index.php");
 }
+?>
+
+<script>
+    document.getElementById("pendingTrxCounter").innerHTML = ' <?= $pendingTrxCounter ?> ';
+</script>

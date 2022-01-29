@@ -1,44 +1,45 @@
-<?php 
-    require_once 'core/init.php';
+<?php
+require_once 'core/init.php';
 
-    if (isset($_SESSION['wig_user'])) {
-    	if ($_SESSION['wig_user']=='admin') {
-    		header("Location: admin/");
-    	}else{
-    		header("Location: operator/");
-    	}
+if (isset($_SESSION['wig_user'])) {
+    if ($_SESSION['wig_user'] == 'admin') {
+        header("Location: admin/");
+    } else {
+        header("Location: operator/");
     }
+}
 
-    $validStatus = $existStatus = '';
+$validStatus = $existStatus = '';
 
-    if (isset($_POST['submit'])) {
-    	$username = $_POST['username'];
-    	$password = $_POST['password'];
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    	if (isExist($username)) {
-    		if (!empty(trim($username)) && !empty(trim($password))) {
-    			if (isValid($username, $password)) {
-    				$_SESSION['wig_user'] = $username;
-                    if (checkRole($username) == 0) {
-    					header("Location: admin/");
-    				}elseif (checkRole($username) == 1) {
-    					header("Location: operator/");
-    				}else{
-    					header("Location: logout.php");
-    				}
-    			}else{
-    				$validStatus = '<small class="text-danger"><strong>Password Incorrect</strong>&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i> </small>';
-    			}
-    		}
-    	}else{
-    		$existStatus = '<small class="text-danger"><strong>User Not Found</strong>&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i> </small>';
-    	}
+    if (isExist($username)) {
+        if (!empty(trim($username)) && !empty(trim($password))) {
+            if (isValid($username, $password)) {
+                $_SESSION['wig_user'] = $username;
+                if (checkRole($username) == 0) {
+                    header("Location: admin/");
+                } elseif (checkRole($username) == 1) {
+                    header("Location: operator/");
+                } else {
+                    header("Location: logout.php");
+                }
+            } else {
+                $validStatus = '<small class="text-danger"><strong>Password Incorrect</strong>&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i> </small>';
+            }
+        }
+    } else {
+        $existStatus = '<small class="text-danger"><strong>User Not Found</strong>&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i> </small>';
     }
+}
 
 ?>
 
 <!doctype html>
 <html lang="en">
+
 <head>
 
     <!-- Required meta tags -->
@@ -52,6 +53,7 @@
 
     <title>Login - Wash Inn Garage</title>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row no-gutter">
@@ -75,7 +77,7 @@
                                         <input id="inputPassword" type="password" placeholder="Password" required="" class="form-control  border-0 shadow-sm px-4 text-primary" autocomplete="off" name="password">
                                     </div>
                                     <div class="mb-3">
-                                    	<?= $validStatus . $existStatus ?>
+                                        <?= $validStatus . $existStatus ?>
                                     </div>
                                     <input type="submit" class="btn btn-block mb-2 mx-auto shadow-sm text-white" value="&nbsp;&nbsp;Log In&nbsp;&nbsp;" style="background-color: #4e73df" name="submit">
                                 </form>
@@ -87,12 +89,12 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+
 </html>
 
 <style type="text/css">
-
     /*
     *
     * ==========================================
@@ -102,13 +104,40 @@
     */
     .login,
     .image {
-    min-height: 100vh;
+        min-height: 100vh;
     }
 
     .bg-image {
-    background-image: url('assets/img/admin.png');
-    /*background-image: url('https://bootstrapious.com/i/snippets/sn-page-split/bg.jpg');*/
-    background-size: cover;
-    background-position: center center;
+        background-image: url('assets/img/admin.png');
+        background-size: cover;
+        background-position: center center;
     }
 </style>
+
+<!-- ==============================================
+
+DOKUMEN INI SUDAH FINAL 
+TTD : FIKRI MIFTAH AKMALUDIN
+
+
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+
+==============================================  -->
