@@ -52,7 +52,7 @@ $activePageLvl = 0;
                     <div class="row">
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('pendingRequestPanel')">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -70,7 +70,7 @@ $activePageLvl = 0;
                         </div>
 
                         <!-- Active Transactions Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('activeTransactionPanel')">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -130,29 +130,51 @@ $activePageLvl = 0;
 
                     <!-- Content Row -->
 
-                    <div class="row">
+                    <div class="row opPanel" id="pendingRequestPanel">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-clock fa-fw"></i> Pending Request</h5>
+                                    <button class="btn btn-outline-primary" id="refreshpendingtrx"><i class="fas fa-sync-alt shadow"></i></button>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table" id="pendingTrxTbl">
+                                            <thead>
+                                                <tr class="bg-primary text-white">
+                                                    <th scope="col">Inv. Number</th>
+                                                    <th scope="col">Customer</th>
+                                                    <th scope="col">Phone / WA</th>
+                                                    <th scope="col">Vehicle</th>
+                                                    <th scope="col">Reg. Number</th>
+                                                    <th scope="col">Service</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="pendingTrx">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row opPanel" id="activeTransactionPanel" hidden>
 
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-clock fa-fw"></i> Pending Request</h5>
-                                    <!-- <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div> -->
-                                    <button class="btn btn-outline-info" id="refreshpendingorder"><i class="fas fa-sync-alt shadow"></i></button>
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-clipboard-list fa-fw"></i> Active Transaction</h5>
+                                    <button class="btn btn-outline-primary" id="refreshactivetrx"><i class="fas fa-sync-alt shadow"></i></button>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -162,7 +184,7 @@ $activePageLvl = 0;
                                                 <th scope="col">Inv. Number</th>
                                                 <th scope="col">Customer</th>
                                                 <th scope="col">Vehicle</th>
-                                                <th scope="col">Registration Number</th>
+                                                <th scope="col">Reg. Number</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
@@ -236,24 +258,37 @@ $activePageLvl = 0;
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!-- Modal Delete Pending Transactions -->
+    <div class="modal fade" id="cancelPendingTrxModal" tabindex="-1" aria-labelledby="cancelPendingTrxModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                    <h5 class="modal-title">Cancel Pending Transaction</h5>
+                    <button type=" button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Invoice Number</dt>
+                        <dd class="col-sm-8"><mark id="invoice2cancel"></mark></dd>
+
+                        <dt class="col-sm-4">Customer Name</dt>
+                        <dd class="col-sm-8" id="customer2cancel"></dd>
+                    </dl>
+
+                    <p>To avoid canceling order by accident, you have to re-type invoice number above and click <kbd style="background-color: #e74a3b !important;">Cancel Order</kbd> button below</p>
+                    <input name="invoice2cancel" type="text" onkeyup="isdeleteconfirmed(value)" onchange="isdeleteconfirmed(value)" class="form-control form-control-sm text-danger" placeholder="" id="inputinvoice2cancel">
+                </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" name="btnCancelOrder" class="btn btn-danger btn-sm" id="btnCancelOrder" disabled>Cancel Order</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal Delete Pending Transactions  END-->
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
@@ -271,26 +306,95 @@ $activePageLvl = 0;
 
     <script>
         $(document).ready(function() {
-            getPendingOrder();
+            getPendingTrx();
         });
 
-        $("#refreshpendingorder").click(function() {
-            getPendingOrder();
+        $("#refreshpendingtrx").click(function() {
+            getPendingTrx();
         });
 
-        function getPendingOrder() {
-            $.post("functions/getpendingorders.php", {
-                    getPendingorder: true
+        $("#btnCancelOrder").click(function() {
+            var invoice = document.getElementById("inputinvoice2cancel").value;
+            cancelPendingTrx(invoice);
+        });
+
+        function getPendingTrx() {
+            $.post("functions/getpendingtrx.php", {
+                    getPendingTrx: true
                 },
                 function(data) {
-                    $("#pendingOrders").html(data);
+                    $("#pendingTrx").html(data);
+                    $('#cancelPendingTrxModal').modal('hide');
                 });
             // Some web hosting might be not support this code below, if so just delete it, 
             // so the ajax will not refresh automatically without user request
-            setTimeout('getPendingOrder()', 15000);
+            setTimeout('getPendingTrx()', 15000);
+        }
+
+        function cancelPendingTrx(invoice) {
+            $.post("functions/cancelpendingtrx.php", {
+                    invoice2cancel: invoice
+                },
+                function(data) {});
+            getPendingTrx();
+        }
+
+        function switchView(show) {
+            document.getElementById('pendingRequestPanel').hidden = true;
+            document.getElementById('activeTransactionPanel').hidden = true;
+            document.getElementById(show).hidden = false;
+        }
+
+        function deletePendingTrxCopyInv(inv, name) {
+            console.log(inv + name);
+            document.getElementById("invoice2cancel").innerHTML = inv;
+            document.getElementById("customer2cancel").innerHTML = name;
+            document.getElementById("inputinvoice2cancel").placeholder = inv;
+            document.getElementById("inputinvoice2cancel").value = '';
+            document.getElementById("btnCancelOrder").disabled = true;
+
+        }
+
+        function isdeleteconfirmed(value) {
+            if (document.getElementById("invoice2cancel").innerHTML == value) {
+                document.getElementById("btnCancelOrder").disabled = false;
+            } else {
+                document.getElementById("btnCancelOrder").disabled = true;
+            }
         }
     </script>
 
 </body>
 
 </html>
+
+
+
+<!-- CUSTOM CSS CLASS FOR THIS PAGE ONLY -->
+<style>
+    table {
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+    }
+
+    /* top-left border-radius */
+    table tr:first-child th:first-child {
+        border-top-left-radius: 0.4rem !important;
+        /* border-bottom-left-radius: 0.55rem !important; */
+    }
+
+    /* top-right border-radius */
+    table tr:first-child th:last-child {
+        border-top-right-radius: 0.4rem !important;
+        /* border-bottom-right-radius: 0.55rem !important; */
+    }
+
+
+    table tr:first-child td:first-child {
+        border-top-left-radius: 0.1rem !important;
+    }
+
+    table tr:first-child td:last-child {
+        border-top-right-radius: 0.1rem !important;
+    }
+</style>

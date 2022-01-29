@@ -1,7 +1,7 @@
 <?php
 require_once '../../core/init.php';
 
-if (isset($_POST['getPendingorder'])) {
+if (isset($_POST['getPendingTrx'])) {
     // ambil data dari table transactions
     $query_getPendingTrx = "SELECT * FROM transactions WHERE trx_status = 'unconfirmed'";
     $execute_getPendingTrx = mysqli_query($link, $query_getPendingTrx);
@@ -29,11 +29,14 @@ if (isset($_POST['getPendingorder'])) {
         $orderedMenu = mysqli_fetch_assoc($execute_getOrderedMenu);
 
         echo '<tr>
-            <th scope="row">' . $pendingTrx['invoice_number'] . '</th>
+            <td>' . $pendingTrx['invoice_number'] . '</td>
             <td>' . $pendingTrx['customer_name'] . '</td>
+            <td>' . $pendingOrder['customer_phone'] . '</td>
             <td>' . $orderedMenu['category'] . '</td>
             <td>' . $pendingOrder['platnomor'] . '</td>
-            <td><button class="btn btn-primary btn-sm">Check</button></td>
+            <td>' . $orderedMenu['name'] . '</td>
+            <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deletePendingTrxCopyInv(\'' . $pendingTrx['invoice_number'] . '\',\'' . $pendingOrder['customer_name'] . '\')">Cancel</button></td>
+            <td><button class="btn btn-primary btn-sm" onclick="">Confirm</button></td>
         </tr>';
     }
 } else {
