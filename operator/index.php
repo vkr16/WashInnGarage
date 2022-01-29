@@ -79,7 +79,7 @@ $activePageLvl = 0;
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">4</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="activeTrxCounter">4</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,7 +169,7 @@ $activePageLvl = 0;
                     <div class="row opPanel" id="activeTransactionPanel" hidden>
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-md-12" id="activeTrxPanel">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -178,17 +178,18 @@ $activePageLvl = 0;
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <table class="table" id="pendingOrdersTbl">
+                                    <table class="table" id="activeOrdersTbl">
                                         <thead>
                                             <tr class="bg-primary text-white">
                                                 <th scope="col">Inv. Number</th>
                                                 <th scope="col">Customer</th>
+                                                <th scope="col">Phone / WA</th>
                                                 <th scope="col">Vehicle</th>
                                                 <th scope="col">Reg. Number</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="pendingOrders">
+                                        <tbody id="activeTrx">
 
                                         </tbody>
                                     </table>
@@ -197,42 +198,50 @@ $activePageLvl = 0;
                         </div>
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-4 col-lg-5" id="trxDetailPanel" hidden>
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <!-- <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div> -->
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle fa-fw"></i> Transaction Detail</h5>
+                                    <button class="btn btn-outline-danger" onclick="hideTrxDetailPanel()"><i class="fas fa-times fa-fw "></i></button>
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
-                                    <!-- <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div> -->
+                                <div id="trxDetailPanelJS" hidden></div>
+                                <div class="card-body" id="trxDetailPanel">
+                                    <h5 class="text-center text-dark font-weight-bold">INVOICE</h5>
+                                    <h6 class="text-center text-dark font-weight-bold"><u>No : <span id="tdinvoicenumber"></span> </u></h6>
+                                    <br>
+                                    <p class="mb-0"><strong>Customer</strong></p>
+                                    <table class="col-md-12">
+                                        <tr>
+                                            <td><small>Name </small></td>
+                                            <td><small> : </small></td>
+                                            <td><small id="tdcustomername"> </small></td>
+                                        </tr>
+                                        <tr>
+                                            <td><small>Phone / WA </small></td>
+                                            <td><small> : </small></td>
+                                            <td><small id="tdcustomerphone"> </small></td>
+                                        </tr>
+                                        <tr>
+                                            <td><small>Reg. Number </small></td>
+                                            <td><small> : </small></td>
+                                            <td><small id="tdplatnomor"> </small></td>
+                                        </tr>
+                                    </table>
+                                    <hr>
+                                    <table class="table table-sm ">
+                                        <thead>
+                                            <th>Item / Service</th>
+                                            <th class="text-center">Qty</th>
+                                            <th class=" text-right">Subtotal</th>
+                                        </thead>
+                                        <tbody id="orderedMenuActive">
+
+                                        </tbody>
+                                    </table>
+
+
                                 </div>
                             </div>
                         </div>
@@ -307,10 +316,15 @@ $activePageLvl = 0;
     <script>
         $(document).ready(function() {
             getPendingTrx();
+            getActiveTrx();
         });
 
         $("#refreshpendingtrx").click(function() {
             getPendingTrx();
+        });
+
+        $("#refreshactivetrx").click(function() {
+            getActiveTrx();
         });
 
         $("#btnCancelOrder").click(function() {
@@ -328,6 +342,7 @@ $activePageLvl = 0;
                 });
             // Some web hosting might be not support this code below, if so just delete it, 
             // so the ajax will not refresh automatically without user request
+            getActiveTrx();
             setTimeout('getPendingTrx()', 15000);
         }
 
@@ -339,6 +354,48 @@ $activePageLvl = 0;
             getPendingTrx();
         }
 
+        function confirmPendingTrx(invoice) {
+            $.post("functions/confirmpendingtrx.php", {
+                    pendingTrxInvoice: invoice
+                },
+                function(data) {});
+            getPendingTrx();
+        }
+
+        function getActiveTrx() {
+            $.post("functions/getactivetrx.php", {
+                    getActiveTrx: true
+                },
+                function(data) {
+                    $("#activeTrx").html(data);
+                    // $('#cancelPendingTrxModal').modal('hide');
+                });
+            // Some web hosting might be not support this code below, if so just delete it, 
+            // so the ajax will not refresh automatically without user request
+        }
+
+        function viewActiveTrxDetail(invoice) {
+            document.getElementById("activeTrxPanel").className = 'col-md-8';
+            document.getElementById("trxDetailPanel").className = 'col-md-4';
+            document.getElementById("trxDetailPanel").hidden = false;
+            $.post("functions/getactivetrxdetail.php", {
+                    activeTrxInvoice: invoice
+                },
+                function(data) {
+                    $("#trxDetailPanelJS").html(data);
+                });
+            getOrderedMenu(invoice);
+        }
+
+        function getOrderedMenu(invoice) {
+            $.post("functions/getorders.php", {
+                    invoice_number: invoice
+                },
+                function(data) {
+                    $("#orderedMenuActive").html(data);
+                });
+        }
+
         function switchView(show) {
             document.getElementById('pendingRequestPanel').hidden = true;
             document.getElementById('activeTransactionPanel').hidden = true;
@@ -346,7 +403,6 @@ $activePageLvl = 0;
         }
 
         function deletePendingTrxCopyInv(inv, name) {
-            console.log(inv + name);
             document.getElementById("invoice2cancel").innerHTML = inv;
             document.getElementById("customer2cancel").innerHTML = name;
             document.getElementById("inputinvoice2cancel").placeholder = inv;
@@ -361,6 +417,11 @@ $activePageLvl = 0;
             } else {
                 document.getElementById("btnCancelOrder").disabled = true;
             }
+        }
+
+        function hideTrxDetailPanel() {
+            document.getElementById("activeTrxPanel").className = 'col-md-12';
+            document.getElementById("trxDetailPanel").hidden = true;
         }
     </script>
 

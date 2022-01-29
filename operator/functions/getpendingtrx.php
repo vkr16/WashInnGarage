@@ -8,7 +8,7 @@ if (isset($_POST['getPendingTrx'])) {
     $pendingTrxCounter = mysqli_num_rows($execute_getPendingTrx);
     if ($pendingTrxCounter == 0) {
         echo '<tr>
-    <td colspan="4" class="text-center">No Pending Request</td>
+    <td colspan="8" class="text-center font-weight-bold text-lg">- No Pending Request -</td>
 </tr>';
     }
 
@@ -36,7 +36,7 @@ if (isset($_POST['getPendingTrx'])) {
             <td>' . $pendingOrder['platnomor'] . '</td>
             <td>' . $orderedMenu['name'] . '</td>
             <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deletePendingTrxCopyInv(\'' . $pendingTrx['invoice_number'] . '\',\'' . $pendingOrder['customer_name'] . '\')">Cancel</button></td>
-            <td><button class="btn btn-primary btn-sm" onclick="">Confirm</button></td>
+            <td><button class="btn btn-primary btn-sm" onclick="confirmPendingTrx(\'' . $pendingTrx['invoice_number'] . '\')">Confirm</button></td>
         </tr>';
     }
 } else {
