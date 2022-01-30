@@ -178,21 +178,23 @@ $activePageLvl = 0;
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <table class="table" id="activeOrdersTbl">
-                                        <thead>
-                                            <tr class="bg-primary text-white">
-                                                <th scope="col">Inv. Number</th>
-                                                <th scope="col">Customer</th>
-                                                <th scope="col">Phone / WA</th>
-                                                <th scope="col">Vehicle</th>
-                                                <th scope="col">Reg. Number</th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="activeTrx">
+                                    <div class="table-responsive">
+                                        <table class="table" id="activeOrdersTbl">
+                                            <thead>
+                                                <tr class="bg-primary text-white">
+                                                    <th scope="col">Inv. Number</th>
+                                                    <th scope="col">Customer</th>
+                                                    <th scope="col">Phone / WA</th>
+                                                    <th scope="col">Vehicle</th>
+                                                    <th scope="col">Reg. Number</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="activeTrx">
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
