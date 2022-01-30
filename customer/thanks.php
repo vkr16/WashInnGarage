@@ -50,7 +50,7 @@ require_once "../core/init.php";
       <div class="card bg-semi-dark mt-4">
         <div class="card-body ">
           <div class="col-md-8 offset-md-2">
-            <h1 class="text-center text-light display-4">Terima Kasih</h1><br>
+            <h1 class="text-center text-light display-4"><strong>Terima Kasih</strong></h1><br>
           </div>
         </div>
       </div>
