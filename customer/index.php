@@ -28,7 +28,7 @@ require_once "../core/init.php";
     }
 
     .bg-semi-dark {
-      background-color: rgba(0, 0, 0, 0.65);
+      background-color: rgba(255, 255, 255, 0.65);
     }
 
     .bg-transparent {
@@ -52,16 +52,16 @@ require_once "../core/init.php";
 
   <div class="container">
     <div class="col-lg-10 offset-lg-1">
-      <div class="card bg-semi-dark mt-4">
+      <div class="card mt-4">
         <div class="card-body ">
           <div class="col-md-8 offset-md-2">
 
-            <h1 class="text-center text-light display-4"><strong> Selamat Datang</strong></h1><br>
-            <h5 class="font-weight-light text-center text-light">Silahkan Masukan Detail Informasi <br> dan Layanan Yang Ingin Anda Pesan</h5>
+            <h1 class="text-center display-4"><strong> Selamat Datang</strong></h1><br>
+            <h5 class="font-weight-light text-center">Silahkan Masukan Detail Informasi <br> dan Layanan Yang Ingin Anda Pesan</h5>
           </div>
           <div class="col-md-8 offset-md-2 d-flex justify-content-between mt-4">
-            <a href="new-customer.php" class="btn btn-light btn-lg text-dark">Pelanggan Baru</a>
-            <a href="check-membership.php" class="btn btn-light btn-lg text-dark">Sudah Pernah Datang</a>
+            <a href="new-customer.php" class="btn btn-info btn-lg text-light">Pelanggan Baru</a>
+            <a href="check-membership.php" class="btn btn-info btn-lg text-light">Sudah Pernah Datang</a>
           </div>
         </div>
       </div>

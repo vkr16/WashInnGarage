@@ -12,8 +12,9 @@ if (isset($_POST['invoice_number'])) {
 
     $trx_id = $trxData['id'];
 
-    $query_getOrdersData = "SELECT * FROM orders WHERE trx_id = '$trx_id'";
+    $query_getOrdersData = "SELECT * FROM orders WHERE trx_id = '$trx_id' AND order_status ='active'";
     $execute_getOrdersData = mysqli_query($link, $query_getOrdersData);
+    $count_ordersData = mysqli_num_rows($execute_getOrdersData);
 
     while ($ordersData = mysqli_fetch_assoc($execute_getOrdersData)) {
 
@@ -26,7 +27,7 @@ if (isset($_POST['invoice_number'])) {
         $total = $total + $subtotal;
 ?>
         <tr>
-            <td><small><a role="button"><i class="fas fa-times fa-fw fw-sm"> </i></a> <?= $menuData['name'] ?></small></td>
+            <td><small><a role="button"><?php echo ($count_ordersData > 1) ? '<i role="button" class="fas fa-times fa-fw fw-sm" onclick="cancelOrder(\'' . $ordersData['id'] . '\',\'' . $invoice . '\')"> </i>' : ''; ?></a> <?= $menuData['name'] ?></small></td>
             <td class="text-center"><small><a role="button" onclick="minusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')"><i class="fas fa-minus-square fa-fw fw-sm"></i>&emsp;</a><span id="<?= 'amountof' . $ordersData['id'] ?>"><?= $ordersData['amount'] ?></span><a role="button" onclick="plusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')">&emsp;<i class="fas fa-plus-square fa-fw fw-sm"> </i></a></small></td>
             <td class="text-right"><small><?= 'Rp ' . number_format($subtotal, 0, ',', '.')  ?></small></td>
         </tr>

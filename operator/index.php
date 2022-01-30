@@ -365,7 +365,7 @@ $activePageLvl = 0;
                 },
                 function(data) {
                     $("#pendingTrx").html(data);
-            //        $('#cancelPendingTrxModal').modal('hide');
+                    //        $('#cancelPendingTrxModal').modal('hide');
                 });
             // Some web hosting might be not support this code below, if so just delete it, 
             // so the ajax will not refresh automatically without user request
@@ -419,7 +419,10 @@ $activePageLvl = 0;
                     invoice_number: invoice,
                     order_id: orderID
                 },
-                function(data) {});
+                function(data) {
+                    $("#hujiko").html(data);
+
+                });
             viewActiveTrxDetail(invoice);
         }
 
