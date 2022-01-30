@@ -60,18 +60,10 @@ if (isset($_POST['customername'])) {
 <body>
     <style>
         body {
-            background-image: url('<?= $assets ?>/img/bg-cover-customer.jpg');
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/bg-cover-customer.jpg");
             background-size: cover;
-            background-color: rgba(0, 0, 0, 0.65);
             background-repeat: no-repeat;
-        }
-
-        .bg-semi-light {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .bg-transparent {
-            background-color: transparent;
+            background-attachment: fixed;
         }
     </style>
 
@@ -80,7 +72,7 @@ if (isset($_POST['customername'])) {
     </style>
 
 
-    <nav class="navbar navbar-light bg-semi-light shadow" style="font-family: 'Oswald', sans-serif;">
+    <nav class="navbar navbar-light bg-light shadow" style="font-family: 'Oswald', sans-serif;">
         <a class="navbar-brand" href="index.php">
             <img src="<?= $assets ?>/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
             &nbsp; Wash Inn Garage
