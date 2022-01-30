@@ -412,7 +412,15 @@ $activePageLvl = 0;
                     $("#trxDetailPanelJS").html(data);
                 });
             getOrderedMenu(invoice);
+        }
 
+        function cancelOrder(orderID, invoice) {
+            $.post("functions/cancelorder.php", {
+                    invoice_number: invoice,
+                    order_id: orderID
+                },
+                function(data) {});
+            viewActiveTrxDetail(invoice);
         }
 
         function getOrderedMenu(invoice) {
@@ -490,18 +498,13 @@ $activePageLvl = 0;
         border-spacing: 0 !important;
     }
 
-    /* top-left border-radius */
     table tr:first-child th:first-child {
         border-top-left-radius: 0.4rem !important;
-        /* border-bottom-left-radius: 0.55rem !important; */
     }
 
-    /* top-right border-radius */
     table tr:first-child th:last-child {
         border-top-right-radius: 0.4rem !important;
-        /* border-bottom-right-radius: 0.55rem !important; */
     }
-
 
     table tr:first-child td:first-child {
         border-top-left-radius: 0.1rem !important;
