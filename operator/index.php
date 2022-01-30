@@ -298,6 +298,7 @@ $activePageLvl = 0;
         </div>
     </div>
     <!-- Modal Delete Pending Transactions  END-->
+    <div id="hujiko" hidden></div>
 
     <!-- Modal manage order Active Transactions -->
     <div class="modal fade" id="manageactiveorders" tabindex="-1" aria-labelledby="manageactiveordersLabel" aria-hidden="true">
@@ -409,6 +410,7 @@ $activePageLvl = 0;
                     $("#trxDetailPanelJS").html(data);
                 });
             getOrderedMenu(invoice);
+
         }
 
         function getOrderedMenu(invoice) {
@@ -441,6 +443,8 @@ $activePageLvl = 0;
                 });
             viewActiveTrxDetail(invoice);
         }
+
+
 
         function switchView(show) {
             document.getElementById('pendingRequestPanel').hidden = true;

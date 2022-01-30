@@ -31,7 +31,6 @@ if (isset($_POST['btnConfirm'])) {
 
 
 
-    var_export($_POST);
 
     // Getting Prevoius Transaction "id" for Generating Invoice Number
     $query_getPrevTrxId = "SELECT MAX(id) AS PreviousTrxId FROM transactions";
@@ -44,7 +43,7 @@ if (isset($_POST['btnConfirm'])) {
     $invoice_number = 'INV/' . date("Y") . '/' . date("md") . '/' . $CurrentTrxId;
 
     //Insert transaction to database
-    $query_insertTransaction = "INSERT INTO transactions (invoice_number, customer_name, total, trx_status) VALUE ('$invoice_number', '$customer_name', '$total', '$trx_status')";
+    $query_insertTransaction = "INSERT INTO transactions (invoice_number, customer_name,trx_status) VALUE ('$invoice_number', '$customer_name', '$trx_status')";
     if ($execute_insertTransaction = mysqli_query($link, $query_insertTransaction)) {
 
         // Decide which query to use, if email empty "email" field on db will be filled with NULL instead of empty string
@@ -55,5 +54,7 @@ if (isset($_POST['btnConfirm'])) {
         if ($execute_insertOrder = mysqli_query($link, $query_insertOrder)) {
             header("Location:../thanks.php");
         }
+    } else {
+        echo "gagal disini";
     }
 }

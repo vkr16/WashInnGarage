@@ -44,7 +44,3 @@ if (isset($_POST['invoice_number'])) {
     // ngapain kesini
 }
 ?>
-
-<script>
-    document.getElementById("totalPriceOfTrx").innerHTML = ' <?= 'Rp ' . number_format($total, 0, ',', '.')  ?> ';
-</script>
