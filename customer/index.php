@@ -12,9 +12,7 @@
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 </head>
@@ -30,22 +28,19 @@
                 <img src="../assets/img/logo-white.png" width="40" height="40" class="d-inline-block align-top">
             </a>
             <ul class="navbar-nav">
-                <li class="nav-item p-0 " role="button" style="font-family: 'Roboto Slab', serif;font-size: larger;"><a
-                        href="index.php" class="nav-link active"> Wash Inn
+                <li class="nav-item p-0 " role="button" style="font-family: 'Roboto Slab', serif;font-size: larger;"><a href="index.php" class="nav-link active"> Wash Inn
                         Garage</a></li>
             </ul>
 
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about"></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects"></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#signup"></a></li>
+                    <li class="nav-item"><a class="nav-link"></a></li>
+                    <li class="nav-item"><a class="nav-link"></a></li>
+                    <li class="nav-item"><a class="nav-link"></a></li>
                 </ul>
             </div>
         </div>
