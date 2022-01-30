@@ -368,7 +368,7 @@ $activePageLvl = 0;
             // Some web hosting might be not support this code below, if so just delete it, 
             // so the ajax will not refresh automatically without user request
             getActiveTrx();
-            setTimeout('getPendingTrx()', 15000);
+            setTimeout('getPendingTrx()', 10000);
         }
 
         function cancelPendingTrx(invoice) {
