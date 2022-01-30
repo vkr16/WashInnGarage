@@ -56,7 +56,7 @@ require_once "../core/init.php";
         <div class="card-body ">
           <div class="col-md-8 offset-md-2">
 
-            <h1 class="text-center text-light display-4">Selamat Datang</h1><br>
+            <h1 class="text-center text-light display-4"><strong> Selamat Datang</strong></h1><br>
             <h5 class="font-weight-light text-center text-light">Silahkan Masukan Detail Informasi <br> dan Layanan Yang Ingin Anda Pesan</h5>
           </div>
           <div class="col-md-8 offset-md-2 d-flex justify-content-between mt-4">
