@@ -214,19 +214,16 @@ $activePageLvl = 0;
                                     <p class="mb-0"><strong>Customer</strong></p>
                                     <table class="col-md-12">
                                         <tr>
-                                            <td><small>Name </small></td>
-                                            <td><small> : </small></td>
-                                            <td><small id="tdcustomername"> </small></td>
+                                            <td width="27%"><small>Name </small></td>
+                                            <td><small> : &emsp; </small><small id="tdcustomername"> </small></td>
                                         </tr>
                                         <tr>
                                             <td><small>Phone / WA </small></td>
-                                            <td><small> : </small></td>
-                                            <td><small id="tdcustomerphone"> </small></td>
+                                            <td><small> : &emsp; </small><small id="tdcustomerphone"> </small></td>
                                         </tr>
                                         <tr>
                                             <td><small>Reg. Number </small></td>
-                                            <td><small> : </small></td>
-                                            <td><small id="tdplatnomor"> </small></td>
+                                            <td><small> : &emsp; </small><small id="tdplatnomor"> </small></td>
                                         </tr>
                                     </table>
                                     <hr>
@@ -240,8 +237,12 @@ $activePageLvl = 0;
 
                                         </tbody>
                                     </table>
-
-
+                                </div>
+                                <div class="card-footer">
+                                    <div class="col-md- 12 d-flex justify-content-between">
+                                        <button class="btn btn-primary btn-sm">Add Order</button>
+                                        <button class="btn btn-info btn-sm">Manage Order</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -297,6 +298,29 @@ $activePageLvl = 0;
         </div>
     </div>
     <!-- Modal Delete Pending Transactions  END-->
+
+    <!-- Modal manage order Active Transactions -->
+    <div class="modal fade" id="manageactiveorders" tabindex="-1" aria-labelledby="manageactiveordersLabel" aria-hidden="true">
+        <!-- <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageactiveorders">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- Modal manage order Active Transactions  END-->
+
 
 
     <!-- Bootstrap core JavaScript-->
@@ -394,6 +418,28 @@ $activePageLvl = 0;
                 function(data) {
                     $("#orderedMenuActive").html(data);
                 });
+        }
+
+        function minusOrder(orderID, invoice) {
+            $.post("functions/changeorderamount.php", {
+                    order_id: orderID,
+                    doMinus: true
+                },
+                function(data) {
+                    $("#amountof" + orderID).html(data);
+                });
+            viewActiveTrxDetail(invoice);
+        }
+
+        function plusOrder(orderID, invoice) {
+            $.post("functions/changeorderamount.php", {
+                    order_id: orderID,
+                    doPlus: true
+                },
+                function(data) {
+                    $("#amountof" + orderID).html(data);
+                });
+            viewActiveTrxDetail(invoice);
         }
 
         function switchView(show) {

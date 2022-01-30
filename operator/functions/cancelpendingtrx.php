@@ -1,7 +1,6 @@
 <?php
 require_once '../../core/init.php';
 
-var_export($_POST);
 
 if (isset($_POST['invoice2cancel'])) {
     $invoice2cancel = $_POST['invoice2cancel'];
@@ -22,4 +21,8 @@ if (isset($_POST['invoice2cancel'])) {
     $execute_updateTrxOrder = mysqli_query($link, $query_updateTrxOrder);
 
     // header("Location:../index.php");
+} else {
+    header('HTTP/1.0 403 Forbidden');
+
+    echo '<h1>403 FORBIDDEN!</h1>';
 }

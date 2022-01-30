@@ -26,8 +26,8 @@ if (isset($_POST['invoice_number'])) {
         $total = $total + $subtotal;
 ?>
         <tr>
-            <td><small><?= $menuData['name'] ?></small></td>
-            <td class="text-center"><small><?= $ordersData['amount'] ?></small></td>
+            <td><small><a role="button"><i class="fas fa-times fa-fw fw-sm"> </i></a> <?= $menuData['name'] ?></small></td>
+            <td class="text-center"><small><a role="button" onclick="minusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')"><i class="fas fa-minus-square fa-fw fw-sm"></i>&emsp;</a><span id="<?= 'amountof' . $ordersData['id'] ?>"><?= $ordersData['amount'] ?></span><a role="button" onclick="plusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')">&emsp;<i class="fas fa-plus-square fa-fw fw-sm"> </i></a></small></td>
             <td class="text-right"><small><?= 'Rp ' . number_format($subtotal, 0, ',', '.')  ?></small></td>
         </tr>
     <?php
