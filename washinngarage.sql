@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2022 at 07:25 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: Jan 31, 2022 at 07:49 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -59,9 +59,9 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `type`, `category`, `name`, `price`, `image`, `description`, `stock`, `status`) VALUES
-(1, 'service', 'Car', 'Express', 22000, 'Express.jpg', 'Paket Cuci Exterior Mobil <br>Paket ini mencakup pembersihan untuk : <br><ul><li>Exterior (Body Mobil)</li></ul>', NULL, 'active'),
-(2, 'service', 'Motorcycle', 'Express Bike', 10000, 'Express Bike.jpg', 'Jasa Cuci Motor Express<br>Khusus Motor Dibawah 250cc<br>Paket layanan ini mencakup : <br><ul><li>Cuci Motor</li><li>Semir Ban Motor</li><li>Gratis Nitrogen Ban</li></ul>', NULL, 'active'),
-(3, 'merchandise', NULL, 'Kaos Hitam', 80000, 'Kaos Hitam.jpg', 'Kaos Hitam Polos', 22, 'active');
+(1, 'service', 'Car', 'Express', 22000, 'Express.jpg', 'Cuci Mobil Express 22K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Exterior</li></ul>', NULL, 'active'),
+(2, 'service', 'Motorcycle', 'Express Bike', 10000, 'Express Bike.jpg', 'Cuci Motor Express 10K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Mesin Motor</li><li>Cuci Body Motor</li></ul>', NULL, 'active'),
+(3, 'beverage', NULL, 'Kopi Hitam', 5000, 'Kopi Hitam.jpg', 'Kopi Hitam Kapal Api<br>Bisa request takaran gula<br>Tidak request maka dibuatkan takaran 1:1 antara gula:kopi', 9999, 'active');
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,8 @@ CREATE TABLE `orders` (
 CREATE TABLE `transactions` (
   `id` int(20) NOT NULL,
   `invoice_number` varchar(50) NOT NULL,
-  `time` datetime(6) NOT NULL DEFAULT current_timestamp(6),
+  `receipt_number` int(10) DEFAULT NULL,
+  `completetime` date DEFAULT NULL,
   `operator_name` varchar(100) DEFAULT NULL,
   `customer_name` varchar(100) NOT NULL,
   `trx_status` varchar(20) NOT NULL
