@@ -75,7 +75,7 @@ $activePageLvl = 0;
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Active Order
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Active Transaction
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -242,8 +242,9 @@ $activePageLvl = 0;
                                 </div>
                                 <div class="card-footer">
                                     <div class="col-md- 12 d-flex justify-content-between">
+                                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deleteTrxCopyInv()">Cancel Transaction</button>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" id="getactivemenus" data-target="#addOrder">Add Order</button>
-                                        <button class="btn btn-info btn-sm">Manage Order</button>
+                                        <button class="btn btn-info btn-sm">Complete</button>
                                     </div>
                                 </div>
                             </div>
@@ -275,7 +276,7 @@ $activePageLvl = 0;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cancel Pending Transaction</h5>
+                    <h5 class="modal-title">Cancel Transaction</h5>
                     <button type=" button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -289,12 +290,12 @@ $activePageLvl = 0;
                         <dd class="col-sm-8" id="customer2cancel"></dd>
                     </dl>
 
-                    <p>To avoid canceling order by accident, you have to re-type invoice number above and click <kbd style="background-color: #e74a3b !important;">Cancel Order</kbd> button below</p>
+                    <p>To avoid canceling transaction by accident, you have to re-type invoice number above and click <kbd style="background-color: #e74a3b !important;">Cancel Transaction</kbd> button below</p>
                     <input name="invoice2cancel" type="text" onkeyup="isdeleteconfirmed(value)" onchange="isdeleteconfirmed(value)" class="form-control form-control-sm text-danger" placeholder="" id="inputinvoice2cancel">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                    <button type="button" name="btnCancelOrder" class="btn btn-danger btn-sm" id="btnCancelOrder" disabled>Cancel Order</button>
+                    <button type="button" name="btnCancelOrder" class="btn btn-danger btn-sm" id="btnCancelOrder" disabled>Cancel Transaction</button>
                 </div>
             </div>
         </div>
@@ -302,27 +303,6 @@ $activePageLvl = 0;
     <!-- Modal Delete Pending Transactions  END-->
     <div id="hujiko" hidden></div>
 
-    <!-- Modal manage order Active Transactions -->
-    <div class="modal fade" id="manageactiveorders" tabindex="-1" aria-labelledby="manageactiveordersLabel" aria-hidden="true">
-        <!-- <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="manageactiveorders">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div> -->
-    </div>
-    <!-- Modal manage order Active Transactions  END-->
 
     <!-- Modal add order to trx -->
     <div class="modal fade" id="addOrder" tabindex="-1" aria-labelledby="addOrderLabel" aria-hidden="true">
@@ -341,8 +321,8 @@ $activePageLvl = 0;
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                 </div>
             </div>
         </div>
@@ -410,6 +390,8 @@ $activePageLvl = 0;
                 },
                 function(data) {});
             getPendingTrx();
+            getActiveTrx();
+            hideTrxDetailPanel();
         }
 
         function getActiveMenus() {
@@ -527,6 +509,16 @@ $activePageLvl = 0;
             document.getElementById("inputinvoice2cancel").value = '';
             document.getElementById("btnCancelOrder").disabled = true;
 
+        }
+
+        function deleteTrxCopyInv() {
+            var inv = document.getElementById("tdinvoicenumber").innerHTML;
+            var name = document.getElementById("tdcustomername").innerHTML;
+            document.getElementById("invoice2cancel").innerHTML = inv;
+            document.getElementById("customer2cancel").innerHTML = name;
+            document.getElementById("inputinvoice2cancel").placeholder = inv;
+            document.getElementById("inputinvoice2cancel").value = '';
+            document.getElementById("btnCancelOrder").disabled = true;
         }
 
         function isdeleteconfirmed(value) {

@@ -34,7 +34,7 @@ if (isset($_POST['getActiveTrx'])) {
             <td>' . $activeOrder['customer_phone'] . '</td>
             <td>' . $orderedMenu['category'] . '</td>
             <td>' . $activeOrder['platnomor'] . '</td>
-            <td><button class="btn btn-info btn-sm" onclick="viewActiveTrxDetail(\'' . $activeTrx['invoice_number'] . '\')">Check</button></td>
+            <td><button class="btn btn-info btn-sm" onclick="viewActiveTrxDetail(\'' . $activeTrx['invoice_number'] . '\')">Detail</button></td>
         </tr>';
     }
 } else {
