@@ -244,7 +244,7 @@ $activePageLvl = 0;
                                     <div class="col-md- 12 d-flex justify-content-between">
                                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deleteTrxCopyInv()">Cancel Transaction</button>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" id="getactivemenus" data-target="#addOrder">Add Order</button>
-                                        <button class="btn btn-info btn-sm">Complete</button>
+                                        <button class="btn btn-info btn-sm" onclick="completeOrder()">Complete</button>
                                     </div>
                                 </div>
                             </div>
@@ -358,6 +358,7 @@ $activePageLvl = 0;
 
         $("#refreshpendingtrx").click(function() {
             getPendingTrx();
+
         });
 
         $("#refreshactivetrx").click(function() {
@@ -383,6 +384,21 @@ $activePageLvl = 0;
             getActiveTrx();
             setTimeout('getPendingTrx()', 10000);
         }
+
+        function completeOrder() {
+            var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+            $.post("functions/completeorder.php", {
+                    completeorder: true,
+                    invoice_number: invoice
+                },
+                function(data) {
+                    // $("#pendingTrx").html(data);
+                });
+            getPendingTrx();
+            getActiveTrx();
+            hideTrxDetailPanel();
+        }
+
 
         function cancelPendingTrx(invoice) {
             $.post("functions/cancelpendingtrx.php", {
@@ -434,8 +450,6 @@ $activePageLvl = 0;
                     $("#activeTrx").html(data);
                     // $('#cancelPendingTrxModal').modal('hide');
                 });
-            // Some web hosting might be not support this code below, if so just delete it, 
-            // so the ajax will not refresh automatically without user request
         }
 
         function viewActiveTrxDetail(invoice) {
