@@ -52,7 +52,7 @@ $activePageLvl = 0;
                     <div class="row">
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('pendingRequestPanel')">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('pendingRequestPanel')" role="button">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -70,7 +70,7 @@ $activePageLvl = 0;
                         </div>
 
                         <!-- Active Transactions Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('activeTransactionPanel')">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('activeTransactionPanel')" role="button">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -242,7 +242,7 @@ $activePageLvl = 0;
                                 </div>
                                 <div class="card-footer">
                                     <div class="col-md- 12 d-flex justify-content-between">
-                                        <button class="btn btn-primary btn-sm">Add Order</button>
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal" id="getactivemenus" data-target="#addOrder">Add Order</button>
                                         <button class="btn btn-info btn-sm">Manage Order</button>
                                     </div>
                                 </div>
@@ -324,6 +324,31 @@ $activePageLvl = 0;
     </div>
     <!-- Modal manage order Active Transactions  END-->
 
+    <!-- Modal add order to trx -->
+    <div class="modal fade" id="addOrder" tabindex="-1" aria-labelledby="addOrderLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addOrderLabel">Add Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="activeMenu">
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal add order to trx  end-->
+
 
 
     <!-- Bootstrap core JavaScript-->
@@ -346,6 +371,11 @@ $activePageLvl = 0;
             getActiveTrx();
         });
 
+        $("#getactivemenus").click(function() {
+            getActiveMenus();
+        });
+
+
         $("#refreshpendingtrx").click(function() {
             getPendingTrx();
         });
@@ -356,6 +386,7 @@ $activePageLvl = 0;
 
         $("#btnCancelOrder").click(function() {
             var invoice = document.getElementById("inputinvoice2cancel").value;
+            $('#cancelPendingTrxModal').modal('hide');
             cancelPendingTrx(invoice);
         });
 
@@ -379,6 +410,30 @@ $activePageLvl = 0;
                 },
                 function(data) {});
             getPendingTrx();
+        }
+
+        function getActiveMenus() {
+            var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+            $.post("functions/getactivemenus.php", {
+                    getactivemenus: true
+                },
+                function(data) {
+                    $("#activeMenu").html(data);
+                });
+            // viewActiveTrxDetail(invoice)
+        }
+
+        function addOrderToActiveTrx(menuID) {
+            var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+            $.post("functions/addorder.php", {
+                    addorder: true,
+                    menuID: menuID,
+                    invoice: invoice
+                },
+                function(data) {
+                    $("#hujiko").html(data);
+                });
+            viewActiveTrxDetail(invoice);
         }
 
         function confirmPendingTrx(invoice) {
