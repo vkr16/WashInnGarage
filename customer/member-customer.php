@@ -64,6 +64,11 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald&family=Raleway&display=swap');
+
+        .form-control:focus {
+            border-color: #17A2B8;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(23, 184, 176, 0.6);
+        }
     </style>
 
 
@@ -116,7 +121,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
 
                             <div class="row d-flex justify-content-between mx-auto">
                                 <a href="check-membership.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                                <a class="btn btn-primary" onclick="switchView('customerID','vehicleID')" id="btnNext1">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
+                                <a class="btn btn-info" onclick="switchView('customerID','vehicleID')" id="btnNext1">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
                             </div>
                     </div>
                 </div>
@@ -171,7 +176,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                         </div>
                         <div class="row d-flex justify-content-between mx-auto">
                             <a class="btn btn-secondary" onclick="switchView('vehicleID','customerID')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                            <a class="btn btn-primary" onclick="isplatnomorempty('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
+                            <a class="btn btn-info" onclick="isplatnomorempty('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a>
                         </div>
                     </div>
                 </div>
@@ -187,7 +192,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                         <hr>
                         <div class="row d-flex justify-content-between mx-auto">
                             <a class="btn btn-secondary" onclick="switchView('serviceMenu','vehicleID')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                            <!-- <a class="btn btn-primary" onclick="switchView('serviceMenu','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a> -->
+                            <!-- <a class="btn btn-info" onclick="switchView('serviceMenu','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a> -->
                         </div>
                     </div>
                     <div class="col-md-10 offset-md-1 mt-4">
@@ -198,7 +203,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                                         <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
                                     </a>
                                     <div class="d-flex justify-content-center mt-2">
-                                        <a class="btn btn-outline-primary" name="serviceID"><?= $service['name'] ?></a>
+                                        <a class="btn btn-outline-info" name="serviceID"><?= $service['name'] ?></a>
                                     </div>
                                     <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
                                     <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
@@ -214,7 +219,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                                         <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
                                     </a>
                                     <div class="d-flex justify-content-center mt-2">
-                                        <a class="btn btn-outline-primary" name="serviceID"><?= $service['name'] ?></a>
+                                        <a class="btn btn-outline-info" name="serviceID"><?= $service['name'] ?></a>
                                     </div>
                                     <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
                                     <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
@@ -236,7 +241,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                         <hr>
                         <div class="d-flex justify-content-between">
                             <a class="btn btn-secondary" onclick="switchView('serviceDetail','serviceMenu')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                            <button type="submit" name="serviceID" id="btnSubmitToConfirmation" value="" class="btn btn-primary " onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
+                            <button type="submit" name="serviceID" id="btnSubmitToConfirmation" value="" class="btn btn-info " onclick="switchView('vehicleID','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
                             </form>
                         </div>
 

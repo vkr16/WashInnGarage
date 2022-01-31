@@ -56,6 +56,11 @@ if (isset($_POST['btnCheckMembership'])) {
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
+        .form-control:focus {
+            border-color: #17A2B8;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(23, 184, 176, 0.6);
+        }
     </style>
 
     <style>
@@ -91,7 +96,7 @@ if (isset($_POST['btnCheckMembership'])) {
                                 <input required autocomplete="off" type="text" class="form-control" id="customerphone" name="customerphone" aria-describedby="nameHelp" placeholder="No. HP / WhatsApp">
                             </div>
 
- <?php if (isset($error)) {
+                            <?php if (isset($error)) {
                                 echo ' <div class="alert alert-danger" role="alert">
                                       Mohon maaf <strong>No. HP / WhatsApp</strong> anda belum terdaftar.
                                     </div>';
@@ -99,10 +104,10 @@ if (isset($_POST['btnCheckMembership'])) {
 
                             <div class="row d-flex justify-content-between mx-auto">
                                 <a href="index.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                                <button type="submit" class="btn btn-primary" id="btnCheckMembership" name="btnCheckMembership">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
+                                <button type="submit" class="btn btn-info" id="btnCheckMembership" name="btnCheckMembership">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
                             </div>
-                           
-                           
+
+
                     </div>
                 </div>
                 <div class="card-footer text-center">
