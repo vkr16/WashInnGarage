@@ -29,6 +29,16 @@ if (isset($_POST['btnConfirm'])) {
         if ($countgetMembers == 1) {
             $memberData = mysqli_fetch_assoc($execute_getMembers);
             $member_id = $memberData['id'];
+
+            $query_getVehicles = "SELECT * FROM vehicles WHERE owner_id ='$member_id' AND platnomor = '$platNomor'";
+            $execute_getVehicles = mysqli_query($link, $query_getVehicles);
+            $count_getVehicles = mysqli_num_rows($execute_getVehicles);
+
+            if ($count_getVehicles == 0) {
+                // registering customer's vehicle
+                $query_registerVehicle = "INSERT INTO vehicles (vehicletype, platnomor, owner_id) VALUE ('$vehicleType', '$platNomor', '$member_id')";
+                $execute_registerVehicle = mysqli_query($link, $query_registerVehicle);
+            }
         } else {
             // Registering new member
             $query_registerMember = "INSERT INTO customers (fullname, phone, email, membership) VALUE ('$customer_name', '$customer_phone', '$customer_email', 'member')";
@@ -47,6 +57,16 @@ if (isset($_POST['btnConfirm'])) {
         if ($countgetMembers == 1) {
             $memberData = mysqli_fetch_assoc($execute_getMembers);
             $member_id = $memberData['id'];
+
+            $query_getVehicles = "SELECT * FROM vehicles WHERE owner_id ='$member_id' AND platnomor = '$platNomor'";
+            $execute_getVehicles = mysqli_query($link, $query_getVehicles);
+            $count_getVehicles = mysqli_num_rows($execute_getVehicles);
+
+            if ($count_getVehicles == 0) {
+                // registering customer's vehicle
+                $query_registerVehicle = "INSERT INTO vehicles (vehicletype, platnomor, owner_id) VALUE ('$vehicleType', '$platNomor', '$member_id')";
+                $execute_registerVehicle = mysqli_query($link, $query_registerVehicle);
+            }
         } else {
             // Registering new member
             $query_registerMember = "INSERT INTO customers (fullname, phone, email, membership) VALUE ('$customer_name', '$customer_phone', '$customer_email', 'customer')";
