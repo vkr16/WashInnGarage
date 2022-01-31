@@ -92,14 +92,14 @@ $activePageLvl = 0;
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('completeTransactionPanel')" role="button">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Complete Order (Today)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">11</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="completeTrxCounter">11</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
@@ -244,7 +244,92 @@ $activePageLvl = 0;
                                     <div class="col-md- 12 d-flex justify-content-between">
                                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deleteTrxCopyInv()">Cancel Transaction</button>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" id="getactivemenus" data-target="#addOrder">Add Order</button>
-                                        <button class="btn btn-info btn-sm" onclick="completeOrder()">Complete</button>
+                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#completeModal">Complete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row opPanel" id="completeTransactionPanel" hidden>
+
+                        <!-- Area Chart -->
+                        <div class="col-md-12" id="completeTrxPanel">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-clipboard-check fa-fw"></i> Complete Transaction</h5>
+                                    <button class="btn btn-outline-primary" id="refreshcompletetrx"><i class="fas fa-sync-alt shadow"></i></button>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table" id="completeTrxTbl">
+                                            <thead>
+                                                <tr class="bg-primary text-white">
+                                                    <th scope="col">Inv. Number</th>
+                                                    <th scope="col">Customer</th>
+                                                    <th scope="col">Phone / WA</th>
+                                                    <th scope="col">Vehicle</th>
+                                                    <th scope="col">Reg. Number</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="completeTrx">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5" id="completeTrxDetailPanel" hidden>
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle fa-fw"></i> Transaction Detail</h5>
+                                    <button class="btn btn-outline-danger" onclick="hideCompleteTrxDetailPanel()"><i class="fas fa-times fa-fw "></i></button>
+                                </div>
+                                <!-- Card Body -->
+                                <div id="completeTrxDetailPanelJS" hidden></div>
+                                <div class="card-body" id="compelteTrxDetailPanel">
+                                    <h5 class="text-center text-dark font-weight-bold">INVOICE</h5>
+                                    <h6 class="text-center text-dark font-weight-bold"><u>No : <span id="ctdinvoicenumber"></span> </u></h6>
+                                    <br>
+                                    <p class="mb-0"><strong>Customer</strong></p>
+                                    <table class="col-md-12">
+                                        <tr>
+                                            <td width="27%"><small>Name </small></td>
+                                            <td><small> : &emsp; </small><small id="ctdcustomername"> </small></td>
+                                        </tr>
+                                        <tr>
+                                            <td><small>Phone / WA </small></td>
+                                            <td><small> : &emsp; </small><small id="ctdcustomerphone"> </small></td>
+                                        </tr>
+                                        <tr>
+                                            <td><small>Reg. Number </small></td>
+                                            <td><small> : &emsp; </small><small id="ctdplatnomor"> </small></td>
+                                        </tr>
+                                    </table>
+                                    <hr>
+                                    <table class="table table-sm ">
+                                        <thead>
+                                            <th>Item / Service</th>
+                                            <th class="text-center">Qty</th>
+                                            <th class=" text-right">Subtotal</th>
+                                        </thead>
+                                        <tbody id="completeOrderedMenuActive">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="col-md- 12 d-flex justify-content-between">
+                                        <a class="btn btn-success btn-sm" role="button" target="_blank" id="wacustomer" href=""><i class="fab fa-whatsapp fa-fw"></i> Chat Customer</a>
+                                        <!-- <button class="btn btn-primary btn-sm">Add Order</button> -->
+                                        <button class="btn btn-info btn-sm" onclick="generateReceipt()"><i class="fas fa-receipt fa-fw"></i> Generate Receipt</button>
                                     </div>
                                 </div>
                             </div>
@@ -330,6 +415,38 @@ $activePageLvl = 0;
     <!-- Modal add order to trx  end-->
 
 
+    <!-- Modal complete order input receipt number -->
+    <div class="modal fade" id="completeModal" tabindex="-1" aria-labelledby="completeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="completeModalLabel">Mark Transaction as Complete and Paid</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="text-dark">To mark the transaction as complete you have to <u>assign a receipt number</u> to this transaction. </h6>
+                    <br>
+                    <label for="receiptnumber">Receipt Number</label>
+                    <input onkeypress="paidCheck()" class="form-control" type="text" name="receiptnumber" id="receiptnumber" placeholder="Receipt Number">
+                    <div class="custom-control custom-checkbox mt-2">
+                        <input type="checkbox" class="custom-control-input" id="paidCheck" onchange="paidCheck()">
+                        <label class="custom-control-label" for="paidCheck">This transaction already paid by customer</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="assignReceiptAndCompleteTrx()" id="submitReceiptNumber" disabled>Complete Transaction</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal complete order input receipt number  END-->
+
+
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
@@ -347,22 +464,31 @@ $activePageLvl = 0;
 
     <script>
         $(document).ready(function() {
-            getPendingTrx();
-            getActiveTrx();
+            reloadAllData();
+
         });
+
+        function reloadAllData() {
+            getActiveTrx();
+            getPendingTrx();
+            getCompleteTrx();
+        }
 
         $("#getactivemenus").click(function() {
             getActiveMenus();
         });
 
+        $("#refreshcompletetrx").click(function() {
+            reloadAllData();
+        });
 
         $("#refreshpendingtrx").click(function() {
-            getPendingTrx();
+            reloadAllData();
 
         });
 
         $("#refreshactivetrx").click(function() {
-            getActiveTrx();
+            reloadAllData();
         });
 
         $("#btnCancelOrder").click(function() {
@@ -379,10 +505,26 @@ $activePageLvl = 0;
                     $("#pendingTrx").html(data);
                     //        $('#cancelPendingTrxModal').modal('hide');
                 });
-            // Some web hosting might be not support this code below, if so just delete it, 
-            // so the ajax will not refresh automatically without user request
-            getActiveTrx();
-            setTimeout('getPendingTrx()', 10000);
+            setTimeout('getPendingTrx()', 5000);
+        }
+
+        function getCompleteTrx() {
+            $.post("functions/getcompletedtrx.php", {
+                    getcompletedtrx: true
+                },
+                function(data) {
+                    $("#completeTrx").html(data);
+                });
+        }
+
+        function getActiveTrx() {
+            $.post("functions/getactivetrx.php", {
+                    getActiveTrx: true
+                },
+                function(data) {
+                    $("#activeTrx").html(data);
+                    // $('#cancelPendingTrxModal').modal('hide');
+                });
         }
 
         function completeOrder() {
@@ -394,8 +536,7 @@ $activePageLvl = 0;
                 function(data) {
                     // $("#pendingTrx").html(data);
                 });
-            getPendingTrx();
-            getActiveTrx();
+            reloadAllData();
             hideTrxDetailPanel();
         }
 
@@ -440,17 +581,9 @@ $activePageLvl = 0;
                 },
                 function(data) {});
             getPendingTrx();
+            getActiveTrx();
         }
 
-        function getActiveTrx() {
-            $.post("functions/getactivetrx.php", {
-                    getActiveTrx: true
-                },
-                function(data) {
-                    $("#activeTrx").html(data);
-                    // $('#cancelPendingTrxModal').modal('hide');
-                });
-        }
 
         function viewActiveTrxDetail(invoice) {
             document.getElementById("activeTrxPanel").className = 'col-md-8';
@@ -464,6 +597,20 @@ $activePageLvl = 0;
                 });
             getOrderedMenu(invoice);
         }
+
+        function viewCompleteTrxDetail(invoice) {
+            document.getElementById("completeTrxPanel").className = 'col-md-8';
+            document.getElementById("completeTrxDetailPanel").className = 'col-md-4';
+            document.getElementById("completeTrxDetailPanel").hidden = false;
+            $.post("functions/getcompletetrxdetail.php", {
+                    completeTrxInvoice: invoice
+                },
+                function(data) {
+                    $("#completeTrxDetailPanelJS").html(data);
+                });
+            getCompleteOrderedMenu(invoice);
+        }
+
 
         function cancelOrder(orderID, invoice) {
             $.post("functions/cancelorder.php", {
@@ -483,6 +630,15 @@ $activePageLvl = 0;
                 },
                 function(data) {
                     $("#orderedMenuActive").html(data);
+                });
+        }
+
+        function getCompleteOrderedMenu(invoice) {
+            $.post("functions/getcompleteorders.php", {
+                    invoice_number: invoice
+                },
+                function(data) {
+                    $("#completeOrderedMenuActive").html(data);
                 });
         }
 
@@ -508,11 +664,34 @@ $activePageLvl = 0;
             viewActiveTrxDetail(invoice);
         }
 
+        function assignReceiptAndCompleteTrx() {
+            var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+            var receipt = document.getElementById("receiptnumber").value;
+            $.post("functions/completeorder.php", {
+                    invoice_number: invoice,
+                    receipt: receipt,
+                    completeorder: true
+                },
+                function(data) {
+                    $("#hujiko").html(data);
+
+                });
+            reloadAllData();
+            setTimeout($('#completeModal').modal('hide'), 1000)
+            hideTrxDetailPanel();
+            // viewActiveTrxDetail(invoice);
+
+            document.getElementById("receiptnumber").value = '';
+            document.getElementById("paidCheck").checked = false;
+            document.getElementById("submitReceiptNumber").disabled = true;
+
+        }
 
 
         function switchView(show) {
             document.getElementById('pendingRequestPanel').hidden = true;
             document.getElementById('activeTransactionPanel').hidden = true;
+            document.getElementById('completeTransactionPanel').hidden = true;
             document.getElementById(show).hidden = false;
         }
 
@@ -546,6 +725,21 @@ $activePageLvl = 0;
         function hideTrxDetailPanel() {
             document.getElementById("activeTrxPanel").className = 'col-md-12';
             document.getElementById("trxDetailPanel").hidden = true;
+        }
+
+        function hideCompleteTrxDetailPanel() {
+            document.getElementById("completeTrxPanel").className = 'col-md-12';
+            document.getElementById("completeTrxDetailPanel").hidden = true;
+        }
+
+        function paidCheck() {
+            if (document.getElementById("paidCheck").checked == true && document.getElementById("receiptnumber").value != '') {
+                console.log("ok");
+                document.getElementById("submitReceiptNumber").disabled = false;
+            } else {
+                console.log("not ok");
+                document.getElementById("submitReceiptNumber").disabled = true;
+            }
         }
     </script>
 
