@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2022 at 07:49 PM
+-- Generation Time: Feb 01, 2022 at 06:30 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -48,9 +48,10 @@ CREATE TABLE `menus` (
   `category` enum('Car','Motorcycle') DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   `price` int(20) NOT NULL,
-  `image` varchar(100) DEFAULT NULL,
+  `image` varchar(100) DEFAULT 'no-thumbnail.jpg',
   `description` varchar(1000) DEFAULT NULL,
   `stock` int(10) DEFAULT NULL,
+  `poin` int(11) NOT NULL,
   `status` enum('active','inactive','out of stock') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -58,10 +59,14 @@ CREATE TABLE `menus` (
 -- Dumping data for table `menus`
 --
 
-INSERT INTO `menus` (`id`, `type`, `category`, `name`, `price`, `image`, `description`, `stock`, `status`) VALUES
-(1, 'service', 'Car', 'Express', 22000, 'Express.jpg', 'Cuci Mobil Express 22K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Exterior</li></ul>', NULL, 'active'),
-(2, 'service', 'Motorcycle', 'Express Bike', 10000, 'Express Bike.jpg', 'Cuci Motor Express 10K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Mesin Motor</li><li>Cuci Body Motor</li></ul>', NULL, 'active'),
-(3, 'beverage', NULL, 'Kopi Hitam', 5000, 'Kopi Hitam.jpg', 'Kopi Hitam Kapal Api<br>Bisa request takaran gula<br>Tidak request maka dibuatkan takaran 1:1 antara gula:kopi', 9999, 'active');
+INSERT INTO `menus` (`id`, `type`, `category`, `name`, `price`, `image`, `description`, `stock`, `poin`, `status`) VALUES
+(1, 'service', 'Car', 'Express', 22000, 'Express.jpg', 'Cuci Mobil Express 22K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Exterior</li></ul>', NULL, 0, 'active'),
+(2, 'service', 'Motorcycle', 'Express Bike', 10000, 'Express Bike.jpg', 'Cuci Motor Express 10K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Mesin Motor</li><li>Cuci Body Motor</li></ul>', NULL, 0, 'active'),
+(3, 'beverage', NULL, 'Kopi Hitam', 5000, 'Kopi Hitam.jpg', 'Kopi Hitam Kapal Api<br>Bisa request takaran gula<br>Tidak request maka dibuatkan takaran 1:1 antara gula:kopi', 9999, 7, 'active'),
+(4, 'service', 'Motorcycle', 'Express 250', 15000, 'Express 250.jpg', 'Cuci Motor 250cc', NULL, 17, 'active'),
+(5, 'merchandise', NULL, 'Kaos Hitam', 85000, 'Kaos Hitam.jpg', 'Kaos hitam Polos', 90, 27, 'active'),
+(6, 'merchandise', NULL, 'Mug Hitam', 55000, 'Mug Hitam.jpg', 'Mug Hitam Biasa', 21, 33, 'active'),
+(7, 'food', NULL, 'Lays Classic', 10000, 'Lays Classic.jpg', 'Lays all variant', 55, 12, 'active');
 
 -- --------------------------------------------------------
 
@@ -192,7 +197,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orders`
