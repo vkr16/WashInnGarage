@@ -45,23 +45,18 @@ if ($activePageLvl == 0) {
     <!-- Nav Item - Charts -->
     <li class="nav-item <?= $lvl1 ?>">
         <a class="nav-link" href="manage-user.php">
-            <i class="fas fa-fw fa-users-cog"></i>
-            <span>User Management</span></a>
+            <i class="fas fa-fw fa-users"></i>
+            <span>Manage Member</span></a>
     </li>
 
     <!-- Nav Item - Charts -->
     <li class="nav-item <?= $lvl2 ?>">
         <a class="nav-link" href="manage-user.php">
-            <i class="fas fa-fw fa-exchange-alt"></i>
-            <span>Transaction</span></a>
+            <i class="fas fa-fw fa-th-large"></i>
+            <span>Active Menu</span></a>
     </li>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item <?= $lvl3 ?>">
-        <a class="nav-link" href="manage-user.php">
-            <i class="fas fa-fw fa-th-large"></i>
-            <span>Service Menu</span></a>
-    </li>
+
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <!-- <li class="nav-item">
@@ -82,20 +77,7 @@ if ($activePageLvl == 0) {
                 </div>
             </li> -->
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Operational
-    </div>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item <?= $lvl4 ?>">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-clipboard-list"></i>
-            <span>Active Order</span></a>
-    </li>
 
 
 

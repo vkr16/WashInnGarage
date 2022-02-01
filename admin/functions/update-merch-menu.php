@@ -9,6 +9,7 @@ if (isset($_POST['btnUpdateMerch'])) {
     $image       = $_POST['thumbnail2'];
     $price       = $_POST['merchprice'];
     $description = $_POST['merchdesc'];
+    $poin         = $_POST['poin'];
 
     $id = $_POST['serviceidhidden'];
 
@@ -36,7 +37,7 @@ if (isset($_POST['btnUpdateMerch'])) {
         $pathfile = $_SERVER['DOCUMENT_ROOT'] . "/WashInnGarage/assets/img/thumbnail/" . $old_img;
         unlink($pathfile);
         
-        $query_updateMerchandise1 = "UPDATE menus SET type = 'merchandise', stock = '$stock', name = '$itemname',image = '$filenameondb', price = '$price', description = '$description', status = '$status' WHERE id = '$id'";
+        $query_updateMerchandise1 = "UPDATE menus SET type = 'merchandise', stock = '$stock', name = '$itemname',image = '$filenameondb', price = '$price', description = '$description', status = '$status', poin = '$poin' WHERE id = '$id'";
         
         if (mysqli_query($link, $query_updateMerchandise1)) {
             if (move_uploaded_file($_FILES['thumbnail2']['tmp_name'], $path)) {
@@ -48,7 +49,7 @@ if (isset($_POST['btnUpdateMerch'])) {
         }
 
     } else {
-        $query_updateMerchandise = "UPDATE menus SET type = 'merchandise',  stock = '$stock', name = '$itemname', price = '$price', description = '$description', status = '$status' WHERE id = '$id'";
+        $query_updateMerchandise = "UPDATE menus SET type = 'merchandise',  stock = '$stock', name = '$itemname', price = '$price', description = '$description', status = '$status', poin = '$poin' WHERE id = '$id'";
         if (mysqli_query($link, $query_updateMerchandise)) {
             setcookie('returnstatus', 'itemupdated', time() + (10), "/");
             header("Location: ../merch-menu.php");
@@ -60,4 +61,3 @@ if (isset($_POST['btnUpdateMerch'])) {
 } else {
     header("Location: ../merch-menu.php");
 }
-?>

@@ -7,6 +7,7 @@ if (isset($_POST['btnAddServiceMenu'])) {
     $image       = $_POST['thumbnail'];
     $price       = $_POST['serviceprice'];
     $description = $_POST['servicedesc'];
+    $poin        = $_POST['poin'];
 
     if (isset($_POST['activate'])) {
         $status = 'active';
@@ -17,7 +18,7 @@ if (isset($_POST['btnAddServiceMenu'])) {
     $query_getServices = "SELECT * FROM menus WHERE name = '$servicename'";
     $match = mysqli_num_rows(mysqli_query($link, $query_getServices));
     if ($match == 0) {
-            
+
 
         if (!empty($_FILES['thumbnail'])) {
             $path  = $_SERVER['DOCUMENT_ROOT'] . "/WashInnGarage/assets/img/thumbnail/";
@@ -25,24 +26,23 @@ if (isset($_POST['btnAddServiceMenu'])) {
             $ext   = pathinfo($path2, PATHINFO_EXTENSION);
             $path  = $path . $servicename . '.' . $ext;
 
-            $filenameondb = $servicename.'.'.$ext;
-            
-            $query_addService1 = "INSERT INTO menus (type ,category, name, price, image, description, status) 
-                                        VALUES ('service','$category', '$servicename', '$price', '$filenameondb', '$description', '$status')";
-            
+            $filenameondb = $servicename . '.' . $ext;
+
+            $query_addService1 = "INSERT INTO menus (type ,category, name, price, image, description, status, poin) 
+                                        VALUES ('service','$category', '$servicename', '$price', '$filenameondb', '$description', '$status', '$poin')";
+
             if (mysqli_query($link, $query_addService1)) {
                 if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $path)) {
                     setcookie('returnstatus', 'serviceadded', time() + (10), "/");
-                }else{
+                } else {
                     setcookie('returnstatus', 'serviceadded', time() + (10), "/");
-    	            // I've no idea WHY, but it works so i let it be. (Jangan dihapus) 0_o
+                    // I've no idea WHY, but it works so i let it be. (Jangan dihapus) 0_o
                 }
                 header("Location: ../service-menu.php");
             }
-
         } else {
-            $query_addService = "INSERT INTO menus (type ,category, name, price, description, status) 
-                                        VALUES ('service','$category', '$servicename', '$price', '$description', '$status')";
+            $query_addService = "INSERT INTO menus (type ,category, name, price, description, status, poin) 
+                                        VALUES ('service','$category', '$servicename', '$price', '$description', '$status', '$poin')";
             if (mysqli_query($link, $query_addService)) {
                 setcookie('returnstatus', 'serviceadded', time() + (10), "/");
                 header("Location: ../service-menu.php");
@@ -51,11 +51,10 @@ if (isset($_POST['btnAddServiceMenu'])) {
                 header("Location: ../service-menu.php");
             }
         }
-    }else{
+    } else {
         setcookie('returnstatus', 'serviceexist', time() + (10), "/");
         header("Location: ../service-menu.php");
     }
-}else{
+} else {
     header("Location: ../service-menu.php");
 }
-?>

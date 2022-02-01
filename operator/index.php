@@ -465,7 +465,6 @@ $activePageLvl = 0;
     <script>
         $(document).ready(function() {
             reloadAllData();
-
         });
 
         function reloadAllData() {
@@ -505,16 +504,8 @@ $activePageLvl = 0;
                     $("#pendingTrx").html(data);
                     //        $('#cancelPendingTrxModal').modal('hide');
                 });
+            getActiveTrx();
             setTimeout('getPendingTrx()', 5000);
-        }
-
-        function getCompleteTrx() {
-            $.post("functions/getcompletedtrx.php", {
-                    getcompletedtrx: true
-                },
-                function(data) {
-                    $("#completeTrx").html(data);
-                });
         }
 
         function getActiveTrx() {
@@ -523,7 +514,16 @@ $activePageLvl = 0;
                 },
                 function(data) {
                     $("#activeTrx").html(data);
-                    // $('#cancelPendingTrxModal').modal('hide');
+                });
+            getCompleteTrx();
+        }
+
+        function getCompleteTrx() {
+            $.post("functions/getcompletedtrx.php", {
+                    getcompletedtrx: true
+                },
+                function(data) {
+                    $("#completeTrx").html(data);
                 });
         }
 
@@ -546,8 +546,7 @@ $activePageLvl = 0;
                     invoice2cancel: invoice
                 },
                 function(data) {});
-            getPendingTrx();
-            getActiveTrx();
+            reloadAllData();
             hideTrxDetailPanel();
         }
 
@@ -580,8 +579,7 @@ $activePageLvl = 0;
                     pendingTrxInvoice: invoice
                 },
                 function(data) {});
-            getPendingTrx();
-            getActiveTrx();
+            reloadAllData();
         }
 
 
@@ -617,10 +615,7 @@ $activePageLvl = 0;
                     invoice_number: invoice,
                     order_id: orderID
                 },
-                function(data) {
-                    $("#hujiko").html(data);
-
-                });
+                function(data) {});
             viewActiveTrxDetail(invoice);
         }
 
@@ -734,10 +729,8 @@ $activePageLvl = 0;
 
         function paidCheck() {
             if (document.getElementById("paidCheck").checked == true && document.getElementById("receiptnumber").value != '') {
-                console.log("ok");
                 document.getElementById("submitReceiptNumber").disabled = false;
             } else {
-                console.log("not ok");
                 document.getElementById("submitReceiptNumber").disabled = true;
             }
         }
