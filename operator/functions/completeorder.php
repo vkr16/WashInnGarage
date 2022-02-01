@@ -22,7 +22,7 @@ if (isset($_POST['completeorder'])) {
     $query_completeTrx = "UPDATE transactions SET trx_status = 'completed',completetime = '$today', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
     $execute_completeTrx = mysqli_query($link, $query_completeTrx);
 
-    $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id'";
+    $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
     $execute_completeOrder = mysqli_query($link, $query_completeOrder);
 } else {
     echo base64_decode("TmdhcGFpbiBtYXMga2VzaW5pPz8/");

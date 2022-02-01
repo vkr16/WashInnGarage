@@ -324,6 +324,10 @@ $activePageLvl = 0;
 
                                         </tbody>
                                     </table>
+                                    <div class="col-md-8 offset-md-4 text-right">
+                                        <hr>
+                                        <p id="containerpoints"><strong> Points Earned :</strong> <span id="ctdearnedpoints">0</span> <i class="fab fa-product-hunt fa-fw fa-sm"></i></p>
+                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <div class="col-md- 12 d-flex justify-content-between">
