@@ -53,16 +53,16 @@ $activePageLvl = 0;
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('pendingRequestPanel')" role="button">
-                            <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card border-left-danger shadow h-100 py-2" id="bor1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1" id="tex1">
                                                 Pending Request</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="pendingTrxCounter"></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="pendingTrxCounter">X</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clock fa-2x text-danger" id="ic1"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -71,20 +71,20 @@ $activePageLvl = 0;
 
                         <!-- Active Transactions Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('activeTransactionPanel')" role="button">
-                            <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card border-left-primary shadow h-100 py-2" id="bor2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Active Transaction
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="tex2">Active Transaction
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="activeTrxCounter">4</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="activeTrxCounter">X</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300" id="ic2"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -93,16 +93,16 @@ $activePageLvl = 0;
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4" onclick="switchView('completeTransactionPanel')" role="button">
-                            <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card border-left-primary shadow h-100 py-2" id="bor3">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="tex3">
                                                 Complete Order (Today)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="completeTrxCounter">11</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="completeTrxCounter">X</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-check fa-2x text-gray-300" id="ic3"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@ $activePageLvl = 0;
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300" id="ic4"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +244,7 @@ $activePageLvl = 0;
                                     <div class="col-md- 12 d-flex justify-content-between">
                                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deleteTrxCopyInv()">Cancel Transaction</button>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" id="getactivemenus" data-target="#addOrder">Add Order</button>
-                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#completeModal">Complete</button>
+                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#completeModal" onclick="copyinv2complete()">Complete</button>
                                     </div>
                                 </div>
                             </div>
@@ -331,7 +331,8 @@ $activePageLvl = 0;
                                 </div>
                                 <div class="card-footer">
                                     <div class="col-md- 12 d-flex justify-content-between">
-                                        <a class="btn btn-success btn-sm" role="button" target="_blank" id="wacustomer" href=""><i class="fab fa-whatsapp fa-fw"></i> Chat Customer</a>
+                                        <span hidden id="apiwalink"></span>
+                                        <a class="btn btn-success btn-sm" role="button" onclick="call()" id="wacustomer"><i class="fab fa-whatsapp fa-fw"></i> Chat Customer</a>
                                         <!-- <button class="btn btn-primary btn-sm">Add Order</button> -->
                                         <button class="btn btn-info btn-sm" onclick="generateReceipt()"><i class="fas fa-receipt fa-fw"></i> Generate Receipt</button>
                                     </div>
@@ -432,16 +433,18 @@ $activePageLvl = 0;
                 <div class="modal-body">
                     <h6 class="text-dark">To mark the transaction as complete you have to <u>assign a receipt number</u> to this transaction. </h6>
                     <br>
-                    <label for="receiptnumber">Receipt Number</label>
-                    <input onkeypress="paidCheck()" class="form-control" type="text" name="receiptnumber" id="receiptnumber" placeholder="Receipt Number">
-                    <div class="custom-control custom-checkbox mt-2">
-                        <input type="checkbox" class="custom-control-input" id="paidCheck" onchange="paidCheck()">
-                        <label class="custom-control-label" for="paidCheck">This transaction already paid by customer</label>
-                    </div>
+                    <form action="functions/completeorder.php" method="POST">
+                        <label for="receiptnumber">Receipt Number</label>
+                        <input required class="form-control" type="text" name="receipt" id="receiptnumber" placeholder="Receipt Number">
+                        <input type="text" name="invoice_number" id="inv2complete" hidden>
+                        <div class="custom-control custom-checkbox mt-2">
+                            <input required type="checkbox" class="custom-control-input" id="paidCheck">
+                            <label class="custom-control-label" for="paidCheck">This transaction already paid by customer</label>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-info" onclick="assignReceiptAndCompleteTrx()" id="submitReceiptNumber" disabled>Complete Transaction</button>
+                    <button type="submit" class="btn btn-info" name="completeorder">Complete Transaction</button></form>
                 </div>
             </div>
         </div>
@@ -540,8 +543,8 @@ $activePageLvl = 0;
                 function(data) {
                     // $("#pendingTrx").html(data);
                 });
-            reloadAllData();
-            hideTrxDetailPanel();
+            // reloadAllData();
+            // hideTrxDetailPanel();
         }
 
 
@@ -663,28 +666,28 @@ $activePageLvl = 0;
             viewActiveTrxDetail(invoice);
         }
 
-        function assignReceiptAndCompleteTrx() {
-            var invoice = document.getElementById("tdinvoicenumber").innerHTML;
-            var receipt = document.getElementById("receiptnumber").value;
-            $.post("functions/completeorder.php", {
-                    invoice_number: invoice,
-                    receipt: receipt,
-                    completeorder: true
-                },
-                function(data) {
-                    $("#hujiko").html(data);
+        // function assignReceiptAndCompleteTrx() {
+        //     var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+        //     var receipt = document.getElementById("receiptnumber").value;
+        //     $.post("functions/completeorder.php", {
+        //             invoice_number: invoice,
+        //             receipt: receipt,
+        //             completeorder: true
+        //         },
+        //         function(data) {
+        //             $("#hujiko").html(data);
 
-                });
-            reloadAllData();
-            setTimeout($('#completeModal').modal('hide'), 1000)
-            hideTrxDetailPanel();
-            // viewActiveTrxDetail(invoice);
+        //         });
+        //     reloadAllData();
+        //     setTimeout($('#completeModal').modal('hide'), 1000)
+        //     hideTrxDetailPanel();
+        //     // viewActiveTrxDetail(invoice);
 
-            document.getElementById("receiptnumber").value = '';
-            document.getElementById("paidCheck").checked = false;
-            document.getElementById("submitReceiptNumber").disabled = true;
+        //     document.getElementById("receiptnumber").value = '';
+        //     document.getElementById("paidCheck").checked = false;
+        //     document.getElementById("submitReceiptNumber").disabled = true;
 
-        }
+        // }
 
 
         function switchView(show) {
@@ -692,6 +695,71 @@ $activePageLvl = 0;
             document.getElementById('activeTransactionPanel').hidden = true;
             document.getElementById('completeTransactionPanel').hidden = true;
             document.getElementById(show).hidden = false;
+
+            if (document.getElementById('pendingRequestPanel').hidden == false) {
+                document.getElementById("ic1").classList.remove('text-gray-300');
+                document.getElementById("ic1").classList.add('text-danger');
+
+                document.getElementById("bor1").classList.remove('border-left-primary');
+                document.getElementById("bor1").classList.add('border-left-danger');
+
+                document.getElementById("tex1").classList.remove('text-primary');
+                document.getElementById("tex1").classList.add('text-danger');
+            } else {
+                document.getElementById("ic1").classList.remove('text-danger');
+                document.getElementById("ic1").classList.add('text-gray-300');
+
+                document.getElementById("bor1").classList.remove('border-left-danger');
+                document.getElementById("bor1").classList.add('border-left-primary');
+
+                document.getElementById("tex1").classList.remove('text-danger');
+                document.getElementById("tex1").classList.add('text-primary');
+            }
+
+
+
+            if (document.getElementById('activeTransactionPanel').hidden == false) {
+                document.getElementById("ic2").classList.remove('text-gray-300');
+                document.getElementById("ic2").classList.add('text-danger');
+
+                document.getElementById("bor2").classList.remove('border-left-primary');
+                document.getElementById("bor2").classList.add('border-left-danger');
+
+                document.getElementById("tex2").classList.remove('text-primary');
+                document.getElementById("tex2").classList.add('text-danger');
+            } else {
+                document.getElementById("ic2").classList.remove('text-danger');
+                document.getElementById("ic2").classList.add('text-gray-300');
+
+                document.getElementById("bor2").classList.remove('border-left-danger');
+                document.getElementById("bor2").classList.add('border-left-primary');
+
+                document.getElementById("tex2").classList.remove('text-danger');
+                document.getElementById("tex2").classList.add('text-primary');
+            }
+
+
+
+            if (document.getElementById('completeTransactionPanel').hidden == false) {
+                document.getElementById("ic3").classList.remove('text-gray-300');
+                document.getElementById("ic3").classList.add('text-danger');
+
+                document.getElementById("bor3").classList.remove('border-left-primary');
+                document.getElementById("bor3").classList.add('border-left-danger');
+
+                document.getElementById("tex3").classList.remove('text-primary');
+                document.getElementById("tex3").classList.add('text-danger');
+
+            } else {
+                document.getElementById("ic3").classList.remove('text-danger');
+                document.getElementById("ic3").classList.add('text-gray-300');
+
+                document.getElementById("bor3").classList.remove('border-left-danger');
+                document.getElementById("bor3").classList.add('border-left-primary');
+
+                document.getElementById("tex3").classList.remove('text-danger');
+                document.getElementById("tex3").classList.add('text-primary');
+            }
         }
 
         function deletePendingTrxCopyInv(inv, name) {
@@ -731,12 +799,27 @@ $activePageLvl = 0;
             document.getElementById("completeTrxDetailPanel").hidden = true;
         }
 
-        function paidCheck() {
-            if (document.getElementById("paidCheck").checked == true && document.getElementById("receiptnumber").value != '') {
-                document.getElementById("submitReceiptNumber").disabled = false;
-            } else {
-                document.getElementById("submitReceiptNumber").disabled = true;
-            }
+        function copyinv2complete() {
+            var inv = document.getElementById("tdinvoicenumber").innerHTML;
+            document.getElementById("inv2complete").value = inv;
+        }
+
+        // function paidCheck() {
+        //     if (document.getElementById("paidCheck").checked == true && document.getElementById("receiptnumber").value != '') {
+        //         document.getElementById("submitReceiptNumber").disabled = false;
+        //     } else {
+        //         document.getElementById("submitReceiptNumber").disabled = true;
+        //     }
+        // }
+
+        function call() {
+            var url = document.getElementById("apiwalink").innerHTML;
+            popup = window.open(url);
+            setTimeout(wait, 5000);
+        }
+
+        function wait() {
+            popup.close();
         }
     </script>
 

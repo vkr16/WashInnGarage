@@ -6,7 +6,7 @@ if (isset($_POST['getcompletedtrx'])) {
 
     $today = date("Y-m-d");
 
-    $query_getCompleteTrx = "SELECT * FROM transactions WHERE trx_status = 'completed' AND completetime = '$today'";
+    $query_getCompleteTrx = "SELECT * FROM transactions WHERE trx_status = 'completed' AND completedate = '$today'";
     $execute_getCompleteTrx = mysqli_query($link, $query_getCompleteTrx);
     $countCompleteTrxToday = mysqli_num_rows($execute_getCompleteTrx);
 
