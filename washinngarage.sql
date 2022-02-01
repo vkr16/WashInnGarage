@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2022 at 06:30 AM
+-- Generation Time: Feb 02, 2022 at 12:33 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -33,7 +33,7 @@ CREATE TABLE `customers` (
   `phone` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
   `membership` enum('member','customer') NOT NULL DEFAULT 'customer',
-  `point` int(10) NOT NULL
+  `membership_point` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -54,19 +54,6 @@ CREATE TABLE `menus` (
   `poin` int(11) NOT NULL,
   `status` enum('active','inactive','out of stock') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `menus`
---
-
-INSERT INTO `menus` (`id`, `type`, `category`, `name`, `price`, `image`, `description`, `stock`, `poin`, `status`) VALUES
-(1, 'service', 'Car', 'Express', 22000, 'Express.jpg', 'Cuci Mobil Express 22K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Exterior</li></ul>', NULL, 0, 'active'),
-(2, 'service', 'Motorcycle', 'Express Bike', 10000, 'Express Bike.jpg', 'Cuci Motor Express 10K<br>Paket layanan ini mencakup : <br><ul><li>Cuci Mesin Motor</li><li>Cuci Body Motor</li></ul>', NULL, 0, 'active'),
-(3, 'beverage', NULL, 'Kopi Hitam', 5000, 'Kopi Hitam.jpg', 'Kopi Hitam Kapal Api<br>Bisa request takaran gula<br>Tidak request maka dibuatkan takaran 1:1 antara gula:kopi', 9999, 7, 'active'),
-(4, 'service', 'Motorcycle', 'Express 250', 15000, 'Express 250.jpg', 'Cuci Motor 250cc', NULL, 17, 'active'),
-(5, 'merchandise', NULL, 'Kaos Hitam', 85000, 'Kaos Hitam.jpg', 'Kaos hitam Polos', 90, 27, 'active'),
-(6, 'merchandise', NULL, 'Mug Hitam', 55000, 'Mug Hitam.jpg', 'Mug Hitam Biasa', 21, 33, 'active'),
-(7, 'food', NULL, 'Lays Classic', 10000, 'Lays Classic.jpg', 'Lays all variant', 55, 12, 'active');
 
 -- --------------------------------------------------------
 
@@ -98,7 +85,8 @@ CREATE TABLE `transactions` (
   `id` int(20) NOT NULL,
   `invoice_number` varchar(50) NOT NULL,
   `receipt_number` int(10) DEFAULT NULL,
-  `completetime` date DEFAULT NULL,
+  `completedate` date DEFAULT NULL,
+  `completetime` time DEFAULT NULL,
   `operator_name` varchar(100) DEFAULT NULL,
   `customer_name` varchar(100) NOT NULL,
   `trx_status` varchar(20) NOT NULL
@@ -126,7 +114,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `phone`, `username`, `role`, `password`) VALUES
 (1, 'System Administrator', 'dev.washinngarage@gmail.com', 'n/a', 'admin', 'admin', '$2y$10$o.Pnh051BudSekKDe1tmM.9wE1j7dtUHftovikPH0wNK9DZ9/0noK'),
-(2, 'Hafidz Abdillah Masruri', 'pisangbenyek0@gmail.com', '08979565131', 'hfdzam', 'operator', '$2y$10$Bsne1rFgkcYWBpzRPO5nJujNLBjEW/Ckf0f85iLYXZhfYPIg2jxAe');
+(2, 'Hafidz Abdillah Masruri', 'pisangbenyek0@gmail.com', '08979565131', 'hfdzam', 'operator', '$2y$10$Bsne1rFgkcYWBpzRPO5nJujNLBjEW/Ckf0f85iLYXZhfYPIg2jxAe'),
+(3, 'Fikri Miftah Akmaludin', 'fikri.droid16@gmail.com', '08979565131', 'fma', 'operator', '$2y$10$qvL.tiBTIidb72qrvujVQ.W0HIrqudmCkNNQ5HzXArBVA6YxpRFgW');
 
 -- --------------------------------------------------------
 
@@ -197,7 +186,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -215,7 +204,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `vehicles`
