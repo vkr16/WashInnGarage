@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 
 if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
   $home = 'https://';
