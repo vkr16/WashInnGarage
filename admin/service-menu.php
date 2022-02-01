@@ -204,6 +204,7 @@ $execute_getServices = mysqli_query($link, $query_getServices);
                       <h5 class="mb-0 text-dark font-weight-bolder" id="servicenameShow"></h5>
                       <p class="mb-0" id="typeShow"></p>
                       <p class="mb-2" id="priceShow"></p>
+                      <p class="mb-2">Point Reward : <span id="poinShow"></span> <i class="fab fa-product-hunt fa-fw fa-sm"></i></p>
                       <p class="mb-2 font-weight-bolder" id="statusShow"></p>
                     </div>
                   </div>
@@ -467,6 +468,7 @@ $execute_getServices = mysqli_query($link, $query_getServices);
       document.getElementById('servicenameShow').innerHTML = name;
       document.getElementById('typeShow').innerHTML = type + ' - ' + category;
       document.getElementById('priceShow').innerHTML = price;
+      document.getElementById('poinShow').innerHTML = poin;
       document.getElementById('hiddenServiceID').value = id;
       document.getElementById('deleteTitle').innerHTML = '[ ' + name + ' ]';
       document.getElementById('descriptionShow').innerHTML = description;
