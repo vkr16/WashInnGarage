@@ -13,6 +13,7 @@ if (isset($_POST['completeorder'])) {
     $operatorData = mysqli_fetch_assoc($execute_getOperator);
     $operator = $operatorData['fullname'];
     $today = date("Y-m-d");
+    $now = date("H:i");
 
     $query_getTrxDetail = "SELECT * FROM transactions WHERE invoice_number = '$invoice'";
     $execute_getTrxDetail = mysqli_query($link, $query_getTrxDetail);
@@ -111,7 +112,7 @@ if (isset($_POST['completeorder'])) {
     </div>
 <?php
 
-    $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
+    $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
     $execute_completeTrx = mysqli_query($link, $query_completeTrx);
 
     $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";

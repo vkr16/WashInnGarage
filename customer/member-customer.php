@@ -114,7 +114,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                                 </div>
                                 <div class="form-group col-md-5" <?= $poinHide ?>>
                                     <label for="customerpoints">Poin Member </label>
-                                    <input readonly autocomplete="off" type="text" class="form-control" id="customerpoints" name="customerpoints" value="<?= $memberDetail['point'] ?> ">
+                                    <input readonly autocomplete="off" type="text" class="form-control" id="customerpoints" name="customerpoints" value="<?= $memberDetail['membership_point'] ?> ">
                                     <input type="text" name="ismember" id="ismember" value="yes" hidden readonly>
                                 </div>
                             </div>
