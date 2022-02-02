@@ -4,6 +4,11 @@ require '../../assets/vendor/autoload.php';
 require_once '../../core/init.php';
 if (isset($_POST['completeorder'])) {
     $points = 0;
+    $stringServices = '';
+    $stringmerchs = '';
+    $stringfoods = '';
+    $stringbeverages = '';
+    $totalPrice = 0;
 
     $invoice = $_POST['invoice_number'];
     $receipt = $_POST['receipt'];
@@ -36,10 +41,69 @@ if (isset($_POST['completeorder'])) {
 
         $customername = $ordersData['customer_name'];
         $customerphone = $ordersData['customer_phone'];
+        $customeremail = $ordersData['customer_email'];
         $platnomor = $ordersData['platnomor'];
         $customer_id = $ordersData['customer_id'];
         $points = $points + $pointpermenu;
     }
+
+
+    $query_getVehicle = "SELECT * FROM vehicles WHERE platnomor = '$platnomor'";
+    $execute_getvehicle = mysqli_query($link, $query_getVehicle);
+    $vehicleData = mysqli_fetch_assoc($execute_getvehicle);
+    $vehicleType = $vehicleData['vehicletype'];
+
+    $query_getOrdersForAPI = "SELECT * FROM orders WHERE trx_id = '$trx_id' AND order_status = 'active'";
+    $execute_getOrdersForAPI = mysqli_query($link, $query_getOrdersForAPI);
+
+    while ($orders4API = mysqli_fetch_assoc($execute_getOrdersForAPI)) {
+        $menu_id = $orders4API['menu_id'];
+
+        $query_getMenus = "SELECT * FROM menus WHERE id = '$menu_id'";
+        $execute_getMenus = mysqli_query($link, $query_getMenus);
+
+        $getMenu = mysqli_fetch_assoc($execute_getMenus);
+        $qty = $orders4API['amount'];
+        $menuname = $getMenu['name'];
+        $menutype = $getMenu['type'];
+        if ($menutype == 'service') {
+            $serviceOrdered = $menuname . '(' . $qty . '), ';
+            $stringServices = $stringServices . $serviceOrdered;
+        } elseif ($menutype == 'merchandise') {
+            $merchOrdered = $menuname . '(' . $qty . '), ';
+            $stringmerchs = $stringmerchs . $merchOrdered;
+        } elseif ($menutype == 'food') {
+            $foodOrdered = $menuname . '(' . $qty . '), ';
+            $stringfoods = $stringfoods . $foodOrdered;
+        } elseif ($menutype == 'beverage') {
+            $beverageOrdered = $menuname . '(' . $qty . '), ';
+            $stringbeverages = $stringbeverages . $beverageOrdered;
+        }
+
+        $menuPrice = $getMenu['price'];
+        $subtotal  = $menuPrice * $qty;
+        $totalPrice = $totalPrice + $subtotal;
+    }
+
+    // 'Car Experss(2)','Express Bike(1)','Lays Classic(3)','Kopi Hitam(1)','Kaos Hitam(1)','Mug Hitam cantik(1)',
+    $completedate = $today;
+    $completetime = $now;
+    $invoice_number = $invoice;
+    $receipt_number = $receipt;
+    $customername = $customername;
+    $customerphone = $customerphone;
+    $customeremail = $customeremail;
+    $vehicletype = $vehicleType;
+    $platnomor = $platnomor;
+    $services = substr($stringServices, 0, -2);
+    $merchandises = substr($stringmerchs, 0, -2);
+    $foods = substr($stringfoods, 0, -2);
+    $beverages = substr($stringbeverages, 0, -2);
+    $trx_value = 'Rp ' . number_format($totalPrice, 0, ',', '.');
+    $operatorname = $operator;
+    $status_trx = 'Selesai';
+
+    var_dump($completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx);
 
 ?>
     <link rel="stylesheet" href="../../assets/css/sb-admin-2.min.css">
@@ -85,12 +149,12 @@ if (isset($_POST['completeorder'])) {
 
         $service = new Google_Service_Sheets($client);
 
-        $spreadsheetId = '1Y8BZYB2fqc6ANI1bAoVV5baPOUain-8_WUnrob_JHcI';
-        $range  = "DataNama";
+        $spreadsheetId = '1JtMqLlJgN_wd75-oM8KfEvjXvpDOO_mDkgYf5ty5QuA';
+        $range  = "All Completed Trx";
 
         $values = [
             [
-                $customername, $customerphone, $platnomor
+                $completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx
             ],
             // Additional rows ...
         ];
