@@ -9,6 +9,10 @@ if (isset($_POST['completeorder'])) {
     $stringfoods = '';
     $stringbeverages = '';
     $totalPrice = 0;
+    $today = date("j M Y");
+    $now = date("H:i");
+    $updateDate = date("j M Y");
+    $lastupdateinfo = "Last updated at " . $now;
 
     $invoice = $_POST['invoice_number'];
     $receipt = $_POST['receipt'];
@@ -17,8 +21,6 @@ if (isset($_POST['completeorder'])) {
     $execute_getOperator = mysqli_query($link, $query_getOperator);
     $operatorData = mysqli_fetch_assoc($execute_getOperator);
     $operator = $operatorData['fullname'];
-    $today = date("Y-m-d");
-    $now = date("H:i");
 
     $query_getTrxDetail = "SELECT * FROM transactions WHERE invoice_number = '$invoice'";
     $execute_getTrxDetail = mysqli_query($link, $query_getTrxDetail);
@@ -95,10 +97,10 @@ if (isset($_POST['completeorder'])) {
     $customeremail = $customeremail;
     $vehicletype = $vehicleType;
     $platnomor = $platnomor;
-    $services = substr($stringServices, 0, -2);
-    $merchandises = substr($stringmerchs, 0, -2);
-    $foods = substr($stringfoods, 0, -2);
-    $beverages = substr($stringbeverages, 0, -2);
+    $services = ($stringServices != '') ? substr($stringServices, 0, -2) : '';
+    $merchandises = ($stringmerchs != '') ? substr($stringmerchs, 0, -2) : '';
+    $foods = ($stringfoods != '') ? substr($stringfoods, 0, -2) : '';
+    $beverages = ($stringbeverages != '') ? substr($stringbeverages, 0, -2) : '';
     $trx_value = 'Rp ' . number_format($totalPrice, 0, ',', '.');
     $operatorname = $operator;
     $status_trx = 'Selesai';
@@ -143,15 +145,31 @@ if (isset($_POST['completeorder'])) {
         $client->setApplicationName('Wash Inn Garage');
         $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
         $client->setAuthConfig('../../core/credentials.json');
-        $client->setAccessType('online');
+        $client->setAccessType('offline');
         $client->setPrompt('select_account consent');
 
 
         $service = new Google_Service_Sheets($client);
 
-        $spreadsheetId = '1JtMqLlJgN_wd75-oM8KfEvjXvpDOO_mDkgYf5ty5QuA';
-        $range  = "All Completed Trx";
+        // $spreadsheetId = '1JtMqLlJgN_wd75-oM8KfEvjXvpDOO_mDkgYf5ty5QuA';
+        $spreadsheetId = '1RMFQXYWh7bji0imCR9UQOBwZq-ksa1DD0wkCsQ_vxSA';
 
+        // Insert Last Update Untuk Main Sheet
+        $values = [
+            [
+                "Last updated " . $today . " at " . $now
+            ],
+        ];
+        $body = new Google_Service_Sheets_ValueRange([
+            'values' => $values
+        ]);
+
+        $params = [
+            'valueInputOption' => 'RAW'
+        ];
+        $result = $service->spreadsheets_values->update($spreadsheetId,  "All Completed Trx!A1:D1", $body, $params);
+
+        // Insert  date ke Sheet utama
         $values = [
             [
                 $completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx
@@ -166,11 +184,56 @@ if (isset($_POST['completeorder'])) {
             'valueInputOption' => 'RAW'
         ];
 
-        $insert = [
-            'InsertDataOption' => "INSERT_ROWS"
+        $result = $service->spreadsheets_values->append($spreadsheetId, "All Completed Trx", $body, $params);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Insert Last Update Untuk Daily
+        $values = [
+            [
+                "Last updated at", $now, date("F")
+            ],
         ];
-        $result = $service->spreadsheets_values->append($spreadsheetId, $range, $body, $params, $insert);
-        // printf("%d cells appended.", $result->getUpdates()->getUpdatedCells());
+        $body = new Google_Service_Sheets_ValueRange([
+            'values' => $values
+        ]);
+
+        $params = [
+            'valueInputOption' => 'RAW'
+        ];
+        $sheetDaily = strval("Tanggal" . date("j") . "!A1:C1");
+        // $sheetDaily = strval("Tanggal" . "1");
+        $result = $service->spreadsheets_values->update($spreadsheetId,  $sheetDaily, $body, $params);
+
+        // Insert data ke Sheet daily
+        $values2 = [
+            [
+                $completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx
+            ],
+        ];
+        $body2 = new Google_Service_Sheets_ValueRange([
+            'values' => $values2
+        ]);
+
+        $params2 = [
+            'valueInputOption' => 'RAW'
+        ];
+        $sheetDaily = strval("Tanggal" . date("j"));
+        // $sheetDaily = strval("Tanggal" . "1");
+        $result2 = $service->spreadsheets_values->append($spreadsheetId, $sheetDaily, $body2, $params2);
+
+
 
         ?>
     </div>
