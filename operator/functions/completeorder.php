@@ -10,6 +10,7 @@ if (isset($_POST['completeorder'])) {
     $stringbeverages = '';
     $totalPrice = 0;
     $today = date("j M Y");
+    $today2 = date("Y-m-d");
     $now = date("H:i");
     $updateDate = date("j M Y");
     $lastupdateinfo = "Last updated at " . $now;
@@ -239,7 +240,7 @@ if (isset($_POST['completeorder'])) {
     </div>
 <?php
 
-    $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
+    $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today2',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
     $execute_completeTrx = mysqli_query($link, $query_completeTrx);
 
     $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
