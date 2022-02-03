@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'e6d17a2aee7672908e712166e58f50b10c7dd541',
+    'reference' => 'baa54af13053c20a436554e46a6d7f9e23dacdf0',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'e6d17a2aee7672908e712166e58f50b10c7dd541',
+      'reference' => 'baa54af13053c20a436554e46a6d7f9e23dacdf0',
     ),
     'firebase/php-jwt' => 
     array (
@@ -201,6 +201,15 @@
       ),
       'reference' => '120b605dfeb996808c31b6477290a714d356e822',
     ),
+    'spipu/html2pdf' => 
+    array (
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'dcb5671cac3d60ff486cf16df389e3bd0dc16ba4',
+    ),
     'symfony/deprecation-contracts' => 
     array (
       'pretty_version' => 'v2.5.0',
@@ -209,6 +218,15 @@
       array (
       ),
       'reference' => '6f981ee24cf69ee7ce9736146d1c57c2780598a8',
+    ),
+    'tecnickcom/tcpdf' => 
+    array (
+      'pretty_version' => '6.4.4',
+      'version' => '6.4.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '42cd0f9786af7e5db4fcedaa66f717b0d0032320',
     ),
   ),
 );

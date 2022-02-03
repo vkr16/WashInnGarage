@@ -69,6 +69,7 @@ if (isset($_POST['completeTrxInvoice'])) {
     document.getElementById("ctdcustomerphone").innerHTML = '<?= $customerphone ?>';
     document.getElementById("ctdplatnomor").innerHTML = '<?= $platnomor ?>';
     document.getElementById("ctdinvoicenumber").innerHTML = '<?= $invoice ?>';
+    document.getElementById("ctdinvoicenumber2").value = '<?= $invoice ?>';
     document.getElementById("ctdreceiptnumber").innerHTML = '<?= $receiptnumber ?>';
     document.getElementById("apiwalink").innerHTML = 'https://wa.me/' + <?= $customerphone ?>;
 </script>
