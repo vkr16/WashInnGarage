@@ -11,6 +11,7 @@ if (isset($_POST['completeTrxInvoice'])) {
     $trxData = mysqli_fetch_assoc($execute_getTrxData);
 
     $trx_id = $trxData['id'];
+    $receiptnumber = $trxData['receipt_number'];
 
     $query_getOrdersData = "SELECT * FROM orders WHERE trx_id = '$trx_id' AND order_status = 'completed'";
     $execute_getOrdersData = mysqli_query($link, $query_getOrdersData);
@@ -41,7 +42,7 @@ if (isset($_POST['completeTrxInvoice'])) {
 
     $customerStatus = $membershipStatus['membership'];
 
-    if ($customerStatus = 'member') {
+    if ($customerStatus == 'member') {
 ?>
         <script>
             document.getElementById("containerpoints").hidden = false;
@@ -68,5 +69,6 @@ if (isset($_POST['completeTrxInvoice'])) {
     document.getElementById("ctdcustomerphone").innerHTML = '<?= $customerphone ?>';
     document.getElementById("ctdplatnomor").innerHTML = '<?= $platnomor ?>';
     document.getElementById("ctdinvoicenumber").innerHTML = '<?= $invoice ?>';
+    document.getElementById("ctdreceiptnumber").innerHTML = '<?= $receiptnumber ?>';
     document.getElementById("apiwalink").innerHTML = 'https://wa.me/' + <?= $customerphone ?>;
 </script>

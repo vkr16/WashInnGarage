@@ -298,7 +298,7 @@ $activePageLvl = 0;
                                     <h5 class="text-center text-dark font-weight-bold">INVOICE</h5>
                                     <h6 class="text-center text-dark font-weight-bold"><u>No : <span id="ctdinvoicenumber"></span> </u></h6>
                                     <br>
-                                    <p class="mb-0"><strong>Customer</strong></p>
+                                    <!-- <p class="mb-0"><strong>Customer</strong></p> -->
                                     <table class="col-md-12">
                                         <tr>
                                             <td width="27%"><small>Name </small></td>
@@ -311,6 +311,10 @@ $activePageLvl = 0;
                                         <tr>
                                             <td><small>Reg. Number </small></td>
                                             <td><small> : &emsp; </small><small id="ctdplatnomor"> </small></td>
+                                        </tr>
+                                        <tr>
+                                            <td><small>No. Receipt</small></td>
+                                            <td><small> : &emsp; </small><small id="ctdreceiptnumber"></small></td>
                                         </tr>
                                     </table>
                                     <hr>

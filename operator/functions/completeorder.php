@@ -251,7 +251,8 @@ if (isset($_POST['completeorder'])) {
     $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
     $execute_completeOrder = mysqli_query($link, $query_completeOrder);
 
-    $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id'";
+
+    $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id' AND membership ='member'";
     if ($execute_updateMemberPoin = mysqli_query($link, $query_updateMemberPoin)) {
         // echo $points;
         header("Location:../index.php");
