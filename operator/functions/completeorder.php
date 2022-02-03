@@ -16,6 +16,8 @@ if (isset($_POST['completeorder'])) {
     $now = date("H:i");
     $updateDate = date("j M Y");
     $lastupdateinfo = "Last updated at " . $now;
+    $servicesPrice = 0;
+
 
     $invoice = $_POST['invoice_number'];
     $receipt = $_POST['receipt'];
@@ -71,9 +73,12 @@ if (isset($_POST['completeorder'])) {
         $qty = $orders4API['amount'];
         $menuname = $getMenu['name'];
         $menutype = $getMenu['type'];
+        $menuprice = $getMenu['price'];
+        $ordervalue = $menuprice * $qty;
         if ($menutype == 'service') {
             $serviceOrdered = $menuname . '(' . $qty . '), ';
             $stringServices = $stringServices . $serviceOrdered;
+            $servicesPrice = $servicesPrice + $ordervalue;
         } elseif ($menutype == 'merchandise') {
             $merchOrdered = $menuname . '(' . $qty . '), ';
             $stringmerchs = $stringmerchs . $merchOrdered;
@@ -104,11 +109,14 @@ if (isset($_POST['completeorder'])) {
     $merchandises = ($stringmerchs != '') ? substr($stringmerchs, 0, -2) : '';
     $foods = ($stringfoods != '') ? substr($stringfoods, 0, -2) : '';
     $beverages = ($stringbeverages != '') ? substr($stringbeverages, 0, -2) : '';
+
+    $servicesValue = 'Rp ' . number_format($servicesPrice, 0, ',', '.');
+
     $trx_value = 'Rp ' . number_format($totalPrice, 0, ',', '.');
     $operatorname = $operator;
     $status_trx = 'Selesai';
 
-    var_dump($completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx);
+    var_dump($completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx, $servicesValue);
 
 ?>
     <link rel="stylesheet" href="../../assets/css/sb-admin-2.min.css">
