@@ -2,6 +2,8 @@
 
 require '../../assets/vendor/autoload.php';
 require_once '../../core/init.php';
+require_once 'autoresetsheet.php';
+
 if (isset($_POST['completeorder'])) {
     $points = 0;
     $stringServices = '';
@@ -139,7 +141,7 @@ if (isset($_POST['completeorder'])) {
             <hr>
         </div>
     </div>
-    <div hidden>
+    <div>
         <?php
 
         $client = new Google_Client();
@@ -154,6 +156,9 @@ if (isset($_POST['completeorder'])) {
 
         // $spreadsheetId = '1JtMqLlJgN_wd75-oM8KfEvjXvpDOO_mDkgYf5ty5QuA';
         $spreadsheetId = '1RMFQXYWh7bji0imCR9UQOBwZq-ksa1DD0wkCsQ_vxSA';
+        $sheetDaily = strval("Tanggal" . date("j"));
+
+        autoreset($spreadsheetId, $sheetDaily);
 
         // Insert Last Update Untuk Main Sheet
         $values = [
@@ -230,7 +235,7 @@ if (isset($_POST['completeorder'])) {
         $params2 = [
             'valueInputOption' => 'RAW'
         ];
-        $sheetDaily = strval("Tanggal" . date("j"));
+
         // $sheetDaily = strval("Tanggal" . "1");
         $result2 = $service->spreadsheets_values->append($spreadsheetId, $sheetDaily, $body2, $params2);
 

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '59712061b0646f3ffb98e2018e15c34d627a6c3f',
+    'reference' => 'e6d17a2aee7672908e712166e58f50b10c7dd541',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,25 +18,25 @@
       'aliases' => 
       array (
       ),
-      'reference' => '59712061b0646f3ffb98e2018e15c34d627a6c3f',
+      'reference' => 'e6d17a2aee7672908e712166e58f50b10c7dd541',
     ),
     'firebase/php-jwt' => 
     array (
-      'pretty_version' => 'v3.0.0',
-      'version' => '3.0.0.0',
+      'pretty_version' => 'v5.5.1',
+      'version' => '5.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fa8a06e96526eb7c0eeaa47e4f39be59d21f16e1',
+      'reference' => '83b609028194aa042ea33b5af2d41a7427de80e6',
     ),
     'google/apiclient' => 
     array (
-      'pretty_version' => 'v2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => 'v2.12.1',
+      'version' => '2.12.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'cd4d61678bc26267f3e5371735ae3f579709ea30',
+      'reference' => '1530583a711f4414407112c4068464bcbace1c71',
     ),
     'google/apiclient-services' => 
     array (
@@ -49,21 +49,21 @@
     ),
     'google/auth' => 
     array (
-      'pretty_version' => 'v0.8',
-      'version' => '0.8.0.0',
+      'pretty_version' => 'v1.18.0',
+      'version' => '1.18.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ec4edcb043e523267973fda308d9412d7db78e17',
+      'reference' => '21dd478e77b0634ed9e3a68613f74ed250ca9347',
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '6.2.0',
-      'version' => '6.2.0.0',
+      'pretty_version' => '7.4.1',
+      'version' => '7.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd094e337976dff9d8e2424e8485872194e768662',
+      'reference' => 'ee0a041b1760e6a53d2a39c8c34115adc2af2c79',
     ),
     'guzzlehttp/promises' => 
     array (
@@ -76,30 +76,48 @@
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '1.2.3',
-      'version' => '1.2.3.0',
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2e89629ff057ebb49492ba08e6995d3a6a80021b',
+      'reference' => '089edd38f5b8abba6cb01567c2a8aaa47cec4c72',
     ),
     'monolog/monolog' => 
     array (
-      'pretty_version' => '1.26.1',
-      'version' => '1.26.1.0',
+      'pretty_version' => '2.3.5',
+      'version' => '2.3.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c6b00f05152ae2c9b04a448f99c7590beb6042f5',
+      'reference' => 'fd4380d6fc37626e2f799f29d91195040137eba9',
+    ),
+    'paragonie/constant_time_encoding' => 
+    array (
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9229e15f2e6ba772f0c55dd6986c563b937170a8',
+    ),
+    'paragonie/random_compat' => 
+    array (
+      'pretty_version' => 'v9.99.100',
+      'version' => '9.99.100.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
     ),
     'phpseclib/phpseclib' => 
     array (
-      'pretty_version' => '2.0.36',
-      'version' => '2.0.36.0',
+      'pretty_version' => '3.0.13',
+      'version' => '3.0.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a97547126396548c224703a267a30af1592be146',
+      'reference' => '1443ab79364eea48665fa8c09ac67f37d1025f7e',
     ),
     'psr/cache' => 
     array (
@@ -109,6 +127,38 @@
       array (
       ),
       'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+    ),
+    'psr/http-client' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
+    ),
+    'psr/http-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'psr/http-factory' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '12ac7fcd07e5b077433f5f2bee95b3a771bf61be',
+    ),
+    'psr/http-factory-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
     ),
     'psr/http-message' => 
     array (
@@ -139,8 +189,26 @@
     array (
       'provided' => 
       array (
-        0 => '1.0.0',
+        0 => '1.0.0 || 2.0.0 || 3.0.0',
       ),
+    ),
+    'ralouphie/getallheaders' => 
+    array (
+      'pretty_version' => '3.0.3',
+      'version' => '3.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '120b605dfeb996808c31b6477290a714d356e822',
+    ),
+    'symfony/deprecation-contracts' => 
+    array (
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6f981ee24cf69ee7ce9736146d1c57c2780598a8',
     ),
   ),
 );
