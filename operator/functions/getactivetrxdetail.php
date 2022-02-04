@@ -13,8 +13,16 @@ if (isset($_POST['activeTrxInvoice'])) {
 
     $query_getOrdersData = "SELECT * FROM orders WHERE trx_id = '$trx_id'";
     $execute_getOrdersData = mysqli_query($link, $query_getOrdersData);
-
     $ordersData = mysqli_fetch_assoc($execute_getOrdersData);
+
+    $customer_id = $ordersData['customer_id'];
+    $query_getCustomerData = "SELECT * FROM customers WHERE id = '$customer_id'";
+    $execute_getCustomerData = mysqli_query($link, $query_getCustomerData);
+    $customer = mysqli_fetch_assoc($execute_getCustomerData);
+    $customerpoint = $customer['membership_point'];
+
+
+
     $customername = $ordersData['customer_name'];
     $customerphone = $ordersData['customer_phone'];
     $platnomor = $ordersData['platnomor'];
@@ -30,4 +38,5 @@ if (isset($_POST['activeTrxInvoice'])) {
     document.getElementById("tdcustomerphone").innerHTML = '<?= $customerphone ?>';
     document.getElementById("tdplatnomor").innerHTML = '<?= $platnomor ?>';
     document.getElementById("tdinvoicenumber").innerHTML = '<?= $invoice ?>';
+    document.getElementById("tdcustomerpoint").innerHTML = '<?= $customerpoint ?>';
 </script>

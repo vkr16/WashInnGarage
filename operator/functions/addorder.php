@@ -15,14 +15,18 @@ if (isset($_POST['addorder'])) {
     $execute_getOrders = mysqli_query($link, $query_getOrders);
     $orders = mysqli_fetch_assoc($execute_getOrders);
 
+
+
     $count_orders = mysqli_num_rows($execute_getOrders);
-    if ($count_orders > 0) {
-        $orderID = $orders['id'];
-        $currentAmount = $orders['amount'];
-        $newAmount = $currentAmount + 1;
-        $query_updateAmount = "UPDATE orders SET amount = '$newAmount' WHERE id = '$orderID'";
-        $execute_updateAmount = mysqli_query($link, $query_updateAmount);
-    } else {
+    if ($count_orders == 0) {
+        // $orderID = $orders['id'];
+        // $currentAmount = $orders['amount'];
+        // $newAmount = $currentAmount + 1;
+        // $query_updateAmount = "UPDATE orders SET amount = '$newAmount' WHERE id = '$orderID'";
+        // $execute_updateAmount = mysqli_query($link, $query_updateAmount);
+
+        // $query_minusStock = "UPDATE menus SET stock = stock - 1 WHERE id = '$menuID'";
+        // $execute_minusStock = mysqli_query($link, $query_minusStock);
         $query_getOrders = "SELECT * FROM orders WHERE trx_id = '$trxID'";
         echo $trxID;
         $execute_getOrders = mysqli_query($link, $query_getOrders);
@@ -38,5 +42,8 @@ if (isset($_POST['addorder'])) {
                                         VALUE ('$trxID','$customername','$customerphone', '$customeremail', '$customerid', '$menuID', '$platnomor', 'active')";
 
         $execute_addOrder = mysqli_query($link, $query_addOrder);
+
+        $query_minusStock = "UPDATE menus SET stock = stock - 1 WHERE id = '$menuID'";
+        $execute_minusStock = mysqli_query($link, $query_minusStock);
     }
 }

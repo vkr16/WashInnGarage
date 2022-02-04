@@ -56,6 +56,12 @@ if ($activePageLvl == 0) {
             <span>Active Menu</span></a>
     </li>
 
+    <!-- Nav Item - Charts -->
+    <li class="nav-item <?= $lvl3 ?>">
+        <a class="nav-link" href="manage-user.php">
+            <i class="fas fa-fw fa-percent "></i>
+            <span>Active Promotion</span></a>
+    </li>
 
 
     <!-- Nav Item - Utilities Collapse Menu -->

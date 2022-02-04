@@ -22,13 +22,22 @@ if (isset($_POST['invoice_number'])) {
         $query_getOrderedMenu = "SELECT * FROM menus WHERE id = '$menuId'";
         $execute_getOrderedMenu = mysqli_query($link, $query_getOrderedMenu);
         $menuData = mysqli_fetch_assoc($execute_getOrderedMenu);
+        $menuType = $menuData['type'];
         $priceeach = $menuData['price'];
         $subtotal = $priceeach * $ordersData['amount'];
         $total = $total + $subtotal;
 ?>
         <tr>
             <td><small><a role="button"><?php echo ($count_ordersData > 1) ? '<i role="button" class="fas fa-times fa-fw fw-sm" onclick="cancelOrder(\'' . $ordersData['id'] . '\',\'' . $invoice . '\')"> </i>' : ''; ?></a> <?= $menuData['name'] ?></small></td>
-            <td class="text-center"><small><a role="button" onclick="minusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')"><i class="fas fa-minus-square fa-fw fw-sm"></i>&emsp;</a><span id="<?= 'amountof' . $ordersData['id'] ?>"><?= $ordersData['amount'] ?></span><a role="button" onclick="plusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')">&emsp;<i class="fas fa-plus-square fa-fw fw-sm"> </i></a></small></td>
+            <?php
+            if ($menuType == 'promotion') {
+            ?>
+                <td class="text-center"><small><span id="<?= 'amountof' . $ordersData['id'] ?>"><?= $ordersData['amount'] ?></span></small></td>
+            <?php
+            } else {
+            ?>
+                <td class="text-center"><small><a role="button" onclick="minusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')"><i class="fas fa-minus-square fa-fw fw-sm"></i>&emsp;</a><span id="<?= 'amountof' . $ordersData['id'] ?>"><?= $ordersData['amount'] ?></span><a role="button" onclick="plusOrder('<?= $ordersData['id'] ?>','<?= $invoice ?>')">&emsp;<i class="fas fa-plus-square fa-fw fw-sm"> </i></a></small></td>
+            <?php } ?>
             <td class="text-right"><small><?= 'Rp ' . number_format($subtotal, 0, ',', '.')  ?></small></td>
         </tr>
     <?php

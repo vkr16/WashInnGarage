@@ -223,7 +223,7 @@ $activePageLvl = 0;
                                     <p class="mb-0"><strong>Customer</strong></p>
                                     <table class="col-md-12">
                                         <tr>
-                                            <td width="27%"><small>Name </small></td>
+                                            <td width="33%"><small>Name </small></td>
                                             <td><small> : &emsp; </small><small id="tdcustomername"> </small></td>
                                         </tr>
                                         <tr>
@@ -233,6 +233,10 @@ $activePageLvl = 0;
                                         <tr>
                                             <td><small>Reg. Number </small></td>
                                             <td><small> : &emsp; </small><small id="tdplatnomor"> </small></td>
+                                        </tr>
+                                        <tr>
+                                            <td><small>Customer Points </small></td>
+                                            <td><small> : &emsp; </small><small id="tdcustomerpoint"> </small><small>&nbsp;<i class="fab fa-product-hunt fa-fw"></i></small></td>
                                         </tr>
                                     </table>
                                     <hr>
@@ -249,9 +253,10 @@ $activePageLvl = 0;
                                 </div>
                                 <div class="card-footer">
                                     <div class="col-md- 12 d-flex justify-content-between">
-                                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deleteTrxCopyInv()">Cancel Transaction</button>
+                                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelPendingTrxModal" onclick="deleteTrxCopyInv()">Cancel</button>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" id="getactivemenus" data-target="#addOrder">Add Order</button>
-                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#completeModal" onclick="copyinv2complete()">Complete</button>
+                                        <button class="btn btn-info btn-sm" data-toggle="modal" id="getactivepromos" data-target="#addPromo">Apply Promo</button>
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#completeModal" onclick="copyinv2complete()">Complete</button>
                                     </div>
                                 </div>
                             </div>
@@ -405,6 +410,7 @@ $activePageLvl = 0;
     </div>
     <!-- Modal Delete Pending Transactions  END-->
     <div id="hujiko" hidden></div>
+    <div id="hujiko2" hidden></div>
 
 
     <!-- Modal add order to trx -->
@@ -418,6 +424,7 @@ $activePageLvl = 0;
                     </button>
                 </div>
                 <div class="modal-body">
+
                     <div id="activeMenu">
 
                     </div>
@@ -431,6 +438,32 @@ $activePageLvl = 0;
         </div>
     </div>
     <!-- Modal add order to trx  end-->
+
+    <!-- Modal add promo to trx -->
+    <div class="modal fade" id="addPromo" tabindex="-1" aria-labelledby="addPromoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPromoLabel">Add Promo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="activePromo">
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal add promo to trx  end-->
 
 
     <!-- Modal complete order input receipt number -->
@@ -507,6 +540,9 @@ $activePageLvl = 0;
 
         $("#getactivemenus").click(function() {
             getActiveMenus();
+        });
+        $("#getactivepromos").click(function() {
+            getActivePromos();
         });
 
         $("#refreshcompletetrx").click(function() {
@@ -598,10 +634,34 @@ $activePageLvl = 0;
             // viewActiveTrxDetail(invoice)
         }
 
+        function getActivePromos() {
+            var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+            $.post("functions/getactivepromos.php", {
+                    getactivepromos: true
+                },
+                function(data) {
+                    $("#activePromo").html(data);
+                });
+            // viewActiveTrxDetail(invoice)
+        }
+
         function addOrderToActiveTrx(menuID) {
             var invoice = document.getElementById("tdinvoicenumber").innerHTML;
             $.post("functions/addorder.php", {
                     addorder: true,
+                    menuID: menuID,
+                    invoice: invoice
+                },
+                function(data) {
+                    $("#hujiko").html(data);
+                });
+            viewActiveTrxDetail(invoice);
+        }
+
+        function addPromoToActiveTrx(menuID) {
+            var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+            $.post("functions/addpromo.php", {
+                    addPromo: true,
                     menuID: menuID,
                     invoice: invoice
                 },
@@ -652,7 +712,10 @@ $activePageLvl = 0;
                     invoice_number: invoice,
                     order_id: orderID
                 },
-                function(data) {});
+                function(data) {
+                    $("#hujiko2").html(data);
+
+                });
             viewActiveTrxDetail(invoice);
         }
 
