@@ -34,13 +34,7 @@ if (isset($_POST['addPromo'])) {
     $customerPoin = $customer['membership_point'];
 
     if ($customerPoin + $menuPoin >= 0) {
-        if ($count_orders > 0) {
-            $orderID = $orders['id'];
-            $currentAmount = $orders['amount'];
-            $newAmount = $currentAmount + 1;
-            $query_updateAmount = "UPDATE orders SET amount = '$newAmount' WHERE id = '$orderID'";
-            $execute_updateAmount = mysqli_query($link, $query_updateAmount);
-        } else {
+        if ($count_orders == 0) {
             $query_getOrders = "SELECT * FROM orders WHERE trx_id = '$trxID'";
             echo $trxID;
             $execute_getOrders = mysqli_query($link, $query_getOrders);
