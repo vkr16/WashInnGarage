@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2022 at 12:18 PM
+-- Generation Time: Feb 04, 2022 at 02:46 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -44,7 +44,7 @@ CREATE TABLE `customers` (
 
 CREATE TABLE `menus` (
   `id` int(10) NOT NULL,
-  `type` enum('service','merchandise','food','beverage') NOT NULL,
+  `type` enum('service','merchandise','food','beverage','promotion') NOT NULL,
   `category` enum('Car','Motorcycle') DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   `price` int(20) NOT NULL,
@@ -54,6 +54,16 @@ CREATE TABLE `menus` (
   `poin` int(11) NOT NULL,
   `status` enum('active','inactive','out of stock') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `menus`
+--
+
+INSERT INTO `menus` (`id`, `type`, `category`, `name`, `price`, `image`, `description`, `stock`, `poin`, `status`) VALUES
+(1, 'service', 'Car', 'Express Plus', 25000, 'Express Plus.jpg', 'Cuci Express Plus Mobil', NULL, 25, 'active'),
+(2, 'merchandise', NULL, 'Kaos Hitam', 50000, 'Kaos Hitam.jpg', 'Kaos Hitam Bagus', 22, 50, 'active'),
+(3, 'beverage', NULL, 'Kopi Hitam', 5000, 'no-thumbnail.jpg', 'Kopi Hitam Dengan / Tanpa Gula', 9999, 5, 'active'),
+(4, 'promotion', NULL, 'Redeem Poin 10', 10000, 'no-thumbnail.jpg', 'Tukar 10 poin dengan nominal discount 10000', NULL, 10, 'active');
 
 -- --------------------------------------------------------
 
@@ -69,7 +79,7 @@ CREATE TABLE `orders` (
   `customer_email` varchar(100) DEFAULT NULL,
   `customer_id` int(10) NOT NULL,
   `menu_id` int(10) NOT NULL,
-  `platnomor` varchar(10) DEFAULT NULL,
+  `platnomor` varchar(12) DEFAULT NULL,
   `amount` int(5) NOT NULL DEFAULT 1,
   `order_time` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
   `order_status` varchar(20) NOT NULL
@@ -84,7 +94,7 @@ CREATE TABLE `orders` (
 CREATE TABLE `transactions` (
   `id` int(20) NOT NULL,
   `invoice_number` varchar(50) NOT NULL,
-  `receipt_number` int(10) DEFAULT NULL,
+  `receipt_number` int(15) DEFAULT NULL,
   `completedate` date DEFAULT NULL,
   `completetime` time DEFAULT NULL,
   `operator_name` varchar(100) DEFAULT NULL,
@@ -126,7 +136,7 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `phone`, `username`, `role`, `pa
 CREATE TABLE `vehicles` (
   `id` int(10) NOT NULL,
   `vehicletype` varchar(10) NOT NULL,
-  `platnomor` varchar(10) NOT NULL,
+  `platnomor` varchar(12) NOT NULL,
   `owner_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -186,7 +196,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
