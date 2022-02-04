@@ -13,7 +13,7 @@
 
         if (isset($_POST['getactivemenus'])) {
 
-            $query_getActiveMenus = "SELECT * FROM menus WHERE status = 'active'";
+            $query_getActiveMenus = "SELECT * FROM menus WHERE status = 'active' AND type != 'promotion'";
             $execute_getActiveMenus = mysqli_query($link, $query_getActiveMenus);
 
             while ($menu = mysqli_fetch_assoc($execute_getActiveMenus)) {
