@@ -1,6 +1,6 @@
 <?php
-require_once 'admin-only.php';
-$activePageLvl = 3;
+require_once 'operator-only.php';
+$activePageLvl = 1;
 
 // Get Data From DB For User List
 $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
@@ -389,7 +389,7 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
                     <form action="functions/delete-customerdata.php" method="post">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <input type="password" name="hiddenServiceID" id="hiddenServiceID" hidden readonly>
-                        <input type="password" name="origin" id="origin" hidden readonly value="customer-basic.php">
+                        <input type="password" name="origin" id="origin" hidden readonly value="customer-data.php">
                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt fa-fw fa-sm"></i> Yes, Delete</button>
                     </form>
                 </div>
@@ -445,6 +445,8 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
             document.getElementById('detailPanel').hidden = false;
             document.getElementById('modeView').hidden = false;
             document.getElementById('modeEdit').hidden = true;
+            document.getElementById('rightPaneTitle').innerHTML = '<i class="fas fa-id-card fa-fw"></i> Customer Detail';
+
 
             console.log(id);
 

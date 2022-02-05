@@ -1,14 +1,14 @@
 <?php
-require_once 'admin-only.php';
-$activePageLvl = 3;
+require_once 'operator-only.php';
+$activePageLvl = 1;
 
 // Get Data From DB For User List
 $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
 $execute_getUser = mysqli_query($link, $query_getUser);
 $i = 1;
 
-$query_getCustomers = "SELECT * FROM customers";
-$execute_getCustomers = mysqli_query($link, $query_getCustomers);
+$query_getVehicles = "SELECT * FROM vehicles";
+$execute_getVehicles = mysqli_query($link, $query_getVehicles);
 
 ?>
 <!DOCTYPE html>
@@ -52,12 +52,12 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Customer Basic Information </h1>
+                        <h1 class="h3 mb-0 text-gray-800">Customer's Vehicle Data </h1>
                         <?php
                         if (isset($_COOKIE['returnstatus'])) {
                             if ($_COOKIE['returnstatus'] == 'serviceadded') {
                                 echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>New Service Added To The Menu</strong>
+                                          <strong>New Vehicle Added To The Menu</strong>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -71,49 +71,49 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
                                         </div>';
                             } elseif ($_COOKIE['returnstatus'] == 'serviceaddednotuploaded') {
                                 echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                          <strong>New Service Added To The Menu With An Error. <br></strong>Thumbnail image not uploaded, unknown reason. [ERR-998]
+                                          <strong>New Vehicle Added To The Menu With An Error. <br></strong>Thumbnail image not uploaded, unknown reason. [ERR-998]
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
                             } elseif ($_COOKIE['returnstatus'] == 'servicedeleted') {
                                 echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>A Customer Data Has Been Deleted.<br></strong>
+                                          <strong>A Vehicle Data Has Been Deleted.<br></strong>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
                             } elseif ($_COOKIE['returnstatus'] == 'servicenotdeleted') {
                                 echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Service Deletion Failed. <br>Error : </strong>Service not found.
+                                          <strong>Vehicle Deletion Failed. <br>Error : </strong>Vehicle not found.
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
                             } elseif ($_COOKIE['returnstatus'] == 'serviceupdated') {
                                 echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                          <strong>A Customer Data Has Been Updated.<br></strong>
+                                          <strong>A Vehicle Data Has Been Updated.<br></strong>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
                             } elseif ($_COOKIE['returnstatus'] == 'servicenotupdated') {
                                 echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Service Update Failed. <br>Error : </strong>Service redundant or id not found. [ERR-274]
+                                          <strong>Vehicle Update Failed. <br>Error : </strong>Vehicle redundant or id not found. [ERR-274]
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
                             } elseif ($_COOKIE['returnstatus'] == 'serviceexist') {
                                 echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Add New Service Failed. <br> Error :</strong> Service Already Exist In Menu 
+                                          <strong>Add New Vehicle Failed. <br> Error :</strong> Vehicle Already Exist In Menu 
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                         </div>';
                             } elseif ($_COOKIE['returnstatus'] == 'serviceredundant') {
                                 echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                          <strong>Update Service Failed. <br> Error :</strong> A Service With The Same Name Already Exist On The Menu
+                                          <strong>Update Vehicle Failed. <br> Error :</strong> A Vehicle With The Same Name Already Exist On The Menu
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -156,26 +156,25 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Membership</th>
-                                                <th scope="col">Points</th>
+                                                <th scope="col">Registration Number</th>
+                                                <th scope="col">Vehicle</th>
+                                                <th scope="col">Owner</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while ($customer = mysqli_fetch_assoc($execute_getCustomers)) {
-                                                $fullname = $customer['fullname'];
-                                                $phone = $customer['phone'];
-                                                $email = $customer['email'];
-                                                $membership = ($customer['membership'] == 'member') ? 'Member' : 'Customer';
-                                                $points = $customer['membership_point'];
+                                            <?php while ($vehicle = mysqli_fetch_assoc($execute_getVehicles)) {
+                                                $id = $vehicle['owner_id'];
+                                                $query_getOwner = "SELECT * FROM customers WHERE id = '$id'";
+                                                $execute_getOwner = mysqli_query($link, $query_getOwner);
+                                                $owner = mysqli_fetch_assoc($execute_getOwner);
+                                                $ownername = $owner['fullname'];
+                                                $vehicleid = $vehicle['id'];
                                             ?>
-                                                <tr onclick="openDetail('<?= $customer['id'] . '\',\'' . $fullname . '\',\'' . $phone . '\',\'' . $email . '\',\'' . $membership . '\',\'' . $points ?>')">
+                                                <tr onclick="openDetail('<?= $ownername . '\',\'' . $vehicle['vehicletype'] . '\',\'' . $vehicle['platnomor'] . '\',\'' . $vehicleid ?>')">
                                                     <th scope="row"><?= $i ?></th>
-                                                    <td><?= $fullname ?></td>
-                                                    <td><?= $phone ?></td>
-                                                    <td><?= $membership ?></td>
-                                                    <td><?= $points ?></td>
+                                                    <td><?= $vehicle['platnomor'] ?></td>
+                                                    <td><?= ($vehicle['vehicletype'] == 'Mobil') ? 'Car' : 'Motorcycle' ?></td>
+                                                    <td><?= $ownername ?></td>
                                                 </tr>
                                             <?php $i++;
                                             } ?>
@@ -189,79 +188,34 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 class="m-0 font-weight-bold text-primary" id="rightPaneTitle"><i class="fas fa-id-card fa-fw"></i> Customer Detail</h5>
+                                    <h5 class="m-0 font-weight-bold text-primary" id="rightPaneTitle"><i class="fas fa-edit fa-fw"></i> Edit Vehicle Detail</h5>
                                     <a class="btn btn-danger" onclick="closeDetailPanel()"><i class="fas fa-times fa-fw"></i></a>
 
                                 </div>
-                                <!-- Card Body -->
-                                <div class="card-body" id="modeView">
-                                    <div class="row col-md-12">
-                                        <!-- <div class="col-xl-5">
-                                            <div class="d-flex justify-content-center">
-                                                <img id="thumbnailShow" src="" class="rounded-lg border border-white shadow" width=100%>
-                                            </div>
-                                        </div> -->
-                                        <div class="col-xl-12">
-                                            <h5 class="mb-0 text-dark font-weight-bolder" id="servicenameShow"></h5>
-                                            <p class="mb-0"><i class="fas fa-envelope fa-fw"></i> <span id="typeShow"></span></p>
-                                            <p class="mb-2"><i class="fas fa-mobile-alt fa-fw "></i> <span id="priceShow"></span></p>
-                                            <p class="mb-2">Membership Points : <span id="poinShow"></span> <i class="fab fa-product-hunt fa-fw fa-sm"></i></p>
-                                            <p class="mb-2 font-weight-bolder" id="statusShow"></p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <!-- <br> -->
-                                    <div class="col-xl-12 col-lg-12 text-dark">
-                                        <p class="font-weight-bolder"><i class="fas fa-star fa-fw"></i> Membership Status : <span id="descriptionShow" class="text-info"></span></p>
-                                        <!-- <p class="text-justify" id="descriptionShow"></p> -->
-                                    </div>
-                                    <div class="form-group col-md-12" id="btnupgrade" hidden>
-                                        <form action="functions/upgrademember.php" method="post">
-                                            <button class="btn btn-success btn-block" name="upgradebtn" value="" id="upgradebtn"><i class="fas fa-star"></i> Upgrade To Member <i class="fas fa-star"></i></button>
-                                        </form>
-                                    </div>
-                                    <hr>
-                                    <div class="row mx-2 d-flex justify-content-end">
-                                        <a href="#" class="btn btn-primary" onclick="changeMode()">
-                                            <i class="fas fa-edit fa-fw fa-sm"></i> Edit </a>
-                                        &emsp;
-                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteservice">
-                                            <i class="fas fa-trash-alt fa-fw fa-sm"></i> Delete </a>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="modeEdit" hidden>
-                                    <form action="functions/update-customer-data.php" method="post" enctype="multipart/form-data">
+
+                                <div class="card-body" id="modeEdit">
+                                    <form action="functions/update-vehicle-data.php" method="post" enctype="multipart/form-data">
                                         <div class="form-row">
 
-                                            <div class="form-group col-md-7">
-                                                <label for="updateFullname">Customer Name</label>
-                                                <input required autocomplete="off" type="text" class="form-control" id="updateFullname" placeholder="Customer Name" name="customername">
-                                            </div>
                                             <div class="form-group col-md-5">
-                                                <label for="updatePhone">Customer Phone</label>
-                                                <input required autocomplete="off" type="text" class="form-control" id="updatePhone" placeholder="Customer Phone" name="customerphone">
+                                                <label for="updateCategory">Category</label>
+                                                <select id="updateCategory" class="form-control" name="category">
+                                                    <option selected value="Mobil">Car</option>
+                                                    <option value="Motor">Motorcycle</option>
+                                                </select>
                                             </div>
-                                            <div class="form-group col-md-8">
-                                                <label for="updateEmail">Customer Email</label>
-                                                <input required autocomplete="off" type="text" class="form-control" id="updateEmail" placeholder="Customer Email" name="customeremail">
+                                            <div class="form-group col-md-7">
+                                                <label for="updatePlatnomor">Reg. Number</label>
+                                                <input required autocomplete="off" type="text" class="form-control" id="updatePlatnomor" placeholder="Reg. Number" name="platnomor">
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="updatePoint">Point</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-product-hunt fa-fw"></i></span>
-                                                    </div>
-                                                    <input required autocomplete="off" type="text" class="form-control" id="updatePoint" placeholder="123" name="memberpoint">
-                                                </div>
-                                            </div>
-
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <a class="btn btn-secondary" onclick="changeMode()">Cancel</a> &emsp;
+                                            <div class="col-md-12 d-flex justify-content-between">
+                                                <a class="btn btn-secondary" onclick="closeDetailPanel()">Cancel</a> &emsp;
                                                 <input type="text" name="serviceidhidden" id="serviceidhidden" hidden>
-                                                <button type="submit" name="btnUpdateService" class="btn btn-primary">Save <i class="fas fa-save fa-fw fa-sm"></i></button>
+                                                <button type="submit" name="btnUpdateService" class="btn btn-primary">Save <i class="fas fa-save fa-fw fa-sm"></i></button>&emsp;
+                                                <button type="submit" name="btnDeleteService" class="btn btn-danger">Delete <i class="fas fa-trash-alt fa-fw fa-sm"></i></button>
                                             </div>
                                         </div>
                                     </form>
@@ -441,36 +395,20 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
             }
         }
 
-        function openDetail(id, fullname, phone, email, membership, points) {
+        function openDetail(ownername, vehicletype, platnomor, id) {
             document.getElementById('detailPanel').hidden = false;
-            document.getElementById('modeView').hidden = false;
-            document.getElementById('modeEdit').hidden = true;
+            document.getElementById('modeEdit').hidden = false;
 
             console.log(id);
 
             // document.getElementById('thumbnailShow').src = '../assets/img/thumbnail/' + thumbnail;
-            document.getElementById('servicenameShow').innerHTML = fullname;
-            document.getElementById('typeShow').innerHTML = email;
-            document.getElementById('priceShow').innerHTML = phone;
-            document.getElementById('poinShow').innerHTML = points;
             document.getElementById('hiddenServiceID').value = id;
             document.getElementById('serviceidhidden').value = id;
-            document.getElementById('deleteTitle').innerHTML = '[ ' + fullname + ' ]';
-            document.getElementById('descriptionShow').innerHTML = membership;
-
-            document.getElementById('updateFullname').value = fullname;
-            document.getElementById('updatePhone').value = phone;
-            document.getElementById('updateEmail').value = email;
-            document.getElementById('updatePoint').value = points;
-
-            if (membership == 'Customer') {
-                document.getElementById("btnupgrade").hidden = false;
-                document.getElementById("upgradebtn").value = id;
-            } else {
-                document.getElementById("btnupgrade").hidden = true;
-            }
+            // document.getElementById('deleteTitle').innerHTML = '[ ' + fullname + ' ]';
 
 
+            document.getElementById('updateCategory').value = vehicletype;
+            document.getElementById('updatePlatnomor').value = platnomor;
 
 
             document.getElementById('panelUtama').className = 'col-xl-8 col-lg-8';
@@ -493,9 +431,11 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
             if (document.getElementById('modeView').hidden == false) {
                 document.getElementById('modeView').hidden = true;
                 document.getElementById('modeEdit').hidden = false;
+                document.getElementById('rightPaneTitle').innerHTML = '<i class="fas fa-edit fa-fw"></i> Edit Service Detail';
             } else {
                 document.getElementById('modeView').hidden = false;
                 document.getElementById('modeEdit').hidden = true;
+                document.getElementById('rightPaneTitle').innerHTML = '<i class="fas fa-info-circle fa-fw"></i> Service Detail';
             }
         }
     </script>

@@ -42,15 +42,25 @@ if ($activePageLvl == 0) {
         Operational
     </div>
 
-    <!-- Nav Item - Charts -->
+
+
+    <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item <?= $lvl1 ?>">
-        <a class="nav-link" href="manage-user.php">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Manage Member</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMenu2" aria-expanded="true" aria-controls="collapseMenu2">
+            <i class="fas fa-fw fa-database"></i>
+            <span>Customer Data</span>
+        </a>
+        <div id="collapseMenu2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Customer</h6>
+                <a class="collapse-item" href="customer-data.php">Basic Information</a>
+                <a class="collapse-item" href="customer-vehicle.php">Vehicles</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item <?= $lvl4 ?>">
+    <li class="nav-item <?= $lvl2 ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMenu" aria-expanded="true" aria-controls="collapseMenu">
             <i class="fas fa-fw fa-th-large"></i>
             <span>Active Menu</span>

@@ -9,6 +9,8 @@ if ($activePageLvl == 0) {
     $lvl3 = 'active';
 } elseif ($activePageLvl == 4) {
     $lvl4 = 'active';
+} elseif ($activePageLvl == 5) {
+    $lvl5 = 'active';
 }
 ?>
 
@@ -100,8 +102,8 @@ if ($activePageLvl == 0) {
     </div>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item <?= $lvl4 ?>">
-        <a class="nav-link" href="charts.html">
+    <li class="nav-item <?= $lvl5 ?>">
+        <a class="nav-link" href="active-order.php">
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span>Active Order</span></a>
     </li>
