@@ -53,7 +53,7 @@ if ($activePageLvl == 0) {
 
     <!-- Nav Item - Charts -->
     <li class="nav-item <?= $lvl2 ?>">
-        <a class="nav-link" href="manage-user.php">
+        <a class="nav-link" href="transactions.php">
             <i class="fas fa-fw fa-exchange-alt"></i>
             <span>Transaction</span>
         </a>
