@@ -66,8 +66,8 @@ if ($activePageLvl == 0) {
         <div id="collapseMenu2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Customer</h6>
-                <a class="collapse-item" href="service-menu.php">Basic Information</a>
-                <a class="collapse-item" href="merch-menu.php">Vehicles</a>
+                <a class="collapse-item" href="customer-basic.php">Basic Information</a>
+                <a class="collapse-item" href="customer-vehicle.php">Vehicles</a>
 
             </div>
         </div>
