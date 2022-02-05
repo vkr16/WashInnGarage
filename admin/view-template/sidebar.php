@@ -105,7 +105,7 @@ if ($activePageLvl == 0) {
     <li class="nav-item <?= $lvl5 ?>">
         <a class="nav-link" href="active-order.php">
             <i class="fas fa-fw fa-clipboard-list"></i>
-            <span>Active Order</span></a>
+            <span>Today</span></a>
     </li>
 
     <!-- Divider -->
