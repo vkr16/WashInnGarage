@@ -60,7 +60,7 @@ $execute_getTrx = mysqli_query($link, $query_getTrx);
                                     <div class="row col-md-12">
                                         <div class="col-md-12" id="mainPanel">
                                             <div id="tableTransactions">
-                                                <table class="table" id="tableTrx">
+                                                <table class="table table-hover" id="tableTrx">
                                                     <thead>
                                                         <th>#</th>
                                                         <th>No. Invoice</th>
