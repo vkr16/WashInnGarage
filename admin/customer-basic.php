@@ -122,7 +122,7 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
                         }
                         ?>
 
-                        <!-- <a target="_blank" href="download-builder/user-data-download.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Download User Data</a> -->
+                        <a target="_blank" href="download-builder/customer-data-download.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export Customer Data</a>
                     </div>
 
                     <!-- Content Row -->

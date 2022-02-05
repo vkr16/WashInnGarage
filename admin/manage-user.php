@@ -1,32 +1,34 @@
-<?php 
-	require_once 'admin-only.php';
-	$activePageLvl=1;
+<?php
+require_once 'admin-only.php';
+$activePageLvl = 1;
 
-    $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
-    $execute_getUser = mysqli_query($link,$query_getUser);
-    $i = 1;
- ?>
+$query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
+$execute_getUser = mysqli_query($link, $query_getUser);
+$i = 1;
+?>
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>User Account Management</title>
 
-	<link rel="icon" type="image/png" href="<?=$assets?>/img/logo.png">
-	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
-	<link href="<?=$assets?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Account Management</title>
+
+    <link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="<?= $assets ?>/css/sb-admin-2.min.css">
+    <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- dataTable css -->
-    <link href="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
+
 <body class="page-top">
 
-	<!-- Page Wrapper -->
+    <!-- Page Wrapper -->
     <div id="wrapper">
 
-    	<!-- Sidebar Attach -->
+        <!-- Sidebar Attach -->
         <?php require_once 'view-template/sidebar.php'; ?>
 
         <!-- Content Wrapper -->
@@ -35,7 +37,7 @@
             <!-- Main Content -->
             <div id="content">
 
-            	<!-- Topbar Attach -->
+                <!-- Topbar Attach -->
                 <?php require_once 'view-template/topbar.php'; ?>
 
                 <!-- Begin Page Content -->
@@ -44,47 +46,47 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">User Management</h1>
-                        
 
-                        <?php 
-                            if (isset($_COOKIE['returnstatus'])) {
-                                if ($_COOKIE['returnstatus'] == 'userexist') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+                        <?php
+                        if (isset($_COOKIE['returnstatus'])) {
+                            if ($_COOKIE['returnstatus'] == 'userexist') {
+                                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         Registration failed!, Username already exist in database
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'success') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            } elseif ($_COOKIE['returnstatus'] == 'success') {
+                                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Registration successful!</strong><br>Password sent to user\'s email, please ask user to check their spam folder!
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'usernameconflict') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            } elseif ($_COOKIE['returnstatus'] == 'usernameconflict') {
+                                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Update failed!</strong>, new username conflict with another user in database
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'updatesuccess') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            } elseif ($_COOKIE['returnstatus'] == 'updatesuccess') {
+                                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Update successful!</strong><br>Information update sent to user\'s email, please ask user to check their spam folder!
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            } elseif ($_COOKIE['returnstatus'] == 'deletesuccess') {
+                                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>User Deletion Successful!</strong>
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'offlinewarning') {
-                                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            } elseif ($_COOKIE['returnstatus'] == 'offlinewarning') {
+                                echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
                                         <strong>Update Successful With an Error!</strong><br>
                                         Failed send email notification to user!!
                                         Update saved to database but user got no notification!
@@ -94,8 +96,8 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>';
-                                }elseif ($_COOKIE['returnstatus'] == 'offlineFailed') {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            } elseif ($_COOKIE['returnstatus'] == 'offlineFailed') {
+                                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Add New User Failed!!</strong><br>
                                         Can not send email confirmation to user, 
                                         <br>It may caused by invalid email address or there is no internet connection.
@@ -103,12 +105,11 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>';
-                                }
                             }
-                         ?>
+                        }
+                        ?>
 
-                        <a target="_blank" href="download-builder/user-data-download.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Download User Data</a>
+                        <a target="_blank" href="download-builder/user-data-download.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export User Data</a>
                     </div>
 
                     <!-- Content Row -->
@@ -119,10 +120,9 @@
                             <div class="card shadow mb-4">
 
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h5 class="m-0 font-weight-bold text-primary">Registered User List</h5>
-                                    <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a>    
+                                    <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a>
                                 </div>
 
                                 <!-- Card Body -->
@@ -145,11 +145,13 @@
                                                     <td><?= $result_getUser['fullname'] ?></td>
                                                     <td><?= $result_getUser['email'] ?></td>
                                                     <td><?= $result_getUser['username'] ?></td>
-                                                    <td><?php if ($result_getUser['role']=='admin') {
-                                                        echo "Admin";
-                                                    }elseif ($result_getUser['role']=='operator') {
-                                                        echo "Operator";
-                                                    }else{echo "";};  ?></td>
+                                                    <td><?php if ($result_getUser['role'] == 'admin') {
+                                                            echo "Admin";
+                                                        } elseif ($result_getUser['role'] == 'operator') {
+                                                            echo "Operator";
+                                                        } else {
+                                                            echo "";
+                                                        };  ?></td>
                                                     <td class="row">
                                                         <form action="edit-user.php" method="post">
                                                             <button class="btn btn-primary" type="submit" name="btnEditUser" value="<?= $result_getUser['id'] ?>"><i class="fas fa-edit fa-fw"></i>
@@ -160,7 +162,8 @@
                                                         </button>
                                                     </td>
                                                 </tr>
-                                            <?php $i++;} ?>
+                                            <?php $i++;
+                                            } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -209,41 +212,42 @@
     <!-- MODAL DETELE USER END -->
 
     <script type="text/javascript">
-        function del_conf(username, id){
+        function del_conf(username, id) {
             document.getElementById("usernametodelete").innerHTML = username;
-            document.getElementById("usernameinputtodelete").placeholder = "DELETE/"+username;
+            document.getElementById("usernameinputtodelete").placeholder = "DELETE/" + username;
             document.getElementById("btnDelete").value = id;
         }
 
-        function equal_checker(){
-            if (document.getElementById("usernameinputtodelete").value == "DELETE/"+document.getElementById("usernametodelete").innerHTML) {
+        function equal_checker() {
+            if (document.getElementById("usernameinputtodelete").value == "DELETE/" + document.getElementById("usernametodelete").innerHTML) {
                 document.getElementById("btnDelete").disabled = false;
-            }else{
+            } else {
                 document.getElementById("btnDelete").disabled = true;
             }
         }
     </script>
 
-	<!-- Bootstrap core JavaScript-->
-    <script src="<?=$assets?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?=$assets?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
+    <script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?=$assets?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<?=$assets?>/js/sb-admin-2.min.js"></script>
+    <script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
 
     <!-- dataTable js -->
-    <script src="<?=$assets?>/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?=$assets?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= $assets ?>/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
-          $('#usersTable').DataTable();
+            $('#usersTable').DataTable();
         });
     </script>
 </body>
+
 </html>
 
 <!-- =================================== -->
@@ -252,10 +256,15 @@
 
 <style type="text/css">
     .disable-select {
-        user-select: none; /* supported by Chrome and Opera */
-       -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-       -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+        /* supported by Chrome and Opera */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
     }
 </style>
