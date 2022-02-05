@@ -172,7 +172,7 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
                                             ?>
                                                 <tr onclick="openDetail('<?= $customer['id'] . '\',\'' . $fullname . '\',\'' . $phone . '\',\'' . $email . '\',\'' . $membership . '\',\'' . $points ?>')">
                                                     <th scope="row"><?= $i ?></th>
-                                                    <td><?= $fullname ?></td>
+                                                    <td><a href="#" class="text-decoration-none"><?= $fullname ?></a></td>
                                                     <td><?= $phone ?></td>
                                                     <td><?= $membership ?></td>
                                                     <td><?= $points ?></td>

@@ -157,7 +157,7 @@ $execute_getMerchandise = mysqli_query($link, $query_getMerchandise);
                           <td><a href="#" class="text-decoration-none"><?= $merch['name'] ?></a></td>
                           <td><?= $price ?></td>
                           <td><?= $merch['stock'] ?></td>
-                          <td><i class="fab fa-product-hunt fa-fw"></i> <?= $points ?></td>
+                          <td><i class="fab fa-product-hunt fa-fw"></i> +<?= $points ?></td>
                         </tr>
                       <?php $i++;
                       } ?>

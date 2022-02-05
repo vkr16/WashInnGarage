@@ -172,7 +172,7 @@ $execute_getVehicles = mysqli_query($link, $query_getVehicles);
                                             ?>
                                                 <tr onclick="openDetail('<?= $ownername . '\',\'' . $vehicle['vehicletype'] . '\',\'' . $vehicle['platnomor'] . '\',\'' . $vehicleid ?>')">
                                                     <th scope="row"><?= $i ?></th>
-                                                    <td><?= $vehicle['platnomor'] ?></td>
+                                                    <td><a href="#" class="text-decoration-none"><?= $vehicle['platnomor'] ?></a></td>
                                                     <td><?= ($vehicle['vehicletype'] == 'Mobil') ? 'Car' : 'Motorcycle' ?></td>
                                                     <td><?= $ownername ?></td>
                                                 </tr>
