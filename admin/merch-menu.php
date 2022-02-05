@@ -1,6 +1,6 @@
 <?php
 require_once 'admin-only.php';
-$activePageLvl = 3;
+$activePageLvl = 4;
 
 $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
 $execute_getUser = mysqli_query($link, $query_getUser);

@@ -59,6 +59,22 @@ if ($activePageLvl == 0) {
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item <?= $lvl3 ?>">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMenu2" aria-expanded="true" aria-controls="collapseMenu2">
+            <i class="fas fa-fw fa-database"></i>
+            <span>Customer Data</span>
+        </a>
+        <div id="collapseMenu2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Customer</h6>
+                <a class="collapse-item" href="service-menu.php">Basic Information</a>
+                <a class="collapse-item" href="merch-menu.php">Vehicles</a>
+
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item <?= $lvl4 ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMenu" aria-expanded="true" aria-controls="collapseMenu">
             <i class="fas fa-fw fa-wrench"></i>
             <span>Manage Menu</span>

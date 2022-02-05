@@ -1,6 +1,6 @@
 <?php
 require_once 'admin-only.php';
-$activePageLvl = 3;
+$activePageLvl = 4;
 
 // Get Data From DB For User List
 $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";

@@ -49,20 +49,23 @@ if ($activePageLvl == 0) {
             <span>Manage Member</span></a>
     </li>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item <?= $lvl2 ?>">
-        <a class="nav-link" href="manage-user.php">
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item <?= $lvl4 ?>">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMenu" aria-expanded="true" aria-controls="collapseMenu">
             <i class="fas fa-fw fa-th-large"></i>
-            <span>Active Menu</span></a>
+            <span>Active Menu</span>
+        </a>
+        <div id="collapseMenu" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu</h6>
+                <a class="collapse-item" href="service-menu.php">Services</a>
+                <a class="collapse-item" href="merch-menu.php">Merchandise</a>
+                <a class="collapse-item" href="fnb-menu.php">Food & Beverage</a>
+                <a class="collapse-item" href="promotions-menu.php">Promotions</a>
+                <!-- <a class="collapse-item" href="utilities-other.html">Other</a> -->
+            </div>
+        </div>
     </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item <?= $lvl3 ?>">
-        <a class="nav-link" href="manage-user.php">
-            <i class="fas fa-fw fa-percent "></i>
-            <span>Active Promotion</span></a>
-    </li>
-
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <!-- <li class="nav-item">
