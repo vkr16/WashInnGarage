@@ -5,6 +5,10 @@ $activePageLvl = 0;
 
 $query_getTrx = "SELECT * FROM transactions WHERE trx_status = 'completed'";
 $execute_getTrx = mysqli_query($link, $query_getTrx);
+
+include 'download-builder/all-trx-download.php';
+include 'download-builder/monthly-trx-download.php';
+include 'download-builder/daily-trx-download.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +23,8 @@ $execute_getTrx = mysqli_query($link, $query_getTrx);
     <link rel="stylesheet" type="text/css" href="<?= $assets ?>/css/sb-admin-2.min.css">
     <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= $assets ?>/css/bootstrap-datepicker3.min.css">
+
 
 </head>
 
@@ -45,7 +51,7 @@ $execute_getTrx = mysqli_query($link, $query_getTrx);
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Transactions</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+                        <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#generateReportModal"><i class="fas fa-file-export fa-sm text-white-50"></i> Generate Report
                         </a>
                     </div>
 
@@ -201,6 +207,61 @@ $execute_getTrx = mysqli_query($link, $query_getTrx);
     </a>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="generateReportModal" tabindex="-1" aria-labelledby="generateReportLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-info" id="generateReportLabel">Generate Report Spreadsheet</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <h6>Download <span class="text-info font-weight-bold">All</span> Data</h6>
+                        <form action="" method="POST">
+                            <button name="downloadall" value="true" class="btn btn-sm btn-info" onclick="downloadAll()"><i class="fas fa-file-download fa-fw fa-sm"></i> Download</button>
+                        </form>
+                        <small>It will download all complete transactions data</small>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <h6>Download <span class="text-info font-weight-bold">Monthly</span> Data</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form action="" method="POST">
+                                    <input role="button" type="text" value="<?= date("F Y") ?>" class="form-control form-control-sm" name="monthpicker" id="monthpicker" readonly />
+                            </div>
+                            <button class="btn btn-sm btn-info" name="downloadmonthly" value="true"><i class="fas fa-file-download fa-fw fa-sm"></i> Download</button>
+                            </form>
+                        </div>
+                        <small class="text-danger" id="notiArea1" hidden></small>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <h6>Download <span class="text-info font-weight-bold">Daily</span> Data</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form action="" method="POST">
+                                    <input type="text" value="<?= date("j F Y") ?>" class="form-control form-control-sm" name="datepicker" id="datepicker" readonly />
+                            </div>
+                            <button name="downloaddaily" value="true" class="btn btn-sm btn-info"><i class="fas fa-file-download fa-fw fa-sm"></i> Download</button>
+                            </form>
+                        </div>
+                        <small class="text-danger" id="notiArea2" hidden></small>
+                    </div>
+                    <br>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -218,9 +279,23 @@ $execute_getTrx = mysqli_query($link, $query_getTrx);
     <script src="<?= $assets ?>/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+    <script src="<?= $assets ?>/js/bootstrap-datepicker.min.js"></script>
+    <script src="<?= $assets ?>/js/bootstrap-datepicker.id.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('#tableTrx').DataTable();
+
+            $("#datepicker").datepicker({
+                format: "d MM yyyy",
+                startView: "days",
+                minViewMode: "days"
+            });
+            $("#monthpicker").datepicker({
+                format: "MM yyyy",
+                startView: "months",
+                minViewMode: "months"
+            });
         });
 
 
