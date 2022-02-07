@@ -2,7 +2,7 @@
 require_once 'admin-only.php';
 $activePageLvl = 0;
 
-include 'functions/get-all-trx-stats-data.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +19,11 @@ include 'functions/get-all-trx-stats-data.php';
 </head>
 
 <body id="page-top">
-
+    <?php
+    include 'functions/get-all-trx-stats-data.php';
+    include 'functions/get-revenue-source-data.php';
+    include 'functions/get-vehicle-stats-data.php';
+    ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -156,7 +160,7 @@ include 'functions/get-all-trx-stats-data.php';
 
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="ini-chart">
+                                    <div class="ini-chart ">
                                         <canvas id="chartOverallStats"></canvas>
                                     </div>
                                 </div>
@@ -169,7 +173,7 @@ include 'functions/get-all-trx-stats-data.php';
 
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-search-dollar fa-fw"></i> Revenue Sources</h5>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -186,19 +190,10 @@ include 'functions/get-all-trx-stats-data.php';
 
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+                                    <div class="ini-chart">
+                                        <canvas id="myPieChart" width=""></canvas>
+                                        <hr>
+                                        <canvas id="myPieChart2" width=""></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -392,7 +387,7 @@ include 'functions/get-all-trx-stats-data.php';
     <script src="<?= $assets ?>/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="<?= $assets ?>/js/admin-charts.js"></script>
+    <!-- <script src="<?= $assets ?>/js/admin-charts.js"></script> -->
     <!-- <script src="<?= $assets ?>/js/demo/chart-pie-demo.js"></script> -->
 </body>
 
@@ -445,6 +440,102 @@ include 'functions/get-all-trx-stats-data.php';
                         });
 
                         return label;
+                    }
+                }
+            }
+        }
+    });
+
+
+
+
+
+
+
+    const ctx2 = document.getElementById('myPieChart');
+    const myPieChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Service',
+                'Merchandise',
+                'Food & Beverage'
+            ],
+            datasets: [{
+                label: 'Revenue Source',
+                data: <?= $arrayRevSource ?>,
+                backgroundColor: [
+                    '#4E73DF',
+                    '#FFBC4A',
+                    '#F77565'
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        //get the concerned dataset
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        //calculate the total of this data set
+                        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                            return previousValue + currentValue;
+                        });
+                        //get the current items value
+                        var currentValue = dataset.data[tooltipItem.index];
+                        //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+                        var percentage = ((currentValue / total) * 100);
+
+                        return percentage + "%";
+                    }
+                }
+            }
+        }
+    });
+
+
+
+
+
+
+
+    const ctx3 = document.getElementById('myPieChart2');
+    const myPieChart2 = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Car',
+                'Motorcycle'
+            ],
+            datasets: [{
+                label: 'Revenue Source',
+                data: <?= $arraymomo ?>,
+                backgroundColor: [
+                    '#36b9cc',
+                    '#e74a3b'
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        //get the concerned dataset
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        //calculate the total of this data set
+                        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                            return previousValue + currentValue;
+                        });
+                        //get the current items value
+                        var currentValue = dataset.data[tooltipItem.index];
+                        //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+                        var percentage = ((currentValue / total) * 100);
+
+                        return percentage + "%";
                     }
                 }
             }
