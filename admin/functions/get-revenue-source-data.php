@@ -41,4 +41,3 @@ $b = round($persenmerch, 2);
 $c = round($persenfnb, 2);
 
 $arrayRevSource = json_encode(array($a, $b, $c));
-print_r($arrayRevSource);
