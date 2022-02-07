@@ -1,25 +1,29 @@
-<?php 
-	require_once 'admin-only.php';
-	$activePageLvl=0;
- ?>
+<?php
+require_once 'admin-only.php';
+$activePageLvl = 0;
+
+include 'functions/get-all-trx-stats-data.php';
+?>
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Administrator Dashboard</title>
 
-	<link rel="icon" type="image/png" href="<?=$assets?>/img/logo.png">
-	<link rel="stylesheet" type="text/css" href="<?=$assets?>/css/sb-admin-2.min.css">
-	<link href="<?=$assets?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrator Dashboard</title>
+
+    <link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="<?= $assets ?>/css/sb-admin-2.min.css">
+    <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-    	<!-- Sidebar Attach -->
+        <!-- Sidebar Attach -->
         <?php require_once 'view-template/sidebar.php'; ?>
 
         <!-- Content Wrapper -->
@@ -28,7 +32,7 @@
             <!-- Main Content -->
             <div id="content">
 
-            	<!-- Topbar Attach -->
+                <!-- Topbar Attach -->
                 <?php require_once 'view-template/topbar.php'; ?>
 
                 <!-- Begin Page Content -->
@@ -37,8 +41,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report
                         </a>
                     </div>
 
@@ -94,9 +97,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100">
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -137,16 +138,13 @@
                             <div class="card shadow mb-4">
 
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold text-primary"> <i class="fas fa-chart-line fa-fw"></i> Earnings Overview (Last 30 days)</h5>
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Dropdown Header:</div>
                                             <a class="dropdown-item" href="#">Action</a>
                                             <a class="dropdown-item" href="#">Another action</a>
@@ -158,8 +156,8 @@
 
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                    <div class="ini-chart">
+                                        <canvas id="chartOverallStats"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -170,16 +168,13 @@
                             <div class="card shadow mb-4">
 
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Dropdown Header:</div>
                                             <a class="dropdown-item" href="#">Action</a>
                                             <a class="dropdown-item" href="#">Another action</a>
@@ -222,35 +217,25 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
+                                    <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
+                                    <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
+                                    <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
+                                    <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
+                                    <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -333,11 +318,9 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="<?=$assets?>/img/undraw_posting_photo.svg" alt="...">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= $assets ?>/img/undraw_posting_photo.svg" alt="...">
                                     </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
+                                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
                                         constantly updated collection of beautiful svg images that you can use
                                         completely free and without attribution!</p>
                                     <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
@@ -377,8 +360,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -397,20 +379,75 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?=$assets?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?=$assets?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
+    <script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?=$assets?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<?=$assets?>/js/sb-admin-2.min.js"></script>
+    <script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="<?=$assets?>/vendor/chart.js/Chart.min.js"></script>
+    <script src="<?= $assets ?>/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="<?=$assets?>/js/demo/chart-area-demo.js"></script>
-    <script src="<?=$assets?>/js/demo/chart-pie-demo.js"></script>
+    <script src="<?= $assets ?>/js/admin-charts.js"></script>
+    <!-- <script src="<?= $assets ?>/js/demo/chart-pie-demo.js"></script> -->
 </body>
+
 </html>
+
+
+
+<script>
+    // Any of the following formats may be used
+    const ctx = document.getElementById('chartOverallStats');
+    const chartOverallStats = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <?= $arraydatesjson ?>,
+            datasets: [{
+                label: 'Income ',
+                data: <?= $array30daysjson ?>,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        responsive: true,
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return value.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR"
+                            });
+                        }
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += tooltipItem.yLabel.toLocaleString("id-ID", {
+                            style: "currency",
+                            currency: "IDR",
+                            maximumSignificantDigits: 2
+                        });
+
+                        return label;
+                    }
+                }
+            }
+        }
+    });
+</script>

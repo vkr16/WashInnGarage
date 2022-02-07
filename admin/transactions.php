@@ -1,6 +1,6 @@
 <?php
 require_once 'admin-only.php';
-$activePageLvl = 0;
+$activePageLvl = 2;
 
 
 $query_getTrx = "SELECT * FROM transactions WHERE trx_status = 'completed'";

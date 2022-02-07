@@ -209,7 +209,7 @@ if (isset($_POST['invoicenumber'])) {
     }
 
     function redirect() {
-      window.location.replace("../active-order.php");
+      history.back();
     }
   </script>
 </body>
