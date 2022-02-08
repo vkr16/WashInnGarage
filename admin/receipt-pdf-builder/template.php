@@ -13,7 +13,7 @@ if (isset($_POST['invoicenumber'])) {
   $date = date_create($Trx['completedate']);
   $date = date_format($date, "d-m-Y");
   $trx_id = $Trx['id'];
-  $query_getOrders = "SELECT * FROM orders WHERE trx_id = '$trx_id'";
+  $query_getOrders = "SELECT * FROM orders WHERE trx_id = '$trx_id' order_status ='completed'";
   $execute_getOrders = mysqli_query($link, $query_getOrders);
   $Orders = mysqli_fetch_assoc($execute_getOrders);
 
