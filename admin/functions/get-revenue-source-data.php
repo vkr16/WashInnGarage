@@ -31,13 +31,20 @@ while ($ordersData = mysqli_fetch_assoc($execute_getOrders)) {
     }
 }
 
+if ($serviceTotal == 0 && $merchTotal == 0 && $fnbTotal == 0) {
+    $persenservice = 33.33;
+    $persenmerch = 33.33;
+    $persenfnb = 33.33;
+} else {
+    $persenservice = ($serviceTotal / ($serviceTotal + $merchTotal + $fnbTotal)) * 100;
+    $persenmerch = ($merchTotal / ($serviceTotal + $merchTotal + $fnbTotal)) * 100;
+    $persenfnb = ($fnbTotal / ($serviceTotal + $merchTotal + $fnbTotal)) * 100;
+}
 
-
-$persenservice = ($serviceTotal / ($serviceTotal + $merchTotal + $fnbTotal)) * 100;
-$persenmerch = ($merchTotal / ($serviceTotal + $merchTotal + $fnbTotal)) * 100;
-$persenfnb = ($fnbTotal / ($serviceTotal + $merchTotal + $fnbTotal)) * 100;
 $a = round($persenservice, 2);
 $b = round($persenmerch, 2);
 $c = round($persenfnb, 2);
+
+
 
 $arrayRevSource = json_encode(array($a, $b, $c));

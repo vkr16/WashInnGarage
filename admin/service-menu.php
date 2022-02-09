@@ -243,7 +243,7 @@ $execute_getServices = mysqli_query($link, $query_getServices);
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Rp.</span>
                           </div>
-                          <input required autocomplete="off" type="text" class="form-control" id="updateServicePrice" placeholder="50000" name="serviceprice">
+                          <input required autocomplete="off" type="number" class="form-control" id="updateServicePrice" placeholder="50000" name="serviceprice">
                         </div>
                       </div>
                       <div class="form-group col-md-5">
@@ -346,7 +346,7 @@ $execute_getServices = mysqli_query($link, $query_getServices);
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Rp.</span>
                   </div>
-                  <input required autocomplete="off" type="text" class="form-control" id="inputServicePrice" placeholder="50000" name="serviceprice">
+                  <input required autocomplete="off" type="number" class="form-control" id="inputServicePrice" placeholder="50000" name="serviceprice">
                 </div>
               </div>
               <div class="form-group col-md-5">

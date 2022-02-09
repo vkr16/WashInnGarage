@@ -13,6 +13,12 @@ if (isset($_POST['btnAddServiceMenu'])) {
         $status = 'inactive';
     }
 
+    mysqli_real_escape_string($link, $servicename);
+    mysqli_real_escape_string($link, $price);
+    mysqli_real_escape_string($link, $description);
+    mysqli_real_escape_string($link, $poin);
+    $description = str_replace(array("\r\n", "\n"), '<br>', $description);
+
     $query_getServices = "SELECT * FROM menus WHERE name = '$servicename'";
     $match = mysqli_num_rows(mysqli_query($link, $query_getServices));
     if ($match == 0) {

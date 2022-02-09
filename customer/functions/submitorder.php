@@ -103,12 +103,22 @@ if (isset($_POST['btnConfirm'])) {
     // Generating Invoice Number (Formula : TR/ + current year (4 digit) + / + current month (2 digit) + current date (2 digit) + /ID/ + transaction id)
     $invoice_number = 'ID/' . date("y") . '/' . date("md") . '/' . $CurrentTrxId;
 
+
+    // Escape string 
+
+
+
+
     //Insert transaction to database
     $query_insertTransaction = "INSERT INTO transactions (invoice_number, customer_name, trx_status) VALUE ('$invoice_number', '$customer_name', '$trx_status')";
     if ($execute_insertTransaction = mysqli_query($link, $query_insertTransaction)) {
+        mysqli_real_escape_string($link, $customer_name);
+        mysqli_real_escape_string($link, $customer_phone);
+        mysqli_real_escape_string($link, $platNomor);
 
         // Decide which query to use, if email empty "email" field on db will be filled with NULL instead of empty string
         if ($customer_email != '') {
+            mysqli_real_escape_string($link, $customer_email);
             $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId2', '$customer_name', '$customer_phone', '$platNomor', '$customer_email', '$member_id', '$serviceID', 'active' )";
         } else {
             $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId2', '$customer_name', '$customer_phone', '$platNomor', NULL, '$member_id',  '$serviceID', 'active' )";

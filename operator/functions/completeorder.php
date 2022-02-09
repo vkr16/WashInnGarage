@@ -26,6 +26,8 @@ if (isset($_POST['completeorder'])) {
 
     $invoice = $_POST['invoice_number'];
     $receipt = $_POST['receipt'];
+
+    mysqli_real_escape_string($link, $receipt);
     $current_user = $_SESSION['wig_user'];
     $query_getOperator = "SELECT * FROM users WHERE username = '$current_user'";
     $execute_getOperator = mysqli_query($link, $query_getOperator);

@@ -15,6 +15,14 @@ if (isset($_POST['btnAddMerch'])) {
         $status = 'inactive';
     }
 
+    mysqli_real_escape_string($link, $itemname);
+    mysqli_real_escape_string($link, $stock);
+    mysqli_real_escape_string($link, $description);
+    mysqli_real_escape_string($link, $price);
+    mysqli_real_escape_string($link, $poin);
+
+    $description = str_replace(array("\r\n", "\n"), '<br>', $description);
+
     $query_getMerchandise = "SELECT * FROM menus WHERE name = '$itemname'";
     $match = mysqli_num_rows(mysqli_query($link, $query_getMerchandise));
     if ($match == 0) {

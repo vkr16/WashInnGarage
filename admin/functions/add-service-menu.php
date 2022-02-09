@@ -19,6 +19,11 @@ if (isset($_POST['btnAddServiceMenu'])) {
     $match = mysqli_num_rows(mysqli_query($link, $query_getServices));
     if ($match == 0) {
 
+        mysqli_real_escape_string($link, $servicename);
+        mysqli_real_escape_string($link, $price);
+        mysqli_real_escape_string($link, $description);
+        mysqli_real_escape_string($link, $poin);
+        $description = str_replace(array("\r\n", "\n"), '<br>', $description);
 
         if (!empty($_FILES['thumbnail'])) {
             $path  = $_SERVER['DOCUMENT_ROOT'] . "/WashInnGarage/assets/img/thumbnail/";

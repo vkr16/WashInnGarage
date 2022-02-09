@@ -30,9 +30,13 @@ while ($getTrx = mysqli_fetch_assoc($execute_getTrx)) {
         $motorcounter += 1;
     }
 }
-
-$persenmobil = ($mobilcounter / ($mobilcounter + $motorcounter)) * 100;
-$persenmotor = ($motorcounter / ($mobilcounter + $motorcounter)) * 100;
+if ($mobilcounter == 0 && $motorcounter == 0) {
+    $persenmobil = 50;
+    $persenmotor = 50;
+} else {
+    $persenmobil = ($mobilcounter / ($mobilcounter + $motorcounter)) * 100;
+    $persenmotor = ($motorcounter / ($mobilcounter + $motorcounter)) * 100;
+}
 
 $a = round($persenmobil, 2);
 $b = round($persenmotor, 2);

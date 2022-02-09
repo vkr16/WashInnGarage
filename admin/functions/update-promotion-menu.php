@@ -16,6 +16,12 @@ if (isset($_POST['btnUpdateService'])) {
         $status = 'inactive';
     }
 
+    mysqli_real_escape_string($link, $servicename);
+    mysqli_real_escape_string($link, $price);
+    mysqli_real_escape_string($link, $description);
+    mysqli_real_escape_string($link, $poin);
+    $description = str_replace(array("\r\n", "\n"), '<br>', $description);
+
     $currentdata = mysqli_query($link, "SELECT * FROM menus WHERE name = '$servicename'");
     $match = mysqli_num_rows($currentdata);
 

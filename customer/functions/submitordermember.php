@@ -58,7 +58,7 @@ if (isset($_POST['btnConfirm'])) {
     if ($execute_insertTransaction = mysqli_query($link, $query_insertTransaction)) {
 
         // Decide which query to use, if email empty "email" field on db will be filled with NULL instead of empty string
-
+        mysqli_real_escape_string($link, $platNomor);
         $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId2', '$customer_name', '$customer_phone','$platNomor', '$customer_email', '$memberid',  '$serviceID', 'active' )";
 
 
