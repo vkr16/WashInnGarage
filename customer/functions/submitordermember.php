@@ -39,8 +39,10 @@ if (isset($_POST['btnConfirm'])) {
     $PreviousTrxId = $result['PreviousTrxId'];
     $CurrentTrxId = $PreviousTrxId + 1;
 
-    // Generating Invoice Number (Formula : INV/ + current year (4 digit) + / + current month (2 digit) + current date (2 digit) + / + transaction id)
-    $invoice_number = 'INV/' . date("Y") . '/' . date("md") . '/' . $CurrentTrxId;
+    // Generating Invoice Number (Formula : TR/ + current year (4 digit) + / + current month (2 digit) + current date (2 digit) + /ID/ + transaction id)
+    // $invoice_number = 'TR/' . date("Y") . '/' . date("md") . '/ID/' . $CurrentTrxId;
+    $invoice_number = 'ID/' . date("y") . '/' . date("md") . '/' . $CurrentTrxId;
+
 
     //Insert transaction to database
     $query_insertTransaction = "INSERT INTO transactions (invoice_number, customer_name,trx_status) VALUE ('$invoice_number', '$customer_name', '$trx_status')";

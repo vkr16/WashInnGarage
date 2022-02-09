@@ -41,7 +41,7 @@ if (isset($_POST['completeTrxInvoice'])) {
     $membershipStatus = mysqli_fetch_assoc($execute_getMembershipStatus);
 
     $customerStatus = $membershipStatus['membership'];
-
+    $points  = $membershipStatus['membership_point'];
     if ($customerStatus == 'member') {
 ?>
         <script>
@@ -70,6 +70,7 @@ if (isset($_POST['completeTrxInvoice'])) {
     document.getElementById("ctdplatnomor").innerHTML = '<?= $platnomor ?>';
     document.getElementById("ctdinvoicenumber").innerHTML = '<?= $invoice ?>';
     document.getElementById("ctdinvoicenumber2").value = '<?= $invoice ?>';
+    document.getElementById("ctdcustomerpoint").innerHTML = '<?= $points ?>';
     document.getElementById("ctdreceiptnumber").innerHTML = '<?= $receiptnumber ?>';
     document.getElementById("apiwalink").innerHTML = 'https://wa.me/' + <?= $customerphone ?>;
 </script>
