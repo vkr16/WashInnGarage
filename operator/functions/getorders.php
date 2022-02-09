@@ -26,6 +26,9 @@ if (isset($_POST['invoice_number'])) {
         $priceeach = $menuData['price'];
         $subtotal = $priceeach * $ordersData['amount'];
         $total = $total + $subtotal;
+        if ($total < 0) {
+            $total = 0;
+        }
 ?>
         <tr>
             <td style="width: 50%"><small><a role="button"><?php echo ($count_ordersData > 1) ? '<i role="button" class="fas fa-times fa-fw fw-sm" onclick="cancelOrder(\'' . $ordersData['id'] . '\',\'' . $invoice . '\')"> </i>' : ''; ?></a> <?= $menuData['name'] ?></small></td>

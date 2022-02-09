@@ -69,7 +69,7 @@ include 'download-builder/daily-trx-download.php';
                                                 <table class="table table-hover" id="tableTrx">
                                                     <thead>
                                                         <th>#</th>
-                                                        <th>No. Invoice</th>
+                                                        <th>Transaction ID</th>
                                                         <th>No. Receipt</th>
                                                         <th>Time of Completion</th>
                                                         <th>Customer</th>
@@ -139,7 +139,7 @@ include 'download-builder/daily-trx-download.php';
                                 <!-- Card Body -->
                                 <div id="completeTrxDetailPanelJS" hidden></div>
                                 <div class="card-body" id="compelteTrxDetailPanel">
-                                    <h5 class="text-center text-dark font-weight-bold">INVOICE</h5>
+                                    <h5 class="text-center text-dark font-weight-bold">Transaction ID</h5>
                                     <h6 class="text-center text-dark font-weight-bold"><u>No : <span id="ctdinvoicenumber"></span> </u></h6>
                                     <br>
                                     <!-- <p class="mb-0"><strong>Customer</strong></p> -->

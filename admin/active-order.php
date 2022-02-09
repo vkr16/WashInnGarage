@@ -187,7 +187,7 @@ $activePageLvl = 5;
                                         <table class="table" id="activeOrdersTbl">
                                             <thead>
                                                 <tr class="bg-primary text-white">
-                                                    <th scope="col">Inv. Number</th>
+                                                    <th scope="col">Transaction ID</th>
                                                     <th scope="col">Customer</th>
                                                     <th scope="col">Phone / WA</th>
                                                     <th scope="col">Vehicle</th>
@@ -215,7 +215,7 @@ $activePageLvl = 5;
                                 <!-- Card Body -->
                                 <div id="trxDetailPanelJS" hidden></div>
                                 <div class="card-body" id="trxDetailPanel">
-                                    <h5 class="text-center text-dark font-weight-bold">INVOICE</h5>
+                                    <h5 class="text-center text-dark font-weight-bold">Transaction ID</h5>
                                     <h6 class="text-center text-dark font-weight-bold"><u>No : <span id="tdinvoicenumber"></span> </u></h6>
                                     <br>
                                     <p class="mb-0"><strong>Customer</strong></p>
@@ -270,7 +270,7 @@ $activePageLvl = 5;
                                         <table class="table" id="completeTrxTbl">
                                             <thead>
                                                 <tr class="bg-primary text-white">
-                                                    <th scope="col">Inv. Number</th>
+                                                    <th scope="col">Transaction ID</th>
                                                     <th scope="col">Customer</th>
                                                     <th scope="col">Phone / WA</th>
                                                     <th scope="col">Vehicle</th>
@@ -298,7 +298,7 @@ $activePageLvl = 5;
                                 <!-- Card Body -->
                                 <div id="completeTrxDetailPanelJS" hidden></div>
                                 <div class="card-body" id="compelteTrxDetailPanel">
-                                    <h5 class="text-center text-dark font-weight-bold">INVOICE</h5>
+                                    <h5 class="text-center text-dark font-weight-bold">Transaction ID</h5>
                                     <h6 class="text-center text-dark font-weight-bold"><u>No : <span id="ctdinvoicenumber"></span> </u></h6>
                                     <br>
                                     <!-- <p class="mb-0"><strong>Customer</strong></p> -->
@@ -382,7 +382,7 @@ $activePageLvl = 5;
                 </div>
                 <div class="modal-body">
                     <dl class="row">
-                        <dt class="col-sm-4">Invoice Number</dt>
+                        <dt class="col-sm-4">Transaction ID</dt>
                         <dd class="col-sm-8"><mark id="invoice2cancel"></mark></dd>
 
                         <dt class="col-sm-4">Customer Name</dt>

@@ -32,15 +32,24 @@ if (isset($_POST['btnConfirm'])) {
 
 
 
+    $invoice_format = 'ID/' . date("y") . '/' . date("md") . '/';
     // Getting Prevoius Transaction "id" for Generating Invoice Number
-    $query_getPrevTrxId = "SELECT MAX(id) AS PreviousTrxId FROM transactions";
+    $query_getPrevTrxId = "SELECT * FROM transactions WHERE invoice_number LIKE '$invoice_format%'";
     $execute_getPrevTrxId = mysqli_query($link, $query_getPrevTrxId);
     $result = mysqli_fetch_assoc($execute_getPrevTrxId);
-    $PreviousTrxId = $result['PreviousTrxId'];
+    $PreviousTrxId = mysqli_num_rows($execute_getPrevTrxId);
     $CurrentTrxId = $PreviousTrxId + 1;
 
-    // Generating Invoice Number (Formula : TR/ + current year (4 digit) + / + current month (2 digit) + current date (2 digit) + /ID/ + transaction id)
-    // $invoice_number = 'TR/' . date("Y") . '/' . date("md") . '/ID/' . $CurrentTrxId;
+
+
+
+    $query_getPrevTrxId2 = "SELECT MAX(id) AS PreviousTrxId2 FROM transactions";
+    $execute_getPrevTrxId2 = mysqli_query($link, $query_getPrevTrxId2);
+    $result2 = mysqli_fetch_assoc($execute_getPrevTrxId2);
+    $PreviousTrxId2 = $result2['PreviousTrxId2'];
+    $CurrentTrxId2 = $PreviousTrxId2 + 1;
+
+
     $invoice_number = 'ID/' . date("y") . '/' . date("md") . '/' . $CurrentTrxId;
 
 
@@ -50,7 +59,7 @@ if (isset($_POST['btnConfirm'])) {
 
         // Decide which query to use, if email empty "email" field on db will be filled with NULL instead of empty string
 
-        $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId', '$customer_name', '$customer_phone','$platNomor', '$customer_email', '$memberid',  '$serviceID', 'active' )";
+        $query_insertOrder = "INSERT INTO orders (trx_id, customer_name, customer_phone, platnomor, customer_email, customer_id, menu_id, order_status ) VALUE ('$CurrentTrxId2', '$customer_name', '$customer_phone','$platNomor', '$customer_email', '$memberid',  '$serviceID', 'active' )";
 
 
         if ($execute_insertOrder = mysqli_query($link, $query_insertOrder)) {
