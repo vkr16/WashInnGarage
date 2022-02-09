@@ -29,7 +29,11 @@
 <body id="page-top">
     <!-- Masthead-->
     <header class="masthead">
-        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="container px-4 px-lg-5 h-100 ">
+            <div class="d-flex justify-content-center pt-5">
+                <img src="../assets/img/logo-white.png" style="opacity: 75%;" width="200px" alt="">
+            </div>
+
             <div class="d-flex justify-content-center">
                 <div class="text-center">
                     <h1 class="mx-auto my-0 text-uppercase" style="font-family: 'Zen Kurenaido'">
