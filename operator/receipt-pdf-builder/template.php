@@ -108,7 +108,7 @@ if (isset($_POST['invoicenumber'])) {
 
 
             <?php
-            $query_getOrders2 = "SELECT * FROM orders WHERE trx_id = '$trx_id'";
+            $query_getOrders2 = "SELECT * FROM orders WHERE trx_id = '$trx_id' AND order_status ='completed'";
             $execute_getOrders2 = mysqli_query($link, $query_getOrders2);
             while ($Orders = mysqli_fetch_assoc($execute_getOrders2)) {
               $menu_id = $Orders['menu_id'];
