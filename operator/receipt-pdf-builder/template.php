@@ -13,7 +13,7 @@ if (isset($_POST['invoicenumber'])) {
   $date = date_create($Trx['completedate']);
   $date = date_format($date, "d-m-Y");
   $trx_id = $Trx['id'];
-  $query_getOrders = "SELECT * FROM orders WHERE trx_id = '$trx_id' order_status ='completed'";
+  $query_getOrders = "SELECT * FROM orders WHERE trx_id = '$trx_id' AND order_status ='completed'";
   $execute_getOrders = mysqli_query($link, $query_getOrders);
   $Orders = mysqli_fetch_assoc($execute_getOrders);
 
@@ -75,7 +75,7 @@ if (isset($_POST['invoicenumber'])) {
 
         <!-- main tamplating forms -->
         <div class="row d-flex justify-content-between mx-auto" style="font-family: Nunito;">
-          <span><strong>No. Invoice :</strong> <?= $invoice ?> <br> <strong> Tanggal :</strong> <?= $Trx['completedate'] ?></span>
+          <span><strong>Tanggal :</strong> <?= $Trx['completedate'] ?></span>
           <span class="text-right"><strong>No. Nota :</strong> <?= $Trx['receipt_number'] ?> <br> <strong> Status :</strong> LUNAS</span>
         </div>
         <hr>
@@ -209,7 +209,7 @@ if (isset($_POST['invoicenumber'])) {
     }
 
     function redirect() {
-      window.location.replace("../index.php");
+      history.back();
     }
   </script>
 </body>
