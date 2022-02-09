@@ -10,6 +10,7 @@ if (isset($_POST['completeorder'])) {
     $stringmerchs = '';
     $stringfoods = '';
     $stringbeverages = '';
+    $stringpromotions = '';
     $totalPrice = 0;
     $today = date("j M Y");
     $today2 = date("Y-m-d");
@@ -17,6 +18,10 @@ if (isset($_POST['completeorder'])) {
     $updateDate = date("j M Y");
     $lastupdateinfo = "Last updated at " . $now;
     $servicesPrice = 0;
+    $merchsPrice = 0;
+    $foodsPrice = 0;
+    $beveragesPrice = 0;
+    $promovalues = 0;
 
 
     $invoice = $_POST['invoice_number'];
@@ -82,17 +87,27 @@ if (isset($_POST['completeorder'])) {
         } elseif ($menutype == 'merchandise') {
             $merchOrdered = $menuname . '(' . $qty . '), ';
             $stringmerchs = $stringmerchs . $merchOrdered;
+            $merchsPrice = $merchsPrice + $ordervalue;
         } elseif ($menutype == 'food') {
             $foodOrdered = $menuname . '(' . $qty . '), ';
             $stringfoods = $stringfoods . $foodOrdered;
+            $foodsPrice = $foodsPrice + $ordervalue;
         } elseif ($menutype == 'beverage') {
             $beverageOrdered = $menuname . '(' . $qty . '), ';
             $stringbeverages = $stringbeverages . $beverageOrdered;
+            $beveragesPrice = $beveragesPrice + $ordervalue;
+        } elseif ($menutype == 'promotion') {
+            $promoApplied = $menuname . ', ';
+            $stringpromotions = $stringpromotions . $promoApplied;
+            $promovalues = $promovalues + $ordervalue;
         }
 
         $menuPrice = $getMenu['price'];
         $subtotal  = $menuPrice * $qty;
         $totalPrice = $totalPrice + $subtotal;
+        if ($totalPrice < 0) {
+            $totalPrice = 0;
+        }
     }
 
     // 'Car Experss(2)','Express Bike(1)','Lays Classic(3)','Kopi Hitam(1)','Kaos Hitam(1)','Mug Hitam cantik(1)',
@@ -109,14 +124,19 @@ if (isset($_POST['completeorder'])) {
     $merchandises = ($stringmerchs != '') ? substr($stringmerchs, 0, -2) : '';
     $foods = ($stringfoods != '') ? substr($stringfoods, 0, -2) : '';
     $beverages = ($stringbeverages != '') ? substr($stringbeverages, 0, -2) : '';
+    $promotions = ($stringpromotions != '') ? substr($stringpromotions, 0, -2) : '';
 
     $servicesValue = 'Rp ' . number_format($servicesPrice, 0, ',', '.');
+    $merchsValue = 'Rp ' . number_format($merchsPrice, 0, ',', '.');
+    $foodsValue = 'Rp ' . number_format($foodsPrice, 0, ',', '.');
+    $beveragesValue = 'Rp ' . number_format($beveragesPrice, 0, ',', '.');
+    $promoValue = 'Rp ' . number_format($promovalues, 0, ',', '.');
 
     $trx_value = 'Rp ' . number_format($totalPrice, 0, ',', '.');
     $operatorname = $operator;
     $status_trx = 'Selesai';
 
-    var_dump($completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx, $servicesValue);
+    var_dump($completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $servicesPrice, $merchandises, $merchsPrice, $foods, $foodsPrice, $beverages, $beveragesPrice, $promotions, $promoValue, $trx_value, $operatorname, $status_trx, $servicesValue);
 
 ?>
     <link rel="stylesheet" href="../../assets/css/sb-admin-2.min.css">
@@ -186,7 +206,7 @@ if (isset($_POST['completeorder'])) {
         // Insert  date ke Sheet utama
         $values = [
             [
-                $completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx
+                $completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $servicesValue, $merchandises, $merchsValue, $foods, $foodsValue, $beverages, $beveragesValue, $promotions, $promoValue, $trx_value, $operatorname, $status_trx
             ],
             // Additional rows ...
         ];
@@ -233,7 +253,7 @@ if (isset($_POST['completeorder'])) {
         // Insert data ke Sheet daily
         $values2 = [
             [
-                $completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $merchandises, $foods, $beverages, $trx_value, $operatorname, $status_trx
+                $completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $servicesValue, $merchandises, $merchsValue, $foods, $foodsValue, $beverages, $beveragesValue, $promotions, $promoValue, $trx_value, $operatorname, $status_trx
             ],
         ];
         $body2 = new Google_Service_Sheets_ValueRange([
@@ -253,20 +273,20 @@ if (isset($_POST['completeorder'])) {
     </div>
 <?php
 
-    $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today2',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
-    $execute_completeTrx = mysqli_query($link, $query_completeTrx);
+    // $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today2',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
+    // $execute_completeTrx = mysqli_query($link, $query_completeTrx);
 
-    $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
-    $execute_completeOrder = mysqli_query($link, $query_completeOrder);
+    // $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
+    // $execute_completeOrder = mysqli_query($link, $query_completeOrder);
 
 
-    $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id' AND membership ='member'";
-    if ($execute_updateMemberPoin = mysqli_query($link, $query_updateMemberPoin)) {
-        // echo $points;
-        header("Location:../index.php");
-    } else {
-        echo "gagal update poin";
-    }
+    // $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id' AND membership ='member'";
+    // if ($execute_updateMemberPoin = mysqli_query($link, $query_updateMemberPoin)) {
+    //     // echo $points;
+    //     header("Location:../index.php");
+    // } else {
+    //     echo "gagal update poin";
+    // }
 } else {
     echo base64_decode("TmdhcGFpbiBtYXMga2VzaW5pPz8/");
 }

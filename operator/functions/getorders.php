@@ -28,7 +28,7 @@ if (isset($_POST['invoice_number'])) {
         $total = $total + $subtotal;
 ?>
         <tr>
-            <td><small><a role="button"><?php echo ($count_ordersData > 1) ? '<i role="button" class="fas fa-times fa-fw fw-sm" onclick="cancelOrder(\'' . $ordersData['id'] . '\',\'' . $invoice . '\')"> </i>' : ''; ?></a> <?= $menuData['name'] ?></small></td>
+            <td style="width: 50%"><small><a role="button"><?php echo ($count_ordersData > 1) ? '<i role="button" class="fas fa-times fa-fw fw-sm" onclick="cancelOrder(\'' . $ordersData['id'] . '\',\'' . $invoice . '\')"> </i>' : ''; ?></a> <?= $menuData['name'] ?></small></td>
             <?php
             if ($menuType == 'promotion') {
             ?>
