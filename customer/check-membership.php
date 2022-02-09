@@ -92,13 +92,13 @@ if (isset($_POST['btnCheckMembership'])) {
                     <div class="col-md-10 offset-md-1 mt-4">
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="customerphone">No. HP / WhatsApp </label>
-                                <input required autocomplete="off" type="text" class="form-control" id="customerphone" name="customerphone" aria-describedby="nameHelp" placeholder="No. HP / WhatsApp">
+                                <label for="customerphone">Nomor WhatsApp </label>
+                                <input required autocomplete="off" type="number" class="form-control" id="customerphone" name="customerphone" aria-describedby="nameHelp" placeholder="Nomor WhatsApp">
                             </div>
 
                             <?php if (isset($error)) {
                                 echo ' <div class="alert alert-danger" role="alert">
-                                      Mohon maaf <strong>No. HP / WhatsApp</strong> anda belum terdaftar.
+                                      Mohon maaf <strong>Nomor WhatsApp</strong> anda belum terdaftar.
                                     </div>';
                             } ?>
 
@@ -127,3 +127,17 @@ if (isset($_POST['btnCheckMembership'])) {
 </body>
 
 </html>
+
+<style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>

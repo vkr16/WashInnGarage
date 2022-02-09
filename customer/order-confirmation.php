@@ -107,7 +107,7 @@ if (isset($_POST['customername'])) {
                                         <td><?= $customername ?></td>
                                     </tr>
                                     <tr>
-                                        <th>No. HP / WhatsApp</th>
+                                        <th>Nomor WhatsApp</th>
                                         <td> : </td>
                                         <td><?= $customerphone ?></td>
                                     </tr>
@@ -173,4 +173,3 @@ if (isset($_POST['customername'])) {
 </body>
 
 </html>
-

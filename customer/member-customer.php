@@ -102,7 +102,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                                     <input type="text" name="memberid" id="memberid" value="<?= $id ?>" hidden readonly>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="customerphone">No. HP / WhatsApp</label>
+                                    <label for="customerphone">Nomor WhatsApp</label>
                                     <input readonly required autocomplete="off" type="text" class="form-control" id="customerphone" name="customerphone" value="<?= $memberDetail['phone'] ?>">
                                 </div>
 

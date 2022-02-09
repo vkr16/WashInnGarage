@@ -419,7 +419,8 @@ $activePageLvl = 0;
                         callback: function(value, index, values) {
                             return value.toLocaleString("id-ID", {
                                 style: "currency",
-                                currency: "IDR"
+                                currency: "IDR",
+                                maximumSignificantDigits: 2
                             });
                         }
                     }

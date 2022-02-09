@@ -91,12 +91,12 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                             </div>
 
                             <div class="form-group">
-                                <label for="customerphone">No. HP / WhatsApp</label>
-                                <input required onkeyup='hidephonealert()' autocomplete="off" type="number" class="form-control" id="customerphone" name="customerphone" placeholder="No. HP / WhatsApp">
+                                <label for="customerphone">Nomor WhatsApp</label>
+                                <input required onkeyup='hidephonealert()' autocomplete="off" type="number" class="form-control" id="customerphone" name="customerphone" placeholder="Nomor WhatsApp">
                             </div>
 
                             <div hidden class="alert alert-danger" id="emptyphonealert" role="alert">
-                                Mohon maaf <strong>No. HP / WhatsApp</strong> tidak boleh kosong.
+                                Mohon maaf <strong>Nomor WhatsApp</strong> tidak boleh kosong.
                             </div>
 
                             <div class="form-group">
