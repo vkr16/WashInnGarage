@@ -119,7 +119,7 @@ if (isset($_POST['completeorder'])) {
     $receipt_number = $receipt;
     $customername = $customername;
     $customerphone = $customerphone;
-    $customeremail = $customeremail;
+    $customeremail = ($customeremail == "") ? "-" : $customeremail;
     $vehicletype = $vehicleType;
     $platnomor = $platnomor;
     $services = ($stringServices != '') ? substr($stringServices, 0, -2) : '';
@@ -138,8 +138,8 @@ if (isset($_POST['completeorder'])) {
     $operatorname = $operator;
     $status_trx = 'Selesai';
 
-    var_dump($completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $servicesPrice, $merchandises, $merchsPrice, $foods, $foodsPrice, $beverages, $beveragesPrice, $promotions, $promoValue, $trx_value, $operatorname, $status_trx, $servicesValue);
-
+    $fma = json_encode(array($completedate, $completetime, $invoice_number, $receipt_number, $customername, $customerphone, $customeremail, $vehicletype, $platnomor, $services, $servicesValue, $merchandises, $merchsValue, $foods, $foodsValue, $beverages, $beveragesValue, $promotions, $promoValue, $trx_value, $operatorname, $status_trx));
+    print_r($fma);
 ?>
     <link rel="stylesheet" href="../../assets/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="../../assets/vendor/fontawesome-free/css/all.min.css">
@@ -275,20 +275,20 @@ if (isset($_POST['completeorder'])) {
     </div>
 <?php
 
-    $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today2',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
-    $execute_completeTrx = mysqli_query($link, $query_completeTrx);
+    // $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today2',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
+    // $execute_completeTrx = mysqli_query($link, $query_completeTrx);
 
-    $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
-    $execute_completeOrder = mysqli_query($link, $query_completeOrder);
+    // $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
+    // $execute_completeOrder = mysqli_query($link, $query_completeOrder);
 
 
-    $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id' AND membership ='member'";
-    if ($execute_updateMemberPoin = mysqli_query($link, $query_updateMemberPoin)) {
-        // echo $points;
-        header("Location:../index.php");
-    } else {
-        echo "gagal update poin";
-    }
+    // $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id' AND membership ='member'";
+    // if ($execute_updateMemberPoin = mysqli_query($link, $query_updateMemberPoin)) {
+    //     // echo $points;
+    //     header("Location:../index.php");
+    // } else {
+    //     echo "gagal update poin";
+    // }
 } else {
     echo base64_decode("TmdhcGFpbiBtYXMga2VzaW5pPz8/");
 }

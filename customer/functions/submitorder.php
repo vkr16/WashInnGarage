@@ -51,7 +51,7 @@ if (isset($_POST['btnConfirm'])) {
         }
     } else {
         // check if member are already registered
-        $query_getMembers = "SELECT * FROM customers WHERE phone = '$customer_phone' OR email = '$customer_email'";
+        $query_getMembers = "SELECT * FROM customers WHERE phone = '$customer_phone'";
         $execute_getMembers = mysqli_query($link, $query_getMembers);
         $countgetMembers = mysqli_num_rows($execute_getMembers);
         if ($countgetMembers == 1) {
