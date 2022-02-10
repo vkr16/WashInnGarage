@@ -6,6 +6,8 @@ $query_getMotorServices = "SELECT * FROM menus WHERE type = 'service' AND catego
 
 $execute_CarServices = mysqli_query($link, $query_getCarServices);
 $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
+
+
 ?>
 
 <!doctype html>
@@ -164,46 +166,19 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                         </div>
                         <hr>
                         <h3 class="font-weight-normal text-center text-dark">Silahkan Pilih Layanan Yang Diinginkan</h3>
-                        <h6 class="font-weight-light text-center text-muted">Klik pada gambar untuk menampilkan deskripsi</h6>
+                        <h6 class="font-weight-light text-center text-muted">Klik pada item menu untuk menampilkan deskripsi</h6>
                         <hr>
                         <div class="row d-flex justify-content-between mx-auto">
                             <a class="btn btn-secondary" onclick="switchView('serviceMenu','vehicleID')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
-                            <!-- <a class="btn btn-info" onclick="switchView('serviceMenu','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a> -->
+                            <small class="my-auto text-muted"><span id="availablemenucount">0</span> Pilihan menu tersedia</small>
                         </div>
                     </div>
-                    <div class="col-md-10 offset-md-1 mt-4">
-                        <div class="row" id="LayananMobil">
-                            <?php while ($service = mysqli_fetch_assoc($execute_CarServices)) { ?>
-                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
-                                    <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
-                                        <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
-                                    </a>
-                                    <div class="d-flex justify-content-center mt-2">
-                                        <a class="btn btn-outline-info" name="serviceID"><?= $service['name'] ?></a>
-                                    </div>
-                                    <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
-                                        <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div> -->
-                                </div>
-                            <?php } ?>
+                    <div class="col-md-12 mt-4 d-flex justify-content-between">
+                        <button type="button" class="btn btn-info" id="menuPrevPageBtn" value="0" onclick="getMenu(value)"><i class="fas fa-chevron-left"></i></button>
+                        <div class="col-md-10 px-0" id="menusspace">
+
                         </div>
-                        <div class="row" id="LayananMotor">
-                            <?php while ($service = mysqli_fetch_assoc($execute_MotorServices)) { ?>
-                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
-                                    <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
-                                        <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
-                                    </a>
-                                    <div class="d-flex justify-content-center mt-2">
-                                        <a class="btn btn-outline-info" name="serviceID"><?= $service['name'] ?></a>
-                                    </div>
-                                    <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
-                                        <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div> -->
-                                </div>
-                            <?php } ?>
-                        </div>
+                        <button type="button" class="btn btn-info" id="menuNextPageBtn" value="0" onclick="getMenu(value)"><i class="fas fa-chevron-right"></i></button type="button">
                     </div>
                 </div>
 
@@ -249,22 +224,30 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
+    <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
 
     <script>
+        $(document).ready(function() {
+            getMenu(0);
+        });
+
         function switchView(hide, show) {
             document.getElementById(hide).hidden = true;
             document.getElementById(show).hidden = false;
-            cekjenis();
+            // cekjenis();
+            var position = document.getElementById("menuPrevPageBtn").value;
+            getMenu(position);
         }
 
         function cekjenis() {
             if (document.getElementById('jenismobil').checked == true) {
                 document.getElementById('LayananMobil').hidden = false;
-                document.getElementById('LayananMotor').hidden = true;
+                // document.getElementById('LayananMotor').hidden = true;
             } else if (document.getElementById('jenismotor').checked == true) {
-                document.getElementById('LayananMobil').hidden = true;
+                // document.getElementById('LayananMobil').hidden = true;
                 document.getElementById('LayananMotor').hidden = false;
             }
         }
@@ -300,9 +283,6 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
             document.getElementById("btnSubmitToConfirmation").value = id;
 
             switchView(hide, show);
-
-
-
         }
 
         function firstnextbtn(hide, show) {
@@ -343,6 +323,36 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
 
         function hideplatalert() {
             document.getElementById("emptyplatalert").hidden = true;
+        }
+
+        function getMenu(position) {
+            // var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+
+            if (document.getElementById('jenismobil').checked == true) {
+                $.post("functions/getservices.php", {
+                        limit: 6,
+                        position: position,
+                        getdata: true,
+                        category: 'Car'
+                    },
+                    function(data) {
+                        $("#menusspace").html(data);
+                    });
+                document.getElementById('LayananMobil').hidden = false;
+                document.getElementById('LayananMotor').hidden = true;
+            } else if (document.getElementById('jenismotor').checked == true) {
+                $.post("functions/getservices.php", {
+                        limit: 6,
+                        position: position,
+                        getdata: true,
+                        category: 'Motorcycle'
+                    },
+                    function(data) {
+                        $("#menusspace").html(data);
+                    });
+                document.getElementById('LayananMobil').hidden = true;
+                document.getElementById('LayananMotor').hidden = false;
+            }
         }
     </script>
 
