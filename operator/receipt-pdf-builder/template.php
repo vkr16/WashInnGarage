@@ -186,7 +186,7 @@ if (isset($_POST['invoicenumber'])) {
     function downloadPDF(receipt) {
       const element = document.getElementById("printbody");
       var opt = {
-        margin: [4, 6, 4, 6],
+        margin: [4, 6, 0, 6],
         filename: receipt + '.pdf',
         image: {
           type: 'jpeg',
