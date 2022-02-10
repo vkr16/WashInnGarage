@@ -275,20 +275,20 @@ if (isset($_POST['completeorder'])) {
     </div>
 <?php
 
-    // $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today2',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
-    // $execute_completeTrx = mysqli_query($link, $query_completeTrx);
+    $query_completeTrx = "UPDATE transactions SET trx_status = 'completed', completedate = '$today2',completetime = '$now', receipt_number = '$receipt', operator_name = '$operator' WHERE invoice_number = '$invoice'";
+    $execute_completeTrx = mysqli_query($link, $query_completeTrx);
 
-    // $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
-    // $execute_completeOrder = mysqli_query($link, $query_completeOrder);
+    $query_completeOrder = "UPDATE orders SET order_status = 'completed' WHERE trx_id = '$trx_id' AND order_status = 'active'";
+    $execute_completeOrder = mysqli_query($link, $query_completeOrder);
 
 
-    // $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id' AND membership ='member'";
-    // if ($execute_updateMemberPoin = mysqli_query($link, $query_updateMemberPoin)) {
-    //     // echo $points;
-    //     header("Location:../index.php");
-    // } else {
-    //     echo "gagal update poin";
-    // }
+    $query_updateMemberPoin = "UPDATE customers SET membership_point = membership_point + '$points' WHERE id = '$customer_id' AND membership ='member'";
+    if ($execute_updateMemberPoin = mysqli_query($link, $query_updateMemberPoin)) {
+        // echo $points;
+        header("Location:../index.php");
+    } else {
+        echo "gagal update poin";
+    }
 } else {
     echo base64_decode("TmdhcGFpbiBtYXMga2VzaW5pPz8/");
 }
