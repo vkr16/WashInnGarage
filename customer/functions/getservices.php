@@ -13,20 +13,24 @@ $execute_getActiveServices = mysqli_query($link, $query_getActiveServices);
 $countservice = mysqli_num_rows($execute_getActiveServices);
 if ($position == 0) {
     $prevPos = 0;
-    echo '<script>document.getElementById("menuPrevPageBtn").className = "btn btn-secondary";</script>';
+    echo '<script>document.getElementById("menuPrevPageBtn").className = "btn btn-outline-light";</script>';
+    echo '<script>document.getElementById("menuPrevPageBtn").disabled = true;</script>';
 } else {
     $prevPos = $position - $limit;
-    echo '<script>document.getElementById("menuPrevPageBtn").className = "btn btn-info";</script>';
+    echo '<script>document.getElementById("menuPrevPageBtn").className = "btn btn-outline-info";</script>';
+    echo '<script>document.getElementById("menuPrevPageBtn").disabled = false;</script>';
 }
 
 
 $lastrendereddata = $position + $limit;
 if ($countservice <= $lastrendereddata) {
     $nextPos = $position;
-    echo '<script>document.getElementById("menuNextPageBtn").className = "btn btn-secondary";</script>';
+    echo '<script>document.getElementById("menuNextPageBtn").className = "btn btn-outline-light";</script>';
+    echo '<script>document.getElementById("menuNextPageBtn").disabled = true;</script>';
 } else {
     $nextPos = $position + $limit;
-    echo '<script>document.getElementById("menuNextPageBtn").className = "btn btn-info";</script>';
+    echo '<script>document.getElementById("menuNextPageBtn").className = "btn btn-outline-info";</script>';
+    echo '<script>document.getElementById("menuNextPageBtn").disabled = false;</script>';
 }
 
 ?>

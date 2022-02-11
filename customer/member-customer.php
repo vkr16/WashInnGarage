@@ -157,7 +157,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                                 ?>
                                 <option value="-">Masukkan Nomor Lainnya</option>
                             </select>
-                            <select class="form-control platNomorField" id="savedplatnomorMotor" name="platNomor1" onclick="onmanual(value)">
+                            <select class="form-control platNomorField" id="savedplatnomorMotor" hidden name="platNomor1" onclick="onmanual(value)">
                                 <?php while ($vehicle = mysqli_fetch_assoc($execute_getMotors)) { ?>
                                     <option><?= $vehicle['platnomor'] ?></option>
                                 <?php
@@ -192,42 +192,17 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                         <hr>
                         <div class="row d-flex justify-content-between mx-auto">
                             <a class="btn btn-secondary" onclick="switchView('serviceMenu','vehicleID')"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
+                            <small class="my-auto text-muted"><span id="availablemenucount">0</span> Pilihan menu tersedia</small>
+
                             <!-- <a class="btn btn-info" onclick="switchView('serviceMenu','serviceMenu')">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></a> -->
                         </div>
                     </div>
-                    <div class="col-md-10 offset-md-1 mt-4">
-                        <div class="row" id="LayananMobil">
-                            <?php while ($service = mysqli_fetch_assoc($execute_CarServices)) { ?>
-                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
-                                    <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
-                                        <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
-                                    </a>
-                                    <div class="d-flex justify-content-center mt-2">
-                                        <a class="btn btn-outline-info" name="serviceID"><?= $service['name'] ?></a>
-                                    </div>
-                                    <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
-                                        <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div> -->
-                                </div>
-                            <?php } ?>
+                    <div class="col-md-12 mt-4 d-flex justify-content-between">
+                        <button type="button" class="btn btn-info" id="menuPrevPageBtn" value="0" onclick="getMenu(value)"><i class="fas fa-chevron-left"></i></button>
+                        <div class="col-md-10 px-0" id="menusspace">
+
                         </div>
-                        <div class="row" id="LayananMotor">
-                            <?php while ($service = mysqli_fetch_assoc($execute_MotorServices)) { ?>
-                                <div class="col-md-4 mb-3" onclick="viewDetails('<?= $service['image'] ?>', '<?= $service['name'] ?>','<?= $service['id'] ?>','<?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?>','<?= $service['description'] ?>', 'serviceMenu','serviceDetail')">
-                                    <a href="#collapse_<?= $service['id'] ?>" data-toggle="collapse">
-                                        <img src="../assets/img/thumbnail/<?= $service['image'] ?>" alt="" style="width: 100%;" class="img-thumbnail shadow">
-                                    </a>
-                                    <div class="d-flex justify-content-center mt-2">
-                                        <a class="btn btn-outline-info" name="serviceID"><?= $service['name'] ?></a>
-                                    </div>
-                                    <h6 class="text-weight-light text-dark text-center mt-2"><?= 'Rp ' . number_format($service['price'], 0, ',', '.') ?></h6>
-                                    <!-- <div class="collapse" id="collapse_<?= $service['id'] ?>">
-                                        <p class="text-justify "><small><?= $service['description'] ?></small></p>
-                                    </div> -->
-                                </div>
-                            <?php } ?>
-                        </div>
+                        <button type="button" class="btn btn-info" id="menuNextPageBtn" value="0" onclick="getMenu(value)"><i class="fas fa-chevron-right"></i></button type="button">
                     </div>
                 </div>
 
@@ -273,10 +248,15 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
+    <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
 
     <script>
+        $(document).ready(function() {
+            getMenu(0);
+        });
+
         function onmanual(value) {
             // var valueofselected = value;
             console.log(value);
@@ -295,25 +275,40 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
         function switchView(hide, show) {
             document.getElementById(hide).hidden = true;
             document.getElementById(show).hidden = false;
-            cekjenis();
+            var position = document.getElementById("menuPrevPageBtn").value;
+            getMenu(position);
+            hidealertplatempty();
         }
 
         function cekjenis() {
             if (document.getElementById('jenismobil').checked == true) {
-                document.getElementById('LayananMobil').hidden = false;
-                document.getElementById('LayananMotor').hidden = true;
+                // document.getElementById('LayananMobil').hidden = false;
+                // document.getElementById('LayananMotor').hidden = true;
                 document.getElementById('savedplatnomorMobil').hidden = false;
                 document.getElementById('savedplatnomorMobil').disabled = false;
                 document.getElementById('savedplatnomorMotor').hidden = true;
                 document.getElementById('savedplatnomorMotor').disabled = true;
+                if (document.getElementById("savedplatnomorMobil").value == '-') {
+                    document.getElementById("manualInputPlatNomor").hidden = false;
+                } else {
+                    document.getElementById("manualInputPlatNomor").hidden = true;
+                }
             } else if (document.getElementById('jenismotor').checked == true) {
-                document.getElementById('LayananMobil').hidden = true;
-                document.getElementById('LayananMotor').hidden = false;
+                // document.getElementById('LayananMobil').hidden = true;
+                // document.getElementById('LayananMotor').hidden = false;
                 document.getElementById('savedplatnomorMobil').hidden = true;
                 document.getElementById('savedplatnomorMobil').disabled = true;
                 document.getElementById('savedplatnomorMotor').hidden = false;
                 document.getElementById('savedplatnomorMotor').disabled = false;
+                if (document.getElementById("savedplatnomorMotor").value == '-') {
+                    document.getElementById("manualInputPlatNomor").hidden = false;
+                } else {
+                    document.getElementById("manualInputPlatNomor").hidden = true;
+                }
             }
+
+
+
             // the code below returning error 
             // but I don't really care, cause it works wkwkwk
             onmanual(valueofselected);
@@ -341,6 +336,36 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
             document.getElementById("btnSubmitToConfirmation").value = id;
 
             switchView(hide, show);
+        }
+
+        function getMenu(position) {
+            // var invoice = document.getElementById("tdinvoicenumber").innerHTML;
+
+            if (document.getElementById('jenismobil').checked == true) {
+                $.post("functions/getservices.php", {
+                        limit: 6,
+                        position: position,
+                        getdata: true,
+                        category: 'Car'
+                    },
+                    function(data) {
+                        $("#menusspace").html(data);
+                    });
+                document.getElementById('LayananMobil').hidden = false;
+                document.getElementById('LayananMotor').hidden = true;
+            } else if (document.getElementById('jenismotor').checked == true) {
+                $.post("functions/getservices.php", {
+                        limit: 6,
+                        position: position,
+                        getdata: true,
+                        category: 'Motorcycle'
+                    },
+                    function(data) {
+                        $("#menusspace").html(data);
+                    });
+                document.getElementById('LayananMobil').hidden = true;
+                document.getElementById('LayananMotor').hidden = false;
+            }
         }
     </script>
 
