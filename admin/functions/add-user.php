@@ -25,6 +25,10 @@
 		$phone    = $_POST['phone'];
 		$role     = $_POST['role'];
 
+		$fullname = rm_special_char($fullname);
+		$username = rm_special_char($username);
+		$phone = rm_special_char($phone);
+
 		if (isExist($username)) {
 			setcookie('returnstatus', 'userexist', time() + (10), "/");
 			header("Location: ../manage-user.php");
@@ -56,4 +60,3 @@
 			}
 		}
 	}
-?>

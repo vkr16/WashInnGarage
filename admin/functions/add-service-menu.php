@@ -19,9 +19,13 @@ if (isset($_POST['btnAddServiceMenu'])) {
     $match = mysqli_num_rows(mysqli_query($link, $query_getServices));
     if ($match == 0) {
 
+        $servicename = rm_special_char($servicename);
         mysqli_real_escape_string($link, $servicename);
+        $price = rm_special_char($price);
         mysqli_real_escape_string($link, $price);
+        $description = rm_some_special_char($description);
         mysqli_real_escape_string($link, $description);
+        $poin = rm_special_char($poin);
         mysqli_real_escape_string($link, $poin);
         $description = str_replace(array("\r\n", "\n"), '<br>', $description);
 

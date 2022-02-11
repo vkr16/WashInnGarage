@@ -4,6 +4,7 @@
 	if (isset($_POST['btnChangePhone'])) {
 		$id = $_POST['userid'];
 		$phone = $_POST['newphone'];
+		$phone = rm_special_char($phone);
 
 		if (updatePhone($id,$phone)) {
 			setcookie('returnstatus', 'phonechanged', time() + (10), "/");
@@ -16,4 +17,3 @@
 	}else{
 		header("Location: ../my-account.php");
 	}
-?>

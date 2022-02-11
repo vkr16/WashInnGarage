@@ -10,6 +10,11 @@ if (isset($_POST['btnUpdateService'])) {
     $points = $_POST['memberpoint'];
     $id          = $_POST['serviceidhidden'];
 
+    $fullname = rm_special_char($fullname);
+    $phone = rm_special_char($phone);
+    $email = rm_some_special_char($email);
+    $points = rm_special_char($points);
+
     $currentdata = mysqli_query($link, "SELECT * FROM customers WHERE id = '$id'");
     $match = mysqli_num_rows($currentdata);
 

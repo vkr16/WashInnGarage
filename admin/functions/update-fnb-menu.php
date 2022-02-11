@@ -21,10 +21,15 @@ if (isset($_POST['btnUpdateFnB'])) {
     }
 
 
+    $itemname = rm_special_char($itemname);
     mysqli_real_escape_string($link, $itemname);
+    $stock = rm_special_char($stock);
     mysqli_real_escape_string($link, $stock);
+    $description = rm_some_special_char($description);
     mysqli_real_escape_string($link, $description);
+    $price = rm_special_char($price);
     mysqli_real_escape_string($link, $price);
+    $poin = rm_special_char($poin);
     mysqli_real_escape_string($link, $poin);
 
     $description = str_replace(array("\r\n", "\n"), '<br>', $description);

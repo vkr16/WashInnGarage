@@ -216,10 +216,26 @@ function updatePhone($id, $phone)
 
 function rm_special_char($str)
 {
+	$result = str_replace(array("#", "'", "`", ":", ";", "~", "!", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "<", ">", ".", ",", "/", "?", "{", "}", "[", "]", "|", "\\", "@", "\""), '', $str);
 
-	//Remove "#","'" and ";" using str_replace() function
+	//The output after remove
 
-	$result = str_replace(array("#", "'", ";", "~", "!", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "<", ">", ".", ",", "/", "?", "{", "}", "[", "]", "|", "\\", "@"), '', $str);
+	return $result;
+}
+
+function rm_special_char_price($str)
+{
+	$result = str_replace(array("#", "'", "`", ";", "~", "!", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "<", ">", ".", ",", "/", "?", "{", "}", "[", "]", "|", "\\", "@", "\""), '', $str);
+
+	//The output after remove
+
+	return $result;
+}
+
+function rm_some_special_char($str)
+{
+
+	$result = str_replace(array("'", "\\", "\""), '', $str);
 
 	//The output after remove
 

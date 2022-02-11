@@ -16,9 +16,13 @@ if (isset($_POST['btnUpdateService'])) {
         $status = 'inactive';
     }
 
+    $servicename = rm_special_char($servicename);
     mysqli_real_escape_string($link, $servicename);
+    $price = rm_special_char_price($price);
     mysqli_real_escape_string($link, $price);
+    $description  = rm_some_special_char($description);
     mysqli_real_escape_string($link, $description);
+    $poin = rm_special_char_price($poin);
     mysqli_real_escape_string($link, $poin);
     $description = str_replace(array("\r\n", "\n"), '<br>', $description);
 
