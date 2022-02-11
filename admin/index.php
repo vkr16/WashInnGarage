@@ -346,7 +346,8 @@ $activePageLvl = 0;
                         //get the current items value
                         var currentValue = dataset.data[tooltipItem.index];
                         //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
-                        var percentage = ((currentValue / total) * 100);
+                        var percentage = Math.round((currentValue / total) * 100);
+
 
                         return percentage + "%";
                     }
@@ -393,7 +394,7 @@ $activePageLvl = 0;
                         //get the current items value
                         var currentValue = dataset.data[tooltipItem.index];
                         //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
-                        var percentage = ((currentValue / total) * 100);
+                        var percentage = Math.round((currentValue / total) * 100);
 
                         return percentage + "%";
                     }
