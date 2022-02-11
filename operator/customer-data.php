@@ -217,7 +217,13 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
                                     </div>
                                     <div class="form-group col-md-12" id="btnupgrade" hidden>
                                         <form action="functions/upgrademember.php" method="post">
-                                            <button class="btn btn-success btn-block" name="upgradebtn" value="" id="upgradebtn"><i class="fas fa-star"></i> Upgrade To Member <i class="fas fa-star"></i></button>
+                                            <label for="">Upgrade To Member</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" required id="custmail" name="custmail" placeholder="Customer's Email" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-success btn-block" name="upgradebtn" value="" id="upgradebtn"></i> Upgrade</button>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                     <hr>
@@ -463,6 +469,7 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
             document.getElementById('updateFullname').value = fullname;
             document.getElementById('updatePhone').value = phone;
             document.getElementById('updateEmail').value = email;
+            document.getElementById('custmail').value = email;
             document.getElementById('updatePoint').value = points;
 
             if (membership == 'Customer') {
