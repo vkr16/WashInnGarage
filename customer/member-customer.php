@@ -166,7 +166,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                                 <option value="-">Masukkan Nomor Lainnya</option>
                             </select>
                         </div>
-                        <div class="form-group" hidden id="manualInputPlatNomor">
+                        <div class="form-group" id="manualInputPlatNomor">
                             <label for="platNomor">Nomor Plat Kendaraan </label>
                             <input type="text" class="form-control" id="platNomor" onkeyup="hidealertplatempty()" name="platNomor" aria-describedby="platHelp" placeholder="Nomor Plat Kendaraan">
                             <small id="platHelp" class="form-text text-muted">Contoh : AB 1999 FMA</small>
@@ -257,6 +257,17 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
             getMenu(0);
         });
 
+
+        $(document).ready(function() {
+            $(window).keydown(function(event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+
         function onmanual(value) {
             // var valueofselected = value;
             console.log(value);
@@ -276,6 +287,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
             document.getElementById(hide).hidden = true;
             document.getElementById(show).hidden = false;
             var position = document.getElementById("menuPrevPageBtn").value;
+            cekjenis();
             getMenu(position);
             hidealertplatempty();
         }
@@ -311,7 +323,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
 
             // the code below returning error 
             // but I don't really care, cause it works wkwkwk
-            onmanual(valueofselected);
+            // onmanual(valueofselected);
         }
 
         function isplatnomorempty(hide, show) {
