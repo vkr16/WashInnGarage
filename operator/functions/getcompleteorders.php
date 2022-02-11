@@ -27,7 +27,7 @@ if (isset($_POST['invoice_number'])) {
         $total = $total + $subtotal;
 ?>
         <tr>
-            <td><small><?= $menuData['name'] ?></small></td>
+            <td style="width: 50%;"><small><?= $menuData['name'] ?></small></td>
             <td class="text-center"><small><?= $ordersData['amount'] ?></small></td>
             <td class="text-right"><small><?= 'Rp ' . number_format($subtotal, 0, ',', '.')  ?></small></td>
         </tr>
