@@ -4,7 +4,7 @@ include("../core/SimpleXLSXGen.php");
 
 if (isset($_POST['downloadall'])) {
     $users = [
-        ['No', 'Tanggal', 'Jam', 'No Invoice', 'No Nota', 'Nama Pelanggan', 'No HP / WhatsApp', 'Email', 'jenis Kendaraan', 'Plat Nomor', 'Layanan', 'Merchandise', 'Makanan', 'Minuman', 'Nilai Total Transaksi', 'Operator / Kasir']
+        ['No', 'Tanggal', 'Jam', 'ID Transaksi', 'No Nota', 'Nama Pelanggan', 'No WhatsApp', 'Email', 'Jenis Kendaraan', 'Plat Nomor', 'Layanan', 'Subtotal Layanan', 'Merchandise', 'Subtotal Merchandise', 'Makanan', 'Subtotal Makanan', 'Minuman', 'Subtotal Minuman', 'Promo Digunakan', 'Potongan', 'Nilai Total Transaksi', 'Operator / Kasir']
     ];
 
     $query = "SELECT * FROM transactions WHERE trx_status = 'completed'";
@@ -18,7 +18,13 @@ if (isset($_POST['downloadall'])) {
             $stringmerchs = '';
             $stringfoods = '';
             $stringbeverages = '';
+            $stringpromotions = '';
             $totalPrice = 0;
+            $subtotalService = 0;
+            $subtotalMerch = 0;
+            $subtotalFood = 0;
+            $subtotalBeverage = 0;
+            $subtotalPromotion = 0;
             $trxID = $data['id'];
             $tanggal = date_format(date_create($data['completedate']), "j M Y");
             $jam = $data['completetime'];
@@ -49,27 +55,41 @@ if (isset($_POST['downloadall'])) {
                 if ($menutype == 'service') {
                     $serviceOrdered = $menuname . '(' . $qty . '), ';
                     $stringServices = $stringServices . $serviceOrdered;
-                    $servicesPrice = $servicesPrice + $ordervalue;
+                    $subtotalService = $subtotalService + $ordervalue;
                 } elseif ($menutype == 'merchandise') {
                     $merchOrdered = $menuname . '(' . $qty . '), ';
                     $stringmerchs = $stringmerchs . $merchOrdered;
+                    $subtotalMerch = $subtotalMerch + $ordervalue;
                 } elseif ($menutype == 'food') {
                     $foodOrdered = $menuname . '(' . $qty . '), ';
                     $stringfoods = $stringfoods . $foodOrdered;
+                    $subtotalFood = $subtotalFood + $ordervalue;
                 } elseif ($menutype == 'beverage') {
                     $beverageOrdered = $menuname . '(' . $qty . '), ';
                     $stringbeverages = $stringbeverages . $beverageOrdered;
+                    $subtotalBeverage = $subtotalBeverage + $ordervalue;
+                } elseif ($menutype == 'promotion') {
+                    $promotionApplied = $menuname . ', ';
+                    $stringpromotions = $stringpromotions . $promotionApplied;
+                    $subtotalPromotion = $subtotalPromotion + $ordervalue;
                 }
 
                 $menuPrice = $getMenu['price'];
                 $subtotal  = $menuPrice * $qty;
-                $totalPrice = $totalPrice + $subtotal;
+                $totalPrice = $subtotalService + $subtotalFood + $subtotalBeverage + $subtotalMerch + $subtotalPromotion;
             }
+
+            $serviceSubtotal =  'Rp ' . number_format($subtotalService, 0, ',', '.');
+            $merchSubtotal =  'Rp ' . number_format($subtotalMerch, 0, ',', '.');
+            $foodSubtotal =  'Rp ' . number_format($subtotalFood, 0, ',', '.');
+            $beverageSubtotal =  'Rp ' . number_format($subtotalBeverage, 0, ',', '.');
+            $promoValue =  'Rp ' . number_format($subtotalPromotion, 0, ',', '.');
 
             $services = ($stringServices != '') ? substr($stringServices, 0, -2) : '';
             $merchandises = ($stringmerchs != '') ? substr($stringmerchs, 0, -2) : '';
             $foods = ($stringfoods != '') ? substr($stringfoods, 0, -2) : '';
             $beverages = ($stringbeverages != '') ? substr($stringbeverages, 0, -2) : '';
+            $promotions = ($stringpromotions != '') ? substr($stringpromotions, 0, -2) : '';
 
             $query3 = "SELECT * FROM vehicles WHERE platnomor = '$platnomor'";
             $result3 = mysqli_query($link, $query3);
@@ -94,9 +114,15 @@ if (isset($_POST['downloadall'])) {
                         $jeniskendaraan,
                         $platnomor,
                         $services,
+                        $serviceSubtotal,
                         $merchandises,
+                        $merchSubtotal,
                         $foods,
+                        $foodSubtotal,
                         $beverages,
+                        $beverageSubtotal,
+                        $promotions,
+                        $promoValue,
                         $trx_value,
                         $operatorname
 
