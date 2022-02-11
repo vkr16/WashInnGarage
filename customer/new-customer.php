@@ -234,6 +234,15 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
             getMenu(0);
         });
 
+        $(document).ready(function() {
+            $(window).keydown(function(event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+
         function switchView(hide, show) {
             document.getElementById(hide).hidden = true;
             document.getElementById(show).hidden = false;
