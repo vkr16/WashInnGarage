@@ -8,6 +8,10 @@ if (isset($_POST['btnUpdateService'])) {
     $platnomor = $_POST['platnomor'];
     $id          = $_POST['serviceidhidden'];
 
+    $platnomor = rm_special_char($platnomor);
+    mysqli_real_escape_string($link, $platnomor);
+
+
     $query_updateVehicle = "UPDATE vehicles SET vehicletype = '$category', platnomor = '$platnomor'  WHERE id = '$id'";
     if (mysqli_query($link, $query_updateVehicle)) {
         setcookie('returnstatus', 'serviceupdated', time() + (10), "/");
