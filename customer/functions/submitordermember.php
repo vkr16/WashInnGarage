@@ -8,6 +8,7 @@ if (isset($_POST['btnConfirm'])) {
     $memberid = $_POST['memberid'];
     $customer_email = $_POST['customeremail'];
 
+
     var_dump($memberid);
 
 
@@ -15,6 +16,7 @@ if (isset($_POST['btnConfirm'])) {
     $serviceID = $_POST['serviceID'];
     $total = $_POST['totalPrice'];
     $platNomor = $_POST['platNomor'];
+    $platNomor = rm_special_char($platNomor);
     $operator_name = $_SESSION['wig_user'];
     $trx_status = 'unconfirmed';
 

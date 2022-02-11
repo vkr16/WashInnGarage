@@ -5,6 +5,8 @@ require_once '../../core/init.php';
 if (isset($_POST['btnConfirm'])) {
     $customer_name = $_POST['customername'];
     $customer_phone = $_POST['customerphone'];
+    $customer_name = rm_special_char($customer_name);
+    $customer_phone = rm_special_char($customer_phone);
 
     if (isset($_POST['customeremail']) && $_POST['customeremail'] == '') {
         $customer_email = NULL;
@@ -17,9 +19,12 @@ if (isset($_POST['btnConfirm'])) {
     $serviceID = $_POST['serviceID'];
     $total = $_POST['totalPrice'];
     $platNomor = $_POST['platNomor'];
+    $platNomor = rm_special_char($platNomor);
     $operator_name = $_SESSION['wig_user'];
     $trx_status = 'unconfirmed';
     $registermember = $_POST['registermembership'];
+
+
 
     if ($registermember == 'yes') {
         // check if member are already registered
