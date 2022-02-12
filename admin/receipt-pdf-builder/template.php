@@ -170,8 +170,8 @@ if (isset($_POST['invoicenumber'])) {
 
         <hr>
         <div class="text-center" style="font-family: lobster;">
-          <h3>Terima Kasih Atas Kunjungan Anda</h3>
-          <h5>- Wash Inn Garage -</h5>
+          <span style="font-size: 14pt;">Terima Kasih Atas Kunjungan Anda</span><br>
+          <span style="font-size: 14pt;">- Wash Inn Garage -</span>
 
         </div>
 
