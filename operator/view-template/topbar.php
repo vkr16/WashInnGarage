@@ -5,9 +5,14 @@ $userdetail = getUserByUsername($current_user);
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
+    <?php
+    if (basename($_SERVER['PHP_SELF']) != 'crew-index.php') { ?>
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button>
+    <?php
+    }
+    ?>
 
     <!-- Topbar Search -->
     <!-- <form
