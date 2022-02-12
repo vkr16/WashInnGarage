@@ -21,12 +21,21 @@ if (isset($_POST['getActiveTrx'])) {
         $execute_getActiveOrder = mysqli_query($link, $query_getActiveOrder);
         $activeOrder = mysqli_fetch_assoc($execute_getActiveOrder);
 
-
         // ambil data dari table menus
         $menuId = $activeOrder['menu_id'];
         $query_getOrderedMenu = "SELECT * FROM menus WHERE id = '$menuId'";
         $execute_getOrderedMenu = mysqli_query($link, $query_getOrderedMenu);
         $orderedMenu = mysqli_fetch_assoc($execute_getOrderedMenu);
+        $progress = $activeTrx['progress'];
+        $worker = $activeTrx['crew'];
+
+        if ($progress == 'waiting') {
+            $progressindicator = 'fa-hourglass-half text-primary';
+        } elseif ($progress == 'working') {
+            $progressindicator = 'fa-cog text-primary fa-spin';
+        } elseif ($progress == 'finished') {
+            $progressindicator = 'fa-check-circle text-success';
+        }
 
         echo '<tr>
             <td>' . $activeTrx['invoice_number'] . '</td>
@@ -34,7 +43,7 @@ if (isset($_POST['getActiveTrx'])) {
             <td>' . $activeOrder['customer_phone'] . '</td>
             <td>' . $orderedMenu['category'] . '</td>
             <td>' . $activeOrder['platnomor'] . '</td>
-            <td><button class="btn btn-info btn-sm" onclick="viewActiveTrxDetail(\'' . $activeTrx['invoice_number'] . '\')">Detail</button></td>
+            <td><i class="fas ' . $progressindicator . ' fa-fw"></i>&emsp;<button class="btn btn-info btn-sm" onclick="viewActiveTrxDetail(\'' . $activeTrx['invoice_number'] . '\')">Detail</button></td>
         </tr>';
     }
 } else {

@@ -52,7 +52,7 @@ $userdetail = getUserByUsername($current_user);
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="my-account.php">
-                    <i class="fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
                     My Account
                 </a>
                 <div class="dropdown-divider"></div>

@@ -26,6 +26,7 @@ if (isset($_POST['completeorder'])) {
 
     $invoice = $_POST['invoice_number'];
     $receipt = $_POST['receipt'];
+    $receipt = rm_some_special_char($receipt);
 
     mysqli_real_escape_string($link, $receipt);
     $current_user = $_SESSION['wig_user'];
