@@ -76,19 +76,7 @@ if ($activePageLvl == 0) {
             </div>
         </div>
     </li>
-    <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Crew Area
-    </div>
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item <?= $lvl3 ?>">
-        <a class="nav-link" href="crew-index.php">
-            <i class="fas fa-fw fa-user-cog"></i>
-            <span>Crew Area</span></a>
-    </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <!-- <li class="nav-item">
