@@ -511,7 +511,6 @@ $activePageLvl = 5;
             function(data) {
                 $("#activePromo").html(data);
             });
-        // viewActiveTrxDetail(invoice)
     }
 
     function addOrderToActiveTrx(menuID) {
@@ -548,7 +547,6 @@ $activePageLvl = 5;
         reloadAllData();
     }
 
-
     function viewActiveTrxDetail(invoice) {
         document.getElementById("activeTrxPanel").className = 'col-md-8';
         document.getElementById("trxDetailPanel").className = 'col-md-4';
@@ -574,7 +572,6 @@ $activePageLvl = 5;
             });
         getCompleteOrderedMenu(invoice);
     }
-
 
     function cancelOrder(orderID, invoice) {
         $.post("functions/cancelorder.php", {
@@ -628,97 +625,40 @@ $activePageLvl = 5;
         viewActiveTrxDetail(invoice);
     }
 
-    // function assignReceiptAndCompleteTrx() {
-    //     var invoice = document.getElementById("tdinvoicenumber").innerHTML;
-    //     var receipt = document.getElementById("receiptnumber").value;
-    //     $.post("functions/completeorder.php", {
-    //             invoice_number: invoice,
-    //             receipt: receipt,
-    //             completeorder: true
-    //         },
-    //         function(data) {
-    //             $("#hujiko").html(data);
-
-    //         });
-    //     reloadAllData();
-    //     setTimeout($('#completeModal').modal('hide'), 1000)
-    //     hideTrxDetailPanel();
-    //     // viewActiveTrxDetail(invoice);
-
-    //     document.getElementById("receiptnumber").value = '';
-    //     document.getElementById("paidCheck").checked = false;
-    //     document.getElementById("submitReceiptNumber").disabled = true;
-
-    // }
-
-
     function switchView(show) {
-        // document.getElementById('pendingRequestPanel').hidden = true;
         document.getElementById('activeTransactionPanel').hidden = true;
         document.getElementById('completeTransactionPanel').hidden = true;
         document.getElementById(show).hidden = false;
 
-        // if (document.getElementById('pendingRequestPanel').hidden == false) {
-        //     document.getElementById("ic1").classList.remove('text-gray-300');
-        //     document.getElementById("ic1").classList.add('text-danger');
-
-        //     document.getElementById("bor1").classList.remove('border-left-primary');
-        //     document.getElementById("bor1").classList.add('border-left-danger');
-
-        //     document.getElementById("tex1").classList.remove('text-primary');
-        //     document.getElementById("tex1").classList.add('text-danger');
-        // } else {
-        //     document.getElementById("ic1").classList.remove('text-danger');
-        //     document.getElementById("ic1").classList.add('text-gray-300');
-
-        //     document.getElementById("bor1").classList.remove('border-left-danger');
-        //     document.getElementById("bor1").classList.add('border-left-primary');
-
-        //     document.getElementById("tex1").classList.remove('text-danger');
-        //     document.getElementById("tex1").classList.add('text-primary');
-        // }
-
-
-
         if (document.getElementById('activeTransactionPanel').hidden == false) {
             document.getElementById("ic2").classList.remove('text-gray-300');
             document.getElementById("ic2").classList.add('text-danger');
-
             document.getElementById("bor2").classList.remove('border-left-primary');
             document.getElementById("bor2").classList.add('border-left-danger');
-
             document.getElementById("tex2").classList.remove('text-primary');
             document.getElementById("tex2").classList.add('text-danger');
         } else {
             document.getElementById("ic2").classList.remove('text-danger');
             document.getElementById("ic2").classList.add('text-gray-300');
-
             document.getElementById("bor2").classList.remove('border-left-danger');
             document.getElementById("bor2").classList.add('border-left-primary');
-
             document.getElementById("tex2").classList.remove('text-danger');
             document.getElementById("tex2").classList.add('text-primary');
         }
 
-
-
         if (document.getElementById('completeTransactionPanel').hidden == false) {
             document.getElementById("ic3").classList.remove('text-gray-300');
             document.getElementById("ic3").classList.add('text-danger');
-
             document.getElementById("bor3").classList.remove('border-left-primary');
             document.getElementById("bor3").classList.add('border-left-danger');
-
             document.getElementById("tex3").classList.remove('text-primary');
             document.getElementById("tex3").classList.add('text-danger');
 
         } else {
             document.getElementById("ic3").classList.remove('text-danger');
             document.getElementById("ic3").classList.add('text-gray-300');
-
             document.getElementById("bor3").classList.remove('border-left-danger');
             document.getElementById("bor3").classList.add('border-left-primary');
-
             document.getElementById("tex3").classList.remove('text-danger');
             document.getElementById("tex3").classList.add('text-primary');
         }
@@ -730,7 +670,6 @@ $activePageLvl = 5;
         document.getElementById("inputinvoice2cancel").placeholder = inv;
         document.getElementById("inputinvoice2cancel").value = '';
         document.getElementById("btnCancelOrder").disabled = true;
-
     }
 
     function deleteTrxCopyInv() {
@@ -765,14 +704,6 @@ $activePageLvl = 5;
         var inv = document.getElementById("tdinvoicenumber").innerHTML;
         document.getElementById("inv2complete").value = inv;
     }
-
-    // function paidCheck() {
-    //     if (document.getElementById("paidCheck").checked == true && document.getElementById("receiptnumber").value != '') {
-    //         document.getElementById("submitReceiptNumber").disabled = false;
-    //     } else {
-    //         document.getElementById("submitReceiptNumber").disabled = true;
-    //     }
-    // }
 
     function call() {
         var url = document.getElementById("apiwalink").innerHTML;

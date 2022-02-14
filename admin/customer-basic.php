@@ -369,7 +369,6 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
         document.getElementById('detailPanel').hidden = false;
         document.getElementById('modeView').hidden = false;
         document.getElementById('modeEdit').hidden = true;
-
         document.getElementById('servicenameShow').innerHTML = fullname;
         document.getElementById('typeShow').innerHTML = email;
         document.getElementById('priceShow').innerHTML = phone;
@@ -378,7 +377,6 @@ $execute_getCustomers = mysqli_query($link, $query_getCustomers);
         document.getElementById('serviceidhidden').value = id;
         document.getElementById('deleteTitle').innerHTML = '[ ' + fullname + ' ]';
         document.getElementById('descriptionShow').innerHTML = membership;
-
         document.getElementById('updateFullname').value = fullname;
         document.getElementById('updatePhone').value = phone;
         document.getElementById('updateEmail').value = email;

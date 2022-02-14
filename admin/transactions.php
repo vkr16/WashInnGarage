@@ -216,8 +216,6 @@ include 'download-builder/daily-trx-download.php';
             </div>
         </div>
     </div>
-
-
 </body>
 
 </html>

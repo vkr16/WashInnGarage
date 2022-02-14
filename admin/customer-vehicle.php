@@ -103,7 +103,6 @@ $execute_getVehicles = mysqli_query($link, $query_getVehicles);
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-smile fa-fw"></i> Customers Information</h5>
-
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-striped" id="services">
@@ -313,10 +312,8 @@ $execute_getVehicles = mysqli_query($link, $query_getVehicles);
         document.getElementById('modeEdit').hidden = false;
         document.getElementById('hiddenServiceID').value = id;
         document.getElementById('serviceidhidden').value = id;
-
         document.getElementById('updateCategory').value = vehicletype;
         document.getElementById('updatePlatnomor').value = platnomor;
-
         document.getElementById('panelUtama').className = 'col-xl-8 col-lg-8';
         if (status == 'Active') {
             document.getElementById('statusShow').innerHTML = '<i class="fas fa-dot-circle text-info"></i> Active';
