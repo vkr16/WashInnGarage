@@ -1,11 +1,8 @@
 <?php
 require_once 'admin-only.php';
 $activePageLvl = 2;
-
-
 $query_getTrx = "SELECT * FROM transactions WHERE trx_status = 'completed'";
 $execute_getTrx = mysqli_query($link, $query_getTrx);
-
 include 'download-builder/all-trx-download.php';
 include 'download-builder/monthly-trx-download.php';
 include 'download-builder/daily-trx-download.php';
@@ -24,39 +21,21 @@ include 'download-builder/daily-trx-download.php';
     <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= $assets ?>/css/bootstrap-datepicker3.min.css">
-
-
 </head>
 
 <body id="page-top">
-
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar Attach -->
         <?php require_once 'view-template/sidebar.php'; ?>
-
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
-                <!-- Topbar Attach -->
                 <?php require_once 'view-template/topbar.php'; ?>
-
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Transactions</h1>
                         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#generateReportModal"><i class="fas fa-file-export fa-sm text-white-50"></i> Generate Report
                         </a>
                     </div>
-
                     <div class="row">
-                        <!-- User Manager -->
                         <div class="col-xl-12 col-lg-12" id="panelUtama">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -81,16 +60,12 @@ include 'download-builder/daily-trx-download.php';
                                                         $i = 1;
                                                         while ($trx = mysqli_fetch_assoc($execute_getTrx)) {
                                                             $values = 0;
-
                                                             $trxID = $trx['id'];
-
                                                             $mdate = date_create($trx['completedate']);
                                                             $mtime = date_create($trx['completetime']);
-
                                                             $date = date_format($mdate, "d/m/Y");
                                                             $time = date_format($mtime, "H:i");
                                                             $completiontime =  $date . ' at ' . $time;
-
                                                             $query_getOrder = "SELECT * FROM orders WHERE trx_id = '$trxID' AND order_status = 'completed'";
                                                             $execute_getOrder = mysqli_query($link, $query_getOrder);
                                                             while ($order = mysqli_fetch_assoc($execute_getOrder)) {
@@ -98,7 +73,6 @@ include 'download-builder/daily-trx-download.php';
                                                                 $query_getMenu = "SELECT * FROM menus WHERE id = '$menuID'";
                                                                 $execute_getMenu = mysqli_query($link, $query_getMenu);
                                                                 $menu = mysqli_fetch_assoc($execute_getMenu);
-
                                                                 $qty = $order['amount'];
                                                                 $price = $menu['price'];
                                                                 $value = $price * $qty;
@@ -123,26 +97,21 @@ include 'download-builder/daily-trx-download.php';
                                                 </table>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5" id="completeTrxDetailPanel" hidden>
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle fa-fw"></i> Transaction Detail</h5>
                                     <button class="btn btn-outline-danger" onclick="hideCompleteTrxDetailPanel()"><i class="fas fa-times fa-fw "></i></button>
                                 </div>
-                                <!-- Card Body -->
                                 <div id="completeTrxDetailPanelJS" hidden></div>
                                 <div class="card-body" id="compelteTrxDetailPanel">
                                     <h5 class="text-center text-dark font-weight-bold">Transaction ID</h5>
                                     <h6 class="text-center text-dark font-weight-bold"><u>No : <span id="ctdinvoicenumber"></span> </u></h6>
                                     <br>
-                                    <!-- <p class="mb-0"><strong>Customer</strong></p> -->
                                     <table class="col-md-12">
                                         <tr>
                                             <td width="27%"><small>Name </small></td>
@@ -181,7 +150,6 @@ include 'download-builder/daily-trx-download.php';
                                     <div class="col-md- 12 d-flex justify-content-between">
                                         <span hidden id="apiwalink"></span>
                                         <a class="btn btn-success btn-sm" role="button" onclick="call()" id="wacustomer"><i class="fab fa-whatsapp fa-fw"></i> Chat Customer</a>
-                                        <!-- <button class="btn btn-primary btn-sm">Add Order</button> -->
                                         <form action="receipt-pdf-builder/template.php" method="POST">
                                             <button class="btn btn-info btn-sm" name="invoicenumber" value="" id="ctdinvoicenumber2"><i class="fas fa-receipt fa-fw"></i> Generate Receipt</button>
                                         </form>
@@ -192,20 +160,12 @@ include 'download-builder/daily-trx-download.php';
                     </div>
                 </div>
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer Attach -->
             <?php require_once "view-template/footer.php" ?>
         </div>
-        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
 
     <!-- Modal -->
     <div class="modal fade" id="generateReportModal" tabindex="-1" aria-labelledby="generateReportLabel" aria-hidden="true">
@@ -253,80 +213,87 @@ include 'download-builder/daily-trx-download.php';
                     </div>
                     <br>
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
             </div>
         </div>
     </div>
 
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="<?= $assets ?>/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- dataTable js -->
-    <script src="<?= $assets ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <script src="<?= $assets ?>/js/bootstrap-datepicker.min.js"></script>
-    <script src="<?= $assets ?>/js/bootstrap-datepicker.id.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#tableTrx').DataTable();
-
-            $("#datepicker").datepicker({
-                format: "d MM yyyy",
-                startView: "days",
-                minViewMode: "days"
-            });
-            $("#monthpicker").datepicker({
-                format: "MM yyyy",
-                startView: "months",
-                minViewMode: "months"
-            });
-        });
-
-
-        function viewCompleteTrxDetail(invoice) {
-            document.getElementById("panelUtama").className = 'col-md-8';
-            document.getElementById("completeTrxDetailPanel").className = 'col-md-4';
-            document.getElementById("completeTrxDetailPanel").hidden = false;
-            $.post("functions/getcompletetrxdetail.php", {
-                    completeTrxInvoice: invoice
-                },
-                function(data) {
-                    $("#completeTrxDetailPanelJS").html(data);
-                });
-            getCompleteOrderedMenu(invoice);
-        }
-
-        function getCompleteOrderedMenu(invoice) {
-            $.post("functions/getcompleteorders.php", {
-                    invoice_number: invoice
-                },
-                function(data) {
-                    $("#completeOrderedMenuActive").html(data);
-                });
-        }
-
-        function hideCompleteTrxDetailPanel() {
-            document.getElementById("panelUtama").className = 'col-md-12';
-            document.getElementById("completeTrxDetailPanel").hidden = true;
-        }
-    </script>
-
 </body>
 
 </html>
+
+<script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
+<script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
+<script src="<?= $assets ?>/vendor/chart.js/Chart.min.js"></script>
+<script src="<?= $assets ?>/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="<?= $assets ?>/js/bootstrap-datepicker.min.js"></script>
+<script src="<?= $assets ?>/js/bootstrap-datepicker.id.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#tableTrx').DataTable();
+
+        $("#datepicker").datepicker({
+            format: "d MM yyyy",
+            startView: "days",
+            minViewMode: "days"
+        });
+        $("#monthpicker").datepicker({
+            format: "MM yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+    });
+
+    function viewCompleteTrxDetail(invoice) {
+        document.getElementById("panelUtama").className = 'col-md-8';
+        document.getElementById("completeTrxDetailPanel").className = 'col-md-4';
+        document.getElementById("completeTrxDetailPanel").hidden = false;
+        $.post("functions/getcompletetrxdetail.php", {
+                completeTrxInvoice: invoice
+            },
+            function(data) {
+                $("#completeTrxDetailPanelJS").html(data);
+            });
+        getCompleteOrderedMenu(invoice);
+    }
+
+    function getCompleteOrderedMenu(invoice) {
+        $.post("functions/getcompleteorders.php", {
+                invoice_number: invoice
+            },
+            function(data) {
+                $("#completeOrderedMenuActive").html(data);
+            });
+    }
+
+    function hideCompleteTrxDetailPanel() {
+        document.getElementById("panelUtama").className = 'col-md-12';
+        document.getElementById("completeTrxDetailPanel").hidden = true;
+    }
+</script>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->

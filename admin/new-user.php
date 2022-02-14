@@ -1,7 +1,5 @@
 <?php
-
 require_once "admin-only.php";
-
 $activePageLvl = 1;
 ?>
 
@@ -19,40 +17,20 @@ $activePageLvl = 1;
 </head>
 
 <body class="page-top">
-
-	<!-- Page Wrapper -->
 	<div id="wrapper">
-
-		<!-- Sidebar Attach -->
 		<?php require_once 'view-template/sidebar.php'; ?>
-
-		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
-
-			<!-- Main Content -->
 			<div id="content">
-
-				<!-- Topbar Attach -->
 				<?php require_once 'view-template/topbar.php'; ?>
-
-				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
-					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">User Management</h1>
 					</div>
-
-					<!-- User Manager -->
 					<div class="col-xl-12 col-lg-12">
 						<div class="card shadow mb-4">
-
-							<!-- Card Header - Dropdown -->
 							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h5 class="m-0 font-weight-bold text-primary">Add New User</h5>
 							</div>
-
-							<!-- Card Body -->
 							<div class="card-body">
 								<form action="functions/add-user.php" method="post">
 									<div class="form-row">
@@ -93,7 +71,6 @@ $activePageLvl = 1;
 											</small>
 										</div>
 									</div>
-
 									<div class="form-row">
 										<div class="form-group col-md-4">
 											<label for="inputRole">Role</label>
@@ -124,34 +101,21 @@ $activePageLvl = 1;
 						</div>
 					</div>
 				</div>
-				<!-- /.container-fluid -->
 			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer Attach -->
 			<?php require_once "view-template/footer.php" ?>
 		</div>
-		<!-- End of Content Wrapper -->
 	</div>
-	<!-- End of Page Wrapper -->
-
-	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top">
 		<i class="fas fa-angle-up"></i>
 	</a>
-
-	<!-- Bootstrap core JavaScript-->
-	<script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
-	<script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Core plugin JavaScript-->
-	<script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Custom scripts for all pages-->
-	<script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
 </body>
 
 </html>
+
+<script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
+<script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
 
 <script type="text/javascript">
 	function fullnameFocus() {
@@ -186,3 +150,25 @@ $activePageLvl = 1;
 		document.getElementById("phoneHelp").hidden = true;
 	}
 </script>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->
