@@ -1,7 +1,6 @@
 <?php
 require_once 'admin-only.php';
 $activePageLvl = 1;
-
 $query_getUser = "SELECT * FROM users WHERE username != '$current_user'";
 $execute_getUser = mysqli_query($link, $query_getUser);
 $i = 1;
@@ -18,35 +17,18 @@ $i = 1;
     <link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
     <link rel="stylesheet" type="text/css" href="<?= $assets ?>/css/sb-admin-2.min.css">
     <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-    <!-- dataTable css -->
     <link href="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body class="page-top">
-
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar Attach -->
         <?php require_once 'view-template/sidebar.php'; ?>
-
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
-                <!-- Topbar Attach -->
                 <?php require_once 'view-template/topbar.php'; ?>
-
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">User Management</h1>
-
 
                         <?php
                         if (isset($_COOKIE['returnstatus'])) {
@@ -111,21 +93,13 @@ $i = 1;
 
                         <a target="_blank" href="download-builder/user-data-download.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export User Data</a>
                     </div>
-
-                    <!-- Content Row -->
                     <div class="row">
-
-                        <!-- User Manager -->
                         <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
-
-                                <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h5 class="m-0 font-weight-bold text-primary">Registered User List</h5>
                                     <a href="new-user.php" class="btn btn-success"><i class="fas fa-plus fa-fw"></i> New User</a>
                                 </div>
-
-                                <!-- Card Body -->
                                 <div class="card-body">
                                     <table class="table table-striped " id="usersTable">
                                         <thead>
@@ -162,8 +136,10 @@ $i = 1;
                                                         </button>
                                                     </td>
                                                 </tr>
-                                            <?php $i++;
-                                            } ?>
+                                            <?php
+                                                $i++;
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -172,16 +148,9 @@ $i = 1;
                     </div>
                 </div>
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer Attach -->
             <?php require_once "view-template/footer.php" ?>
         </div>
-        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -210,61 +179,70 @@ $i = 1;
         </div>
     </div>
     <!-- MODAL DETELE USER END -->
-
-    <script type="text/javascript">
-        function del_conf(username, id) {
-            document.getElementById("usernametodelete").innerHTML = username;
-            document.getElementById("usernameinputtodelete").placeholder = "DELETE/" + username;
-            document.getElementById("btnDelete").value = id;
-        }
-
-        function equal_checker() {
-            if (document.getElementById("usernameinputtodelete").value == "DELETE/" + document.getElementById("usernametodelete").innerHTML) {
-                document.getElementById("btnDelete").disabled = false;
-            } else {
-                document.getElementById("btnDelete").disabled = true;
-            }
-        }
-    </script>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
-
-    <!-- dataTable js -->
-    <script src="<?= $assets ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#usersTable').DataTable();
-        });
-    </script>
 </body>
 
 </html>
-
-<!-- =================================== -->
-<!--         CUSTOM CLASS CSS            -->
-<!-- =================================== -->
-
 <style type="text/css">
+    /*
+    *
+    * ==========================================
+    * CUSTOM CSS
+    * ==========================================
+    *
+    */
     .disable-select {
         user-select: none;
-        /* supported by Chrome and Opera */
         -webkit-user-select: none;
-        /* Safari */
         -khtml-user-select: none;
-        /* Konqueror HTML */
         -moz-user-select: none;
-        /* Firefox */
         -ms-user-select: none;
-        /* Internet Explorer/Edge */
     }
 </style>
+
+<script src="<?= $assets ?>/vendor/jquery/jquery.min.js"></script>
+<script src="<?= $assets ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= $assets ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<?= $assets ?>/js/sb-admin-2.min.js"></script>
+<script src="<?= $assets ?>/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= $assets ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#usersTable').DataTable();
+    });
+
+    function del_conf(username, id) {
+        document.getElementById("usernametodelete").innerHTML = username;
+        document.getElementById("usernameinputtodelete").placeholder = "DELETE/" + username;
+        document.getElementById("btnDelete").value = id;
+    }
+
+    function equal_checker() {
+        if (document.getElementById("usernameinputtodelete").value == "DELETE/" + document.getElementById("usernametodelete").innerHTML) {
+            document.getElementById("btnDelete").disabled = false;
+        } else {
+            document.getElementById("btnDelete").disabled = true;
+        }
+    }
+</script>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->
