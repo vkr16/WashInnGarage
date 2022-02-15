@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2022 at 08:17 AM
+-- Generation Time: Feb 15, 2022 at 08:25 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -110,6 +110,15 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `fullname`, `email`, `phone`, `username`, `role`, `password`) VALUES
+(1, 'System Administrator', 'dev.washinngarage@gmail.com', '628128888000', 'admin', 'admin', '$2y$10$o.Pnh051BudSekKDe1tmM.9wE1j7dtUHftovikPH0wNK9DZ9/0noK'),
+(2, 'Hafidz Abdillah Masruri', 'hfdz1412@gmail.com', '628128888111', 'hfdzam', 'operator', '$2y$10$Bsne1rFgkcYWBpzRPO5nJujNLBjEW/Ckf0f85iLYXZhfYPIg2jxAe'),
+(3, 'Fikri Miftah Akmaludin', 'fikri.droid16@gmail.com', '628128888222', 'fma', 'operator', '$2y$10$qvL.tiBTIidb72qrvujVQ.W0HIrqudmCkNNQ5HzXArBVA6YxpRFgW');
+
 -- --------------------------------------------------------
 
 --
@@ -197,7 +206,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `vehicles`
