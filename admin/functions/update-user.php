@@ -1,5 +1,9 @@
 <?php
 require_once "../../core/init.php";
+$JSON_creds = file_get_contents("../../core/mail-credentials.json");
+$credentials = json_decode($JSON_creds, true);
+$email_address = $credentials['creds']['email'];
+$email_password = $credentials['creds']['password'];
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -56,9 +60,9 @@ if (isset($_POST['btnEditUser'])) {
         $mail->SMTPAuth = true;
         $mail->Host = 'smtp.gmail.com';
         $mail->Port = 587;
-        $mail->Username = 'dev.washinngarage@gmail.com';
-        $mail->Password = 'washinngarage';
-        $mail->setFrom('dev.washinngarage@gmail.com');
+        $mail->Username = $email_address;
+        $mail->Password = $email_password;
+        $mail->setFrom($email_address);
         $mail->addAddress($email);
         $mail->Subject = 'Wash Inn Garage Account Update ';
         $mail->Body = "Hi " . $fullname . ", Your account information has been updated.\nHere is your new account details.\n\nFull Name : " . $fullname . "\nUsername : " . $username . "\nEmail : " . $email . "\nPhone Number : " . $phone . "\nRole : " . $role . $additionalbody . "\n\n\nCopyright © 2022, Wash Inn Garage. All Rights Reserved.";
