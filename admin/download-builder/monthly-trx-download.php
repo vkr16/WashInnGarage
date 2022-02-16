@@ -1,7 +1,4 @@
 <?php
-// require_once '../core/init.php';
-// include("../core/SimpleXLSXGen.php");
-
 if (isset($_POST['downloadmonthly'])) {
     $users = [
         ['No', 'Tanggal', 'Jam', 'ID Transaksi', 'No Nota', 'Nama Pelanggan', 'No WhatsApp', 'Email', 'Jenis Kendaraan', 'Plat Nomor', 'Layanan', 'Subtotal Layanan', 'Merchandise', 'Subtotal Merchandise', 'Makanan', 'Subtotal Makanan', 'Minuman', 'Subtotal Minuman', 'Promo Digunakan', 'Potongan', 'Nilai Total Transaksi', 'Operator / Kasir']
@@ -15,8 +12,6 @@ if (isset($_POST['downloadmonthly'])) {
 
     $query = "SELECT * FROM transactions WHERE trx_status = 'completed' AND completedate >= '$startdate' AND completedate <= '$enddate'";
     $result = mysqli_query($link, $query);
-
-
 
     if (mysqli_num_rows($result) > 0) {
         while ($data = mysqli_fetch_assoc($result)) {
@@ -39,14 +34,12 @@ if (isset($_POST['downloadmonthly'])) {
             $customername = $data['customer_name'];
             $operatorname = $data['operator_name'];
 
-
             $query2 = "SELECT * FROM orders WHERE trx_id = '$trxID' AND order_status = 'completed'";
             $result2 = mysqli_query($link, $query2);
             while ($data2 = mysqli_fetch_assoc($result2)) {
                 $customerphone = $data2['customer_phone'];
                 $customeremail = $data2['customer_email'];
                 $platnomor = $data2['platnomor'];
-
                 $menu_id = $data2['menu_id'];
 
                 $query_getMenus = "SELECT * FROM menus WHERE id = '$menu_id'";
@@ -79,7 +72,6 @@ if (isset($_POST['downloadmonthly'])) {
                     $stringpromotions = $stringpromotions . $promotionApplied;
                     $subtotalPromotion = $subtotalPromotion + $ordervalue;
                 }
-
                 $menuPrice = $getMenu['price'];
                 $subtotal  = $menuPrice * $qty;
                 $totalPrice = $subtotalService + $subtotalFood + $subtotalBeverage + $subtotalMerch + $subtotalPromotion;
@@ -102,7 +94,6 @@ if (isset($_POST['downloadmonthly'])) {
             $data3 = mysqli_fetch_assoc($result3);
 
             $jeniskendaraan = $data3['vehicletype'];
-
             $trx_value = 'Rp ' . number_format($totalPrice, 0, ',', '.');
             $id++;
             $users = array_merge(
@@ -131,7 +122,6 @@ if (isset($_POST['downloadmonthly'])) {
                         $promoValue,
                         $trx_value,
                         $operatorname
-
                     )
                 )
             );
@@ -144,3 +134,26 @@ if (isset($_POST['downloadmonthly'])) {
         </script>";
     }
 }
+?>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->

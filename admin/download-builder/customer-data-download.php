@@ -37,3 +37,26 @@ if (mysqli_num_rows($result) > 0) {
 
 $xlsx = SimpleXLSXGen::fromArray($users);
 $xlsx->downloadAs('customers.xlsx');
+?>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->

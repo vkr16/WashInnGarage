@@ -2,12 +2,12 @@
 require_once "../../core/init.php";
 
 if (isset($_POST['btnAddFnB'])) {
-    $itemname = $_POST['fnbname'];
-    $stock    = $_POST['fnbstock'];
+    $itemname    = $_POST['fnbname'];
+    $stock       = $_POST['fnbstock'];
     $image       = $_POST['thumbnail'];
     $price       = $_POST['fnbprice'];
     $description = $_POST['fnbdesc'];
-    $type         = $_POST['fnbtype'];
+    $type        = $_POST['fnbtype'];
     $poin        = $_POST['poin'];
 
     if (isset($_POST['activate'])) {
@@ -27,11 +27,14 @@ if (isset($_POST['btnAddFnB'])) {
     $poin = rm_special_char($poin);
     mysqli_real_escape_string($link, $poin);
 
-    $description = str_replace(array("\r\n", "\n"), '<br>', $description);
+    $description = str_replace(array(
+        "\r\n",
+        "\n"
+    ), '<br>', $description);
 
 
     $query_getFnB = "SELECT * FROM menus WHERE name = '$itemname'";
-    $match = mysqli_num_rows(mysqli_query($link, $query_getFnB));
+    $match        = mysqli_num_rows(mysqli_query($link, $query_getFnB));
     if ($match == 0) {
 
 
@@ -72,3 +75,26 @@ if (isset($_POST['btnAddFnB'])) {
 } else {
     header("Location: ../fnb-menu.php");
 }
+?>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->

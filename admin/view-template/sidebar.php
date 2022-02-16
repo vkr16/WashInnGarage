@@ -88,7 +88,6 @@ if ($activePageLvl == 0) {
                 <a class="collapse-item" href="merch-menu.php">Merchandise</a>
                 <a class="collapse-item" href="fnb-menu.php">Food & Beverage</a>
                 <a class="collapse-item" href="promotions-menu.php">Promotions</a>
-                <!-- <a class="collapse-item" href="utilities-other.html">Other</a> -->
             </div>
         </div>
     </li>

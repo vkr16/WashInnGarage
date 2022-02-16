@@ -2,12 +2,12 @@
 require_once "../../core/init.php";
 
 if (isset($_POST['btnAddMerch'])) {
-    $itemname = $_POST['merchname'];
-    $stock    = $_POST['merchstock'];
+    $itemname    = $_POST['merchname'];
+    $stock       = $_POST['merchstock'];
     $image       = $_POST['thumbnail'];
     $price       = $_POST['merchprice'];
     $description = $_POST['merchdesc'];
-    $poin           = $_POST['poin'];
+    $poin        = $_POST['poin'];
 
     if (isset($_POST['activate'])) {
         $status = 'active';
@@ -26,13 +26,14 @@ if (isset($_POST['btnAddMerch'])) {
     $poin = rm_special_char($poin);
     mysqli_real_escape_string($link, $poin);
 
-    $description = str_replace(array("\r\n", "\n"), '<br>', $description);
+    $description = str_replace(array(
+        "\r\n",
+        "\n"
+    ), '<br>', $description);
 
     $query_getMerchandise = "SELECT * FROM menus WHERE name = '$itemname'";
-    $match = mysqli_num_rows(mysqli_query($link, $query_getMerchandise));
+    $match                = mysqli_num_rows(mysqli_query($link, $query_getMerchandise));
     if ($match == 0) {
-
-
         if ($_FILES['thumbnail']['size'] != 0 && $_FILES['thumbnail']['error'] == 0) {
             $path  = $_SERVER['DOCUMENT_ROOT'] . "/WashInnGarage/assets/img/thumbnail/";
             $path2 = $_FILES['thumbnail']['name'];
@@ -49,7 +50,6 @@ if (isset($_POST['btnAddMerch'])) {
                     setcookie('returnstatus', 'itemadded', time() + (10), "/");
                 } else {
                     setcookie('returnstatus', 'itemnotadded', time() + (10), "/");
-                    // I've no idea WHY, but it works so i let it be. (Jangan dihapus) 0_o
                 }
                 header("Location: ../merch-menu.php");
             }
@@ -71,3 +71,26 @@ if (isset($_POST['btnAddMerch'])) {
 } else {
     header("Location: ../merch-menu.php");
 }
+?>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->

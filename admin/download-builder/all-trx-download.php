@@ -6,11 +6,8 @@ if (isset($_POST['downloadall'])) {
     $users = [
         ['No', 'Tanggal', 'Jam', 'ID Transaksi', 'No Nota', 'Nama Pelanggan', 'No WhatsApp', 'Email', 'Jenis Kendaraan', 'Plat Nomor', 'Layanan', 'Subtotal Layanan', 'Merchandise', 'Subtotal Merchandise', 'Makanan', 'Subtotal Makanan', 'Minuman', 'Subtotal Minuman', 'Promo Digunakan', 'Potongan', 'Nilai Total Transaksi', 'Operator / Kasir']
     ];
-
     $query = "SELECT * FROM transactions WHERE trx_status = 'completed'";
     $result = mysqli_query($link, $query);
-
-
 
     if (mysqli_num_rows($result) > 0) {
         while ($data = mysqli_fetch_assoc($result)) {
@@ -33,20 +30,18 @@ if (isset($_POST['downloadall'])) {
             $customername = $data['customer_name'];
             $operatorname = $data['operator_name'];
 
-
             $query2 = "SELECT * FROM orders WHERE trx_id = '$trxID' AND order_status = 'completed'";
             $result2 = mysqli_query($link, $query2);
             while ($data2 = mysqli_fetch_assoc($result2)) {
                 $customerphone = $data2['customer_phone'];
                 $customeremail = $data2['customer_email'];
                 $platnomor = $data2['platnomor'];
-
                 $menu_id = $data2['menu_id'];
 
                 $query_getMenus = "SELECT * FROM menus WHERE id = '$menu_id'";
                 $execute_getMenus = mysqli_query($link, $query_getMenus);
-
                 $getMenu = mysqli_fetch_assoc($execute_getMenus);
+
                 $qty = $data2['amount'];
                 $menuname = $getMenu['name'];
                 $menutype = $getMenu['type'];
@@ -73,7 +68,6 @@ if (isset($_POST['downloadall'])) {
                     $stringpromotions = $stringpromotions . $promotionApplied;
                     $subtotalPromotion = $subtotalPromotion + $ordervalue;
                 }
-
                 $menuPrice = $getMenu['price'];
                 $subtotal  = $menuPrice * $qty;
                 $totalPrice = $subtotalService + $subtotalFood + $subtotalBeverage + $subtotalMerch + $subtotalPromotion;
@@ -96,7 +90,6 @@ if (isset($_POST['downloadall'])) {
             $data3 = mysqli_fetch_assoc($result3);
 
             $jeniskendaraan = $data3['vehicletype'];
-
             $trx_value = 'Rp ' . number_format($totalPrice, 0, ',', '.');
             $id++;
             $users = array_merge(
@@ -125,14 +118,35 @@ if (isset($_POST['downloadall'])) {
                         $promoValue,
                         $trx_value,
                         $operatorname
-
                     )
                 )
             );
         }
     }
-
-    // $today = date("dMY");
     $xlsx = SimpleXLSXGen::fromArray($users);
     $xlsx->downloadAs('All Completed Transactions.xlsx');
 }
+
+?>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->

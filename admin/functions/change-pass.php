@@ -1,22 +1,41 @@
-<?php 
-	require_once '../../core/init.php';
-
-	if (isset($_POST['changepass'])) {
-		$oldpass = $_POST['oldpass'];
-		$newpass = $_POST['newpass'];
-		$id      = $_POST['userid'];
-
-		if (isOldPassValid($id,$oldpass)) {
-			if (updatePassword($id, $newpass)) {
-				setcookie('returnstatus', 'passchanged', time() + (10), "/");
-				header("Location: ../my-account.php");
-			}
-		}else{
-			setcookie('returnstatus', 'oldinvalid', time() + (10), "/");
+<?php
+require_once '../../core/init.php';
+if (isset($_POST['changepass'])) {
+	$oldpass = $_POST['oldpass'];
+	$newpass = $_POST['newpass'];
+	$id      = $_POST['userid'];
+	if (isOldPassValid($id, $oldpass)) {
+		if (updatePassword($id, $newpass)) {
+			setcookie('returnstatus', 'passchanged', time() + (10), "/");
 			header("Location: ../my-account.php");
 		}
-
-	}else{
+	} else {
+		setcookie('returnstatus', 'oldinvalid', time() + (10), "/");
 		header("Location: ../my-account.php");
 	}
+} else {
+	header("Location: ../my-account.php");
+}
 ?>
+
+<!-- ==============================================
+
+FFFFFFFFFFFFFFFFFFFFFFFFFF
+ FFFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFFFFFFFFF
+  FFFFF                FFF
+  FFFFF
+  FFFFF         FFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFFFFFFFFFFFFFF
+  FFFFF         FFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+  FFFFF
+ FFFFFFF
+FFFFFFFFF
+
+==============================================  -->
