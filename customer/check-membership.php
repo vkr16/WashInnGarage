@@ -13,7 +13,6 @@ if (isset($_POST['btnCheckMembership'])) {
         $customerphone = $phoneRAW;
     }
 
-
     // query check membership status
     mysqli_real_escape_string($link, $customerphone);
     $query_checkMembership = "SELECT * FROM customers WHERE phone = '$customerphone'";
@@ -35,17 +34,11 @@ if (isset($_POST['btnCheckMembership'])) {
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
     <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-
-
     <title>Wash Inn Garage</title>
 </head>
 
@@ -68,15 +61,12 @@ if (isset($_POST['btnCheckMembership'])) {
         @import url('https://fonts.googleapis.com/css2?family=Oswald&family=Raleway&display=swap');
     </style>
 
-
     <nav class="navbar navbar-light bg-light shadow" style="font-family: 'Oswald', sans-serif;">
         <a class="navbar-brand" href="index.php">
             <img src="<?= $assets ?>/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
             &nbsp; Wash Inn Garage
         </a>
     </nav>
-
-
 
     <div class="container mt-4 pb-5">
         <div class="col-lg-8 offset-lg-2">
@@ -96,13 +86,11 @@ if (isset($_POST['btnCheckMembership'])) {
                                 <label for="customerphone">Nomor WhatsApp </label>
                                 <input required autocomplete="off" type="number" class="form-control" id="customerphone" name="customerphone" aria-describedby="nameHelp" placeholder="Nomor WhatsApp">
                             </div>
-
                             <?php if (isset($error)) {
                                 echo ' <div class="alert alert-danger" role="alert">
                                       Mohon maaf <strong>Nomor WhatsApp</strong> anda belum terdaftar.
                                     </div>';
                             } ?>
-
                             <div class="row d-flex justify-content-between mx-auto">
                                 <a href="index.php" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw fa-sm"></i> Kembali</a>
                                 <button type="submit" class="btn btn-info" id="btnCheckMembership" name="btnCheckMembership">Selanjutnya <i class="fas fa-chevron-right fa-fw fa-sm"></i></button>
@@ -117,9 +105,6 @@ if (isset($_POST['btnCheckMembership'])) {
             </div>
         </div>
     </div>
-
-
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>

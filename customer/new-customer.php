@@ -6,25 +6,17 @@ $query_getMotorServices = "SELECT * FROM menus WHERE type = 'service' AND catego
 
 $execute_CarServices = mysqli_query($link, $query_getCarServices);
 $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
-
-
 ?>
 
 <!doctype html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
     <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-
-
     <title>Wash Inn Garage</title>
 </head>
 

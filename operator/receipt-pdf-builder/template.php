@@ -2,7 +2,6 @@
 require_once '../../core/init.php';
 if (isset($_POST['invoicenumber'])) {
   $invoice = $_POST['invoicenumber'];
-  // $invoice = 'INV/2022/0203/8';
   $total = 0;
   $poin = 0;
 
@@ -32,16 +31,11 @@ if (isset($_POST['invoicenumber'])) {
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link rel="stylesheet" href="../../assets/vendor/fontawesome-free/css/all.min.css">
   <script src="../../assets/js/html2pdf.bundle.min.js"></script>
-
-
   <title>Hello, world!</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Nunito:wght@300&display=swap');
@@ -50,7 +44,6 @@ if (isset($_POST['invoicenumber'])) {
 
 <body onload="downloadPDF('<?= $Trx['receipt_number'] ?>')">
   <div class="col-md-4 offset-md-4 d-flex justify-content-center mt-3 mb-3">
-    <!-- <button class="btn btn-outline-danger" onclick="downloadPDF('<?= $Trx['receipt_number'] ?>')"><i class="fas fa-file-pdf fa-fw"></i> Export</button> -->
     <h4 style="font-family: nunito;">Generating PDF Receipt. . . . .</h4>
   </div>
   <div class="col-md-12" hidden>
@@ -106,7 +99,6 @@ if (isset($_POST['invoicenumber'])) {
           </thead>
           <tbody>
 
-
             <?php
             $query_getOrders2 = "SELECT * FROM orders WHERE trx_id = '$trx_id' AND order_status ='completed'";
             $execute_getOrders2 = mysqli_query($link, $query_getOrders2);
@@ -131,8 +123,6 @@ if (isset($_POST['invoicenumber'])) {
             <?php
             }
             ?>
-
-
 
             <tr>
               <td></td>
@@ -162,7 +152,6 @@ if (isset($_POST['invoicenumber'])) {
           <div class=" text-right">
             <span>
               <p class="mb-0 font-weight-bold">Operator / Kasir</p>
-              <!-- <br> -->
               <p class="mb-0 mt-0"> <?= $Trx['operator_name'] ?> </p>
             </span>
           </div>

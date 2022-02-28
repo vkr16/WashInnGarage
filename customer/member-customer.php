@@ -7,7 +7,6 @@ $query_getMotorServices = "SELECT * FROM menus WHERE type = 'service' AND catego
 $execute_CarServices = mysqli_query($link, $query_getCarServices);
 $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
 
-
 $idNameEncoded = base64_encode('id');
 $idValueEncoded = $_GET['mid'];
 $id = base64_decode($idValueEncoded);
@@ -25,12 +24,8 @@ if ($memberDetail['membership'] == 'customer') {
 $query_getCars  = "SELECT * FROM vehicles WHERE owner_id = '$id' AND vehicletype = 'Mobil'";
 $execute_getCars = mysqli_query($link, $query_getCars);
 
-
 $query_getMotors  = "SELECT * FROM vehicles WHERE owner_id = '$id' AND vehicletype = 'Motor'";
 $execute_getMotors = mysqli_query($link, $query_getMotors);
-
-
-
 
 ?>
 
@@ -41,13 +36,9 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="<?= $assets ?>/img/logo.png">
     <link href="<?= $assets ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-
 
     <title>Wash Inn Garage</title>
 </head>
@@ -78,8 +69,6 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
             &nbsp; Wash Inn Garage
         </a>
     </nav>
-
-
 
     <div class="container mt-4 pb-5">
         <div class="col-lg-8 offset-lg-2">
@@ -267,20 +256,13 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
             });
         });
 
-
         function onmanual(value) {
-            // var valueofselected = value;
             console.log(value);
-
             if (value == "-") {
                 document.getElementById("manualInputPlatNomor").hidden = false;
-                // document.getElementById("platNomor").disabled = false;
             } else {
                 document.getElementById("manualInputPlatNomor").hidden = true;
-                // document.getElementById("platNomor").disabled = true;
-
             }
-
         }
 
         function switchView(hide, show) {
@@ -294,8 +276,6 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
 
         function cekjenis() {
             if (document.getElementById('jenismobil').checked == true) {
-                // document.getElementById('LayananMobil').hidden = false;
-                // document.getElementById('LayananMotor').hidden = true;
                 document.getElementById('savedplatnomorMobil').hidden = false;
                 document.getElementById('savedplatnomorMobil').disabled = false;
                 document.getElementById('savedplatnomorMotor').hidden = true;
@@ -306,8 +286,6 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                     document.getElementById("manualInputPlatNomor").hidden = true;
                 }
             } else if (document.getElementById('jenismotor').checked == true) {
-                // document.getElementById('LayananMobil').hidden = true;
-                // document.getElementById('LayananMotor').hidden = false;
                 document.getElementById('savedplatnomorMobil').hidden = true;
                 document.getElementById('savedplatnomorMobil').disabled = true;
                 document.getElementById('savedplatnomorMotor').hidden = false;
@@ -318,12 +296,6 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                     document.getElementById("manualInputPlatNomor").hidden = true;
                 }
             }
-
-
-
-            // the code below returning error 
-            // but I don't really care, cause it works wkwkwk
-            // onmanual(valueofselected);
         }
 
         function isplatnomorempty(hide, show) {
@@ -340,7 +312,6 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
         }
 
         function viewDetails(image, name, id, price, description, hide, show) {
-            // document.getElementById("serviceDetailId").value = id;
             document.getElementById("serviceDetailName").innerHTML = name;
             document.getElementById("serviceDetailPrice").innerHTML = price;
             document.getElementById("serviceDetailDesc").innerHTML = description;
@@ -351,7 +322,6 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
         }
 
         function getMenu(position) {
-            // var invoice = document.getElementById("tdinvoicenumber").innerHTML;
 
             if (document.getElementById('jenismobil').checked == true) {
                 $.post("functions/getservices.php", {

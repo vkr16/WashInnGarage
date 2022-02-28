@@ -37,8 +37,8 @@
                     <h1 class="mx-auto my-0 text-uppercase" style="font-family: 'Zen Kurenaido'">
                         <strong ondblclick="home()"> Terima Kasih</strong>
                     </h1><br>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5" style="font-size: 24pt !important;font-family: 'Nunito'; width=50rem !important">Silahkan ke kasir untuk konfirmasi pesanan dan<br>melakukan pembayaran. </h2>
-                    <hr style="color:white;">
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5" style="font-size: 24pt !important;font-family: 'Nunito'; width:50rem !important">Silahkan ke kasir untuk konfirmasi pesanan dan<br>melakukan pembayaran. </h2>
+                    <hr style="color:white">
                     <br>
                     <br>
                     <blockquote class="blockquote text-white-50">
@@ -53,10 +53,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
     <script>
