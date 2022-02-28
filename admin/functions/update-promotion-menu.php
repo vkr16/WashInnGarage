@@ -6,6 +6,16 @@ if (isset($_POST['btnUpdateService'])) {
     $description = $_POST['servicedesc'];
     $id          = $_POST['serviceidhidden'];
     $poin        = $_POST['poin'];
+
+    if ($price > 0) {
+        $converter = $price * 2;
+        $price = $price - $converter;
+    }
+    if ($poin > 0) {
+        $converter = $poin * 2;
+        $poin = $poin - $converter;
+    }
+
     if (isset($_POST['activate'])) {
         $status = 'active';
     } else {

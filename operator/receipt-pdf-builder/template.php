@@ -39,7 +39,7 @@ if (isset($_POST['invoicenumber'])) {
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link rel="stylesheet" href="../../assets/vendor/fontawesome-free/css/all.min.css">
-  <script src="../../assets/js/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../../assets/js/html2pdf.bundle.min.js"></script>
 
 
   <title>Hello, world!</title>
@@ -143,7 +143,7 @@ if (isset($_POST['invoicenumber'])) {
               <tr>
                 <td></td>
                 <th class=" text-right">Poin : </th>
-                <td class="text-right">+ <?= $poin ?> <i class="fab fa-product-hunt fa-fw"></i></td>
+                <td class="text-right"><?= $poin < 0 ? $poin : "+ " . $poin ?> <i class="fab fa-product-hunt fa-fw"></i></td>
               </tr>
               <tr>
                 <td></td>
