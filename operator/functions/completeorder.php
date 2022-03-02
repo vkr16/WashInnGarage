@@ -185,8 +185,13 @@ if (isset($_POST['completeorder'])) {
 
         $service = new Google_Service_Sheets($client);
 
-        // $spreadsheetId = '1JtMqLlJgN_wd75-oM8KfEvjXvpDOO_mDkgYf5ty5QuA';
-        $spreadsheetId = '1RMFQXYWh7bji0imCR9UQOBwZq-ksa1DD0wkCsQ_vxSA';
+        //For Development
+        $spreadsheetId = '1Wxvo7fuaAFWGMdlh0r9nZEn4wlj0y6u5V2QzrbKvfAc';
+
+        // For Production
+        // $spreadsheetId = '1RMFQXYWh7bji0imCR9UQOBwZq-ksa1DD0wkCsQ_vxSA';
+
+
         $sheetDaily = strval("Tanggal" . date("j"));
 
         autoreset($spreadsheetId, $sheetDaily);
