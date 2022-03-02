@@ -27,7 +27,7 @@
     <header class="masthead">
         <div class="container px-4 px-lg-5 h-100 ">
             <div class="d-flex justify-content-center pt-5">
-                <img src="../assets/img/logo-white.png" style="opacity: 75%;" width="200px" alt="">
+                <img src="../assets/img/logo-white.png" style="opacity: 75%; padding-top:70pt" width="200px" alt="">
             </div>
 
             <div class="d-flex justify-content-center">
