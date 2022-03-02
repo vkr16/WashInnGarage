@@ -2,3 +2,8 @@ App Name..... : Wash Inn Garage
 Version...... : v1.1.1-rc.2
 Git Branch... : v1-rc.2
 Status....... : Release Candidate (Stable)
+
+What's New : 
+ - Removed Sensitive Credentials From Publicly Visible Area
+ - Separate Development and Production Ready API Credentials To Prevent Accident Data Overwrite on Google Sheets
+ - Add a Little Top Padding on Customer User Interfaces
