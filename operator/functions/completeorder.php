@@ -186,10 +186,10 @@ if (isset($_POST['completeorder'])) {
         $service = new Google_Service_Sheets($client);
 
         //For Development
-        $spreadsheetId = '1Wxvo7fuaAFWGMdlh0r9nZEn4wlj0y6u5V2QzrbKvfAc';
+        // $spreadsheetId = '1Wxvo7fuaAFWGMdlh0r9nZEn4wlj0y6u5V2QzrbKvfAc';
 
         // For Production
-        // $spreadsheetId = '1RMFQXYWh7bji0imCR9UQOBwZq-ksa1DD0wkCsQ_vxSA';
+        $spreadsheetId = '1RMFQXYWh7bji0imCR9UQOBwZq-ksa1DD0wkCsQ_vxSA';
 
 
         $sheetDaily = strval("Tanggal" . date("j"));

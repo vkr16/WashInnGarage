@@ -1,3 +1,8 @@
 App Name..... : Wash Inn Garage
-Version...... : dev-latest
-Git Branch... : main
+Version...... : v1.1.1-stable
+Git Branch... : v1-stable
+Status....... : Stable Release
+
+What's New : 
+    - No more hard coded credentials
+    - Separate development and production spreadsheet
