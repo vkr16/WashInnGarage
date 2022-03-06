@@ -293,8 +293,8 @@ $activePageLvl = 0;
                                 <div class="card-footer">
                                     <div class="col-md- 12 d-flex justify-content-between">
                                         <span hidden id="apiwalink"></span>
-                                        <a class="btn btn-success btn-sm" role="button" onclick="call()" id="wacustomer"><i class="fab fa-whatsapp fa-fw"></i> Chat Customer</a>
-                                        <form action="receipt-pdf-builder/template.php" method="POST">
+                                        <a class="btn btn-success btn-sm" role="button" onclick="call()" id="wacustomer"><i class="fas fa-receipt fa-fw"></i> Generate Customer Receipt</a>
+                                        <form action="receipt-pdf-builder/template.php" method="POST" hidden>
                                             <button class="btn btn-info btn-sm" name="invoicenumber" value="" id="ctdinvoicenumber2"><i class="fas fa-receipt fa-fw"></i> Generate Receipt</button>
                                         </form>
                                     </div>
@@ -800,6 +800,8 @@ $activePageLvl = 0;
         var url = document.getElementById("apiwalink").innerHTML;
         popup = window.open(url);
         setTimeout(wait, 5000);
+
+        document.getElementById('ctdinvoicenumber2').click();
     }
 
     function wait() {
