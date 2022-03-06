@@ -62,7 +62,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
         }
     </style>
 
-<!-- 
+    <!-- 
     <nav class="navbar navbar-light bg-light shadow" style="font-family: 'Oswald', sans-serif;">
         <a class="navbar-brand" href="index.php">
             <img src="<?= $assets ?>/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -70,14 +70,14 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
         </a>
     </nav> -->
 
-    <div class="container mt-4 pb-5" style="padding-top: 50pt;">
+    <div class="container mt-4 pb-5" id="target1" style="padding-top: 50pt;">
         <div class="col-lg-8 offset-lg-2">
-            <div class="card bg-light mt-5">
+            <div class="card bg-light mt-5" id="target2">
                 <div class="card-body" id="customerID">
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
                             <a href="index.php">
-                            <img src="../assets/img/logo.png" alt="" width="100%">
+                                <img src="../assets/img/logo.png" alt="" width="100%">
                             </a>
                         </div>
                         <hr>
@@ -120,8 +120,8 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                 <div class="card-body" id="vehicleID" hidden>
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
-                        <a href="index.php">
-                            <img src="../assets/img/logo.png" alt="" width="100%">
+                            <a href="index.php">
+                                <img src="../assets/img/logo.png" alt="" width="100%">
                             </a>
                         </div>
                         <hr>
@@ -178,7 +178,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
                             <a href="index.php">
-                            <img src="../assets/img/logo.png" alt="" width="100%">
+                                <img src="../assets/img/logo.png" alt="" width="100%">
                             </a>
                         </div>
                         <hr>
@@ -204,8 +204,8 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                 <div class="card-body" id="serviceDetail" hidden>
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
-                        <a href="index.php">
-                            <img src="../assets/img/logo.png" alt="" width="100%">
+                            <a href="index.php">
+                                <img src="../assets/img/logo.png" alt="" width="100%">
                             </a>
                         </div>
                         <hr>
@@ -233,7 +233,7 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
                 </div>
 
 
-                <div class="card-footer text-center">
+                <div class="card-footer text-center" id="target3">
                     <small class="text-muted"> Copyright &copy; Wash Inn Garage 2022 <br>All Rights Reserved.</small>
                 </div>
             </div>
@@ -277,6 +277,24 @@ $execute_getMotors = mysqli_query($link, $query_getMotors);
             document.getElementById(hide).hidden = true;
             document.getElementById(show).hidden = false;
             var position = document.getElementById("menuPrevPageBtn").value;
+
+
+            if (show == "serviceMenu") {
+                document.getElementById("target1").classList.remove("mt-4");
+                document.getElementById("target1").classList.remove("pb-5");
+                document.getElementById("target2").classList.remove("mt-5");
+                document.getElementById("target3").hidden = true;
+
+                document.getElementById("target1").style.paddingTop = '5pt'
+            } else {
+                document.getElementById("target1").classList.add("mt-4");
+                document.getElementById("target1").classList.add("pb-5");
+                document.getElementById("target2").classList.add("mt-5");
+                document.getElementById("target3").hidden = false;
+
+                document.getElementById("target1").style.paddingTop = '50pt'
+            }
+
             cekjenis();
             getMenu(position);
             hidealertplatempty();
