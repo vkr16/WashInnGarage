@@ -52,12 +52,12 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
     </style>
 
 
-    <nav class="navbar navbar-light bg-light shadow" style="font-family: 'Oswald', sans-serif;">
+    <!-- <nav class="navbar navbar-light bg-light shadow" style="font-family: 'Oswald', sans-serif;">
         <a class="navbar-brand" href="index.php">
             <img src="<?= $assets ?>/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
             &nbsp; Wash Inn Garage
         </a>
-    </nav>
+    </nav> -->
 
 
 
@@ -67,7 +67,9 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                 <div class="card-body" id="customerID">
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
+                            <a href="index.php" a>
                             <img src="../assets/img/logo.png" alt="" width="100%">
+                            </a>
                         </div>
                         <hr>
                         <h3 class="font-weight-normal text-center text-dark">Silahkan Masukan Detail Informasi Anda</h3>
@@ -116,7 +118,9 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                 <div class="card-body" id="vehicleID" hidden>
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
+                        <a href="index.php">
                             <img src="../assets/img/logo.png" alt="" width="100%">
+                            </a>
                         </div>
                         <hr>
                         <h3 class="font-weight-normal text-center text-dark">Silahkan Masukan Identitas Kendaraan</h3>
@@ -154,7 +158,9 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                 <div class="card-body" id="serviceMenu" hidden>
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
+                            <a href="index.php">
                             <img src="../assets/img/logo.png" alt="" width="100%">
+                            </a>
                         </div>
                         <hr>
                         <h3 class="font-weight-normal text-center text-dark">Silahkan Pilih Layanan Yang Diinginkan</h3>
@@ -177,7 +183,9 @@ $execute_MotorServices = mysqli_query($link, $query_getMotorServices);
                 <div class="card-body" id="serviceDetail" hidden>
                     <div class="col-md-10 offset-md-1">
                         <div class="col-md-2 offset-md-5 mb-2">
+                            <a href="index.php">
                             <img src="../assets/img/logo.png" alt="" width="100%">
+                            </a>
                         </div>
                         <hr>
                         <h3 class="font-weight-normal text-center text-dark">Silahkan Konfirmasi Pilihan Anda</h3>
