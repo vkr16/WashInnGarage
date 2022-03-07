@@ -1,8 +1,7 @@
 App Name..... : Wash Inn Garage
-Version...... : v1.1.1-stable
-Git Branch... : v1-stable
+Version...... : v1.1.2-stable
+Git Branch... : 1.1.2-stable
 Status....... : Stable Release
 
 What's New : 
-    - No more hard coded credentials
-    - Separate development and production spreadsheet
+    - Perubahan revisi terakhir terkait minor ui changes
