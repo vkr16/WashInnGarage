@@ -49,7 +49,6 @@ include 'functions/get-revenue-source-data.php';
                                 <div class="card-body">
                                     <div class="ini-chart">
                                         <canvas id="myPieChart" width=""></canvas>
-                                        <hr>
                                     </div>
                                 </div>
                             </div>
