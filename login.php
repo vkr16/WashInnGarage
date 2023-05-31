@@ -15,9 +15,9 @@ if (isset($_POST['submit'])) {
         if (!empty(trim($username)) && !empty(trim($password))) {
             if (isValid($username, $password)) {
                 $_SESSION['wig_user'] = $username;
-                if (checkRole($username) == 0) {
+                if (checkRole($username) == 'admin') {
                     header("Location: admin/");
-                } elseif (checkRole($username) == 1) {
+                } elseif (checkRole($username) == 'operator') {
                     header("Location: operator/");
                 } else {
                     header("Location: logout.php");
